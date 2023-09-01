@@ -1,0 +1,70 @@
+<section class="cont-login">
+
+    <div class="cont-info">
+        <video src="../../../../assets/videos/traffic.mp4" autoplay loop></video>
+    </div>
+
+
+    <div class="cont-actions">
+
+        <video src="../../../../assets/videos/traffic.mp4" autoplay loop></video>
+
+        <div class="cont-form">
+
+            <div class="form-header font">
+                <h1 class="font animate__animated animate__jackInTheBox">Bienvenido</h1>
+                <span class="animate__animated animate__fadeInDown animate__delay-1s">completa el formulario para registrarte y puedas acceder a nuestros servicios</span>
+            </div>
+
+            <form #frRegistro  class="form" [formGroup]="formGroup" (submit)="crearCuenta()"> 
+
+                
+
+                <div class="cont-ipt  animate__animated animate__fadeIn" >
+                    <span class="p-input-icon-right">
+                        <!-- <i class="pi pi-user"></i>                                  class="ng-invalid ng-dirty" -->
+                        <input type="text" placeholder="Nombre" formControlName="nombre" pInputText />
+                    </span>
+                </div>
+
+                <div class="cont-ipt animate__animated animate__fadeIn" >
+                    <span class="p-input-icon-right">
+                        <!-- <i class="pi pi-user"></i>                                  class="ng-invalid ng-dirty" -->
+                        <input type="text" placeholder="Apellido paterno" formControlName="apellidoPaterno" pInputText />
+                    </span>
+                </div>
+
+                <div class="cont-ipt animate__animated animate__fadeIn" >
+                    <span class="p-input-icon-right">
+                        <!-- <i class="pi pi-user"></i>                                  class="ng-invalid ng-dirty" -->
+                        <input type="text" placeholder="Email" formControlName="email" pInputText />
+                    </span>
+                </div>
+
+                            
+                <div class="cont-ipt animate__animated animate__fadeIn" >
+                    <p-dropdown [options]="types" optionLabel="name" placeholder="Tipo de cuenta"></p-dropdown>
+                </div>
+                
+                <div class="cont-ipt animate__animated animate__fadeIn">
+                    <p-password [toggleMask]="true" [feedback]="true" placeholder="Password" formControlName="password"></p-password>
+                </div>
+             
+                <button mat-flat-button color="primary"  type="submit" [disabled]="!formGroup.valid">Crear cuenta</button>
+            </form>
+
+            <div class="cont-form-decoration">
+                <button mat-flat-button color="primary" class="form-decoration  animate__animated animate__backInLeft" routerLink="/auth/login">Iniciar session</button>
+                <div class="form-decoration animate__animated animate__backInLeft ">
+                    <span> © Transporte Santa Rosa</span>
+                </div>
+            </div>
+            
+            
+
+        </div>
+
+    </div>
+
+
+</section>

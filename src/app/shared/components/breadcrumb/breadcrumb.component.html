@@ -1,0 +1,27 @@
+<section class="cont-breadcrumb">
+    <div class="cont-tittle">
+        <span>{{this.breadcrumbService.titulo | titlecase }}</span>
+    </div>
+
+    <div class="cont-lista">
+        <ul>
+            <li *ngFor="let item of this.breadcrumbService.lista, let i = index" class="item-list">
+
+                <a href="" [routerLink]="item.ruta" *ngIf="item.icon==null ;else icon">{{item.bread}}</a>
+                <ng-template #icon>
+                    <button mat-icon-button  color="warn" [routerLink]="item.ruta" style="transform: scale(.9);">
+                        <mat-icon style="color: #f00;">
+                            {{item.icon}}
+                        </mat-icon>
+                    </button>
+                </ng-template>
+
+                <span *ngIf="i!=this.breadcrumbService.lista.length-1" style="color: #a5b5cb; user-select: none;">
+                    <!-- <i class="fa-solid fa-angle-right custom-icon"></i> CON FOTAWESOME -->
+
+                    <mat-icon class="custom-icon">chevron_right</mat-icon>
+                </span>
+            </li>
+        </ul>
+    </div>
+</section>

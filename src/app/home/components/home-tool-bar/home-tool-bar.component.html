@@ -1,0 +1,50 @@
+<mat-toolbar color="warn" class="tool-bar">
+
+
+    <section class="cont-left font">
+        <ul>
+            <li class="animate__animated animate__zoomIn">
+                <!-- <button type="button" aria-label="Toggle sidenav" mat-icon-button ></button> -->
+
+                <button mat-icon-button color="warn"  (click)="toggle()">
+                    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+                </button>
+            </li>
+            <li>
+                <span style="text-align: center;" >{{"App - TR "| titlecase}}</span>
+            </li>
+        </ul>
+    </section>
+
+
+    <span class="example-spacer"></span>
+
+    <section class="cont-right">
+
+        <ul>
+            <li>
+                <button mat-button  color="warn" routerLink="/auth/login">
+                    <mat-icon style="color: #f90e59;">login</mat-icon>
+                    <span>Iniciar session</span>
+                </button>
+            </li>
+            <li>
+                <button mat-button color="warn" routerLink="/inicio">
+                    <mat-icon style="color: #f90e59;">person</mat-icon>
+                    <span>Mi perfil</span>
+                </button>
+            </li>
+            <li>
+                <button mat-button color="warn">
+                    <mat-icon style="color: #f90e59;">logout</mat-icon>
+                    <span>Cerrar session</span>
+                </button>
+            </li>
+        </ul>
+        
+        
+        
+    </section>
+
+
+</mat-toolbar>

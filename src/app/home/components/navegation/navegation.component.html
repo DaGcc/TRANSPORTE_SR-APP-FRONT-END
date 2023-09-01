@@ -1,0 +1,86 @@
+<mat-drawer-container class="sidenav-drawer" autosize>
+
+  <!-- Barra lateral  -->      
+  <!-- [mode]="(ish$ | async) ? 'over' : 'side'" [opened]="(ish$ | async) === false"                                                                   -->
+  <mat-drawer #drawer class="sidenav"  
+  [mode]="getScreenWidth<=pixelResponsive?'over':'side'" [opened]="getScreenWidth<=pixelResponsive?false:true">
+
+    <div class="cont-sidenav-list">
+
+      <section class="cont-perfil-info">
+
+        <div class="animate__animated animate__zoomIn animate__faster cont-img">
+
+          <img src="../../../../assets/imgs/perfil/sad.png" alt="">
+
+        </div>
+
+        <div class="cont-info font">
+          <span class="animate__animated animate__fadeInDown">Daniel Gutierrez</span>
+          <span class="animate__animated animate__fadeInDown">gutierrezcallazacadaniel@gmail.com</span>
+        </div>
+
+      </section>
+
+      <section class="cont-menu-list">
+        <ul>
+
+          <li>
+            <button mat-flat-button routerLink="inicio" class="font">
+              <mat-icon style="color: #f90e59;">home_app_logo</mat-icon>
+              <span>Inicio</span>
+            </button>
+          </li>
+          <li>
+            <button mat-flat-button class="font">
+              <mat-icon style="color: #f90e59;">fact_check</mat-icon>
+              <span>Gestion de facturas</span>
+            </button>
+          </li>
+          <li>
+            <button mat-flat-button class="font">
+              <mat-icon style="color: #f90e59;">design_services</mat-icon>
+              <span>Servicios</span>
+            </button>
+          </li>
+          <li>
+            <button mat-flat-button routerLink="/login" class="font">
+              <mat-icon style="color: #f90e59;">airport_shuttle</mat-icon>
+              <span>Gestion de Flota</span>
+            </button>
+          </li>
+          <li>
+            <button mat-flat-button routerLink="./" class="font">
+              <mat-icon style="color: #f90e59;">engineering</mat-icon>
+              <span>Gestion de Trabajadores</span>
+            </button>
+          </li>
+          <li>
+            <button mat-flat-button routerLink="/inicio" class="font">
+              <mat-icon style="color: #f90e59;">my_location</mat-icon>
+              <span>Geolocalizacion</span>
+            </button>
+          </li>
+        </ul>
+      </section>
+
+    </div>
+  </mat-drawer>
+  <!-- END - Barra lateral  -->
+
+
+  <!-- contenido -->
+  <mat-drawer-content class="cont-drawer">
+
+
+
+    <div class="cont-breadcrumb">
+      <app-breadcrumb></app-breadcrumb>
+    </div>
+
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+  <!-- END - contenido -->
+</mat-drawer-container>

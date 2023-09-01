@@ -1,0 +1,62 @@
+.tool-bar {
+    width: 100%;
+    // padding: 5px;
+    background-color: transparent;
+    // height: 10vh;
+}
+
+
+.cont-left,
+.cont-right {
+    background-color: #fff;
+    box-shadow:  0px 0px 10px 1px rgba(226, 229, 232, 0.759);
+    // box-shadow: rgb(234, 238, 241) 0px 1.2px 4px;
+    color: #000;
+    border-radius: 10px;
+    padding: 0 8px;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & ul {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        list-style: none;
+
+        & li {
+            & span {
+                color: var(--text-color-02);
+            }
+        }
+    }
+}
+
+.cont-right {
+    background-color: #fff;
+
+    & ul {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        list-style: none;
+
+        & li {
+            border-right: 1px solid rgba(214, 214, 214, 0.699);
+            // background-color: aqua;
+
+            & span {
+                color: var(--text-color-02);
+                font-size: x-small;
+                font-weight: 500;
+            }
+        }
+
+        & li:last-child {
+            border: none;
+        }
+    }
+}

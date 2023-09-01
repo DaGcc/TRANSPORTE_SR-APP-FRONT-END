@@ -1,0 +1,57 @@
+<section class="cont-login">
+
+    <div class="cont-info">
+        <video src="../../../../assets/videos/traffic.mp4" autoplay loop></video>
+    </div>
+
+
+    <div class="cont-actions">
+
+        <video src="../../../../assets/videos/traffic.mp4" autoplay loop></video>
+
+        <div class="cont-form">
+
+            <div class="form-header">
+                <h1>Bienvenido</h1>
+                <!-- <span></span> -->
+            </div>
+
+            <form class="form" [formGroup]="formGroup">
+
+               
+
+                <div class="cont-ipt" >
+                    <span class="p-input-icon-right">
+                        <i class="pi pi-user"></i>                                  <!--class="ng-invalid ng-dirty"-->
+                        <input type="text" placeholder="Email" formControlName="email" pInputText />
+                    </span>
+                </div>
+
+                
+                <div class="cont-ipt">
+                    <p-password [toggleMask]="true" [feedback]="false" placeholder="Password" formControlName="password"></p-password>
+                </div>
+               
+
+
+                <button mat-flat-button color="primary" [disabled]="!formGroup.valid" (click)="acceder()">Iniciar session</button>
+            </form>
+
+            <div class="cont-form-decoration">
+                <button mat-flat-button color="primary" class="form-decoration  animate__animated animate__backInLeft" routerLink="/auth/create-acount">Crear cuenta</button>
+                <button mat-flat-button color="primary" class="form-decoration  animate__animated animate__backInLeft " >Cambiar contraseña</button>
+                <div class="form-decoration animate__animated animate__backInLeft ">
+                    <span> © Transporte Santa Rosa</span>
+                </div>
+                
+
+            </div>
+            
+            
+
+        </div>
+
+    </div>
+
+
+</section>

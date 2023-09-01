@@ -1,0 +1,188 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+:root {
+  
+    --color-base-background-01: #5b36f2;
+    --color-base-background-02: rgb(225, 237, 244);
+    --color-base-background-03: rgb(168, 203, 226);
+
+
+    --background-01: #ffffff;
+    --background-02: #eaf7ff;
+    --background-03: #f2f4f8;
+    --background-04: #f7f4ff;
+    --background-05: #eff6ff;
+    --primary: #0661fc;
+    --primary-dark: #000f37;
+    --primary-90: #001d5b;
+    --primary-80: #002e84;
+    --primary-70: #0045ba;
+    --primary-60: #0661fc;
+    --primary-50: #4789ff;
+    --primary-40: #72a5ff;
+    --primary-30: #a4c6ff;
+    --primary-20: #cbdfff;
+    --primary-10: #eff6ff;
+    --secondary: #3ddcda;
+    --secondary-dark: #001514;
+    --secondary-90: #002827;
+    --secondary-80: #003d3b;
+    --secondary-70: #005956;
+    --secondary-60: #007b77;
+    --secondary-50: #009c97;
+    --secondary-40: #00b9b3;
+    --secondary-30: #3ddcda;
+    --secondary-20: #9ceeef;
+    --secondary-10: #d8fafb;
+    --tertiary: #e7126b;
+    --tertiary-dark: #3e0118;
+    --tertiary-90: #65032b;
+    --tertiary-80: #8e073f;
+    --tertiary-70: #b90c54;
+    --tertiary-60: #e7126b;
+    --tertiary-50: #fc4f86;
+    --tertiary-40: #fd87a4;
+    --tertiary-30: #fdb2c2;
+    --tertiary-20: #fed9e0;
+    --tertiary-10: #fff8f9;
+    --neutral-01: #848d95;
+    --neutral-02: #4a4f55;
+    --neutral-03: #000f37;
+    --neutral-04: #ffffff;
+    --neutral-05: #eaf7ff;
+    --success: #007f38;
+    --error: #ff385b;
+    --alert: #ffc541;
+    --text-color-01: #4f6168;
+    --text-color-02: #161d1f;
+    --disabled-background: #f5f5f5;
+    --disabled-text: #c4c4c4;
+    --disabled-text-02: #8c8c8c;
+    --red-dark: #3a0109;
+    --red-90: #600315;
+    --red-80: #890722;
+    --red-70: #b50d30;
+    --red-60: #e3133f;
+    --red-50: #fc4a61;
+    --red-40: #fc828c;
+    --red-30: #fdadb3;
+    --red-20: #fed4d6;
+    --red-10: #fff9f9;
+    --magenta-dark: #2a0214;
+    --magenta-90: #480626;
+    --magenta-80: #6a0e3a;
+    --magenta-70: #961855;
+    --magenta-60: #cd2576;
+    --magenta-50: #f44995;
+    --magenta-40: #ff7aae;
+    --magenta-30: #ffadc7;
+    --magenta-20: #fbd4e0;
+    --magenta-10: #fdf2f7;
+    --purple-dark: #1b003f;
+    --purple-90: #320068;
+    --purple-80: #4a0097;
+    --purple-70: #6b00d2;
+    --purple-60: #8b39fe;
+    --purple-50: #a070ff;
+    --purple-40: #b494ff;
+    --purple-30: #ccbaff;
+    --purple-20: #e2d9ff;
+    --purple-10: #f7f4ff;
+    --cyan-dark: #001227;
+    --cyan-90: #002444;
+    --cyan-80: #003762;
+    --cyan-70: #00518c;
+    --cyan-60: #0071bf;
+    --cyan-50: #0091e9;
+    --cyan-40: #42b0fb;
+    --cyan-30: #7fcbff;
+    --cyan-20: #b7e4ff;
+    --cyan-10: #eaf7ff;
+    --green-dark: #001605;
+    --green-90: #002a0d;
+    --green-80: #003f18;
+    --green-70: #005c27;
+    --green-60: #007f38;
+    --green-50: #00a149;
+    --green-40: #45be6b;
+    --green-30: #6dda8d;
+    --green-20: #a8f1bb;
+    --green-10: #defbe6;
+    --golden-dark: #1b1000;
+    --golden-90: #302000;
+    --golden-80: #483200;
+    --golden-70: #694900;
+    --golden-60: #906600;
+    --golden-50: #b78200;
+    --golden-40: #d29e0b;
+    --golden-30: #f5c321;
+    --golden-20: #fddc70;
+    --golden-10: #fbf2d3;
+    --rust-dark: #260900;
+    --rust-90: #411500;
+    --rust-80: #602300;
+    --rust-70: #883500;
+    --rust-60: #bb4c00;
+    --rust-50: #eb6100;
+    --rust-40: #ff7f38;
+    --rust-35: #FF9900;
+    --rust-30: #ffb692;
+    --rust-20: #ffd8c3;
+    --rust-10: #fff1e9;
+    --mid-grey-dark: #111214;
+    --mid-grey-90: #212326;
+    --mid-grey-80: #33363a;
+    --mid-grey-70: #4a4f55;
+    --mid-grey-60: #686f76;
+    --mid-grey-50: #848d95;
+    --mid-grey-40: #9da7b2;
+    --mid-grey-30: #bec5cc;
+    --mid-grey-20: #dde1e6;
+    --mid-grey-10: #f2f4f8;
+    --gris-dark: #121212;
+    --gris-90: #232323;
+    --gris-80: #363636;
+    --gris-70: #4f4f4f;
+    --gris-60: #6e6e6e;
+    --gris-50: #8c8c8c;
+    --gris-40: #a6a6a6;
+    --gris-30: #c4c4c4;
+    --gris-20: #dedede;
+    --gris-10: #f5f5f5;
+    --azure-dark: #00131d;
+    --azure-90: #00293a;
+    --azure-80: #004058;
+    --azure-70: #005977;
+    --azure-60: #007399;
+    --azure-50: #008ebc;
+    --azure-40: #00aae1;
+    --azure-30: #3ec5ff;
+    --azure-20: #a5dbff;
+    --azure-10: #e4f3ff;
+    --azure-0: #f4faff;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.font{
+    font-family: 'Ubuntu', sans-serif !important;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.custom-snackbar{
+    background: #fff !important;
+}
+
+
+.example-spacer {
+    flex: 1 1 auto;
+}
