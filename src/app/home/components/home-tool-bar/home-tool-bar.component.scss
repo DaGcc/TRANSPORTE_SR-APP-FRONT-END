@@ -2,12 +2,14 @@
     width: 100%;
     // padding: 5px;
     background-color: transparent;
-    // height: 10vh;
+    height: 8vh;
+    display: flex;
 }
 
 
 .cont-left,
 .cont-right {
+    margin-top:5px;
     background-color: #fff;
     box-shadow:  0px 0px 10px 1px rgba(226, 229, 232, 0.759);
     // box-shadow: rgb(234, 238, 241) 0px 1.2px 4px;
