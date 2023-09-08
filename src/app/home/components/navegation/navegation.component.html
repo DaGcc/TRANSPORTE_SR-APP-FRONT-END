@@ -22,43 +22,49 @@
 
       </section>
 
-      <section class="cont-menu-list">
+      <section class="animate__animated animate__backInLeft animate__fast cont-menu-list">
         <ul>
 
           <li>
-            <button mat-flat-button routerLink="inicio" class="font">
-              <mat-icon style="color: #f90e59;">home_app_logo</mat-icon>
+            <button mat-flat-button routerLink="/page/inicio" [routerLinkActive]="'active'" class="font">
+              <mat-icon >home</mat-icon>
               <span>Inicio</span>
             </button>
           </li>
           <li>
             <button mat-flat-button class="font">
-              <mat-icon style="color: #f90e59;">fact_check</mat-icon>
+              <mat-icon >fact_check</mat-icon>
               <span>Gestion de facturas</span>
             </button>
           </li>
           <li>
             <button mat-flat-button class="font">
-              <mat-icon style="color: #f90e59;">design_services</mat-icon>
+              <mat-icon >design_services</mat-icon>
               <span>Servicios</span>
             </button>
           </li>
           <li>
-            <button mat-flat-button routerLink="/login" class="font">
-              <mat-icon style="color: #f90e59;">airport_shuttle</mat-icon>
+            <button mat-flat-button routerLink="./" class="font">
+              <mat-icon >airport_shuttle</mat-icon>
               <span>Gestion de Flota</span>
             </button>
           </li>
           <li>
             <button mat-flat-button routerLink="./" class="font">
-              <mat-icon style="color: #f90e59;">engineering</mat-icon>
+              <mat-icon >engineering</mat-icon>
               <span>Gestion de Trabajadores</span>
             </button>
           </li>
           <li>
-            <button mat-flat-button routerLink="/inicio" class="font">
-              <mat-icon style="color: #f90e59;">my_location</mat-icon>
+            <button mat-flat-button routerLink="/page/geolocalizacion" [routerLinkActive]="'active'" class="font">
+              <mat-icon >my_location</mat-icon>
               <span>Geolocalizacion</span>
+            </button>
+          </li>
+          <li>
+            <button mat-flat-button routerLink="/page/calendar" [routerLinkActive]="'active'" class="font">
+              <mat-icon>calendar_month</mat-icon>
+              <span>Gestion de actividades</span>
             </button>
           </li>
         </ul>
@@ -73,14 +79,16 @@
   <mat-drawer-content class="cont-drawer">
 
 
-
+    <!-- cabezera - contenido  -->
     <div class="cont-breadcrumb">
       <app-breadcrumb></app-breadcrumb>
     </div>
 
+
     <div class="cont-router">
-      <router-outlet></router-outlet>
+      <router-outlet  (activate)="onActivate($event)"></router-outlet>
     </div>
+
   </mat-drawer-content>
   <!-- END - contenido -->
 </mat-drawer-container>

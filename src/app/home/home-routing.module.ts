@@ -13,6 +13,16 @@ const routes: Routes = [
         data: { titulo:'Inicio', url: "/page/inicio",icon: 'home_app_logo'  }
       },
       {
+        path: 'geolocalizacion',
+        loadComponent : () => import('./pages/geolocalizacion/geolocalizacion.component').then( m => m.GeolocalizacionComponent ),
+        data: { titulo:'Geolocalización', url: "/page/geolocalizacion",icon: null }
+      },
+      {
+        path: 'calendar',
+        loadComponent: () => import('./pages/calendario/calendario.component').then( m => m.CalendarioComponent ),
+        data : { titulo:'Gestion de actividades', url: "/page/calendar",icon: null }
+      },  
+      {
         path:'',
         redirectTo: 'inicio',
         pathMatch: 'full'

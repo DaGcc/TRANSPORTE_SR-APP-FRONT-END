@@ -7,11 +7,83 @@
 }
 
 
+//****************************
+//******EFECTO TOGGLE******+*
+//****************************
+
+#checkbox {
+    display: none;
+    width: 100%;
+}
+
+.toggle {
+    // background-color: #000;
+    margin: 7px;
+    // padding: 6px;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition-duration: .5s;
+}
+
+.bars {
+    width: 100%;
+    height: 4px;
+    // background-color: rgb(176, 92, 255);
+    background-color: #f90e59;
+    border-radius: 4px;
+}
+
+#bar2 {
+    transition-duration: .8s;
+}
+
+#bar1,
+#bar3 {
+    width: 70%;
+}
+
+#checkbox:checked+.toggle .bars {
+    position: absolute;
+    transition-duration: .5s;
+}
+
+#checkbox:checked+.toggle #bar2 {
+    transform: scaleX(0);
+    transition-duration: .5s;
+}
+
+#checkbox:checked+.toggle #bar1 {
+    width: 100%;
+    transform: rotate(45deg);
+    transition-duration: .5s;
+}
+
+#checkbox:checked+.toggle #bar3 {
+    width: 100%;
+    transform: rotate(-45deg);
+    transition-duration: .5s;
+}
+
+#checkbox:checked+.toggle {
+    transition-duration: .5s;
+    transform: rotate(180deg);
+}
+
+//*********************************
+//******END - EFECTO TOGGLE******+*
+//*********************************
 .cont-left,
 .cont-right {
-    margin-top:5px;
+    margin-top: 5px;
     background-color: #fff;
-    box-shadow:  0px 0px 10px 1px rgba(226, 229, 232, 0.759);
+    // box-shadow: 0px 0px 10px 1px rgba(226, 229, 232, 0.759);
     // box-shadow: rgb(234, 238, 241) 0px 1.2px 4px;
     color: #000;
     border-radius: 10px;
@@ -35,7 +107,12 @@
         }
     }
 }
-
+.cont-left{
+    & ul li:last-child{
+        margin: 0 10px 0 10px;
+        user-select: none;
+    }
+}
 .cont-right {
     background-color: #fff;
 

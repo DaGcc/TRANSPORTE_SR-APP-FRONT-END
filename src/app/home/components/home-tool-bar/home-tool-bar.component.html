@@ -6,11 +6,18 @@
             <li class="animate__animated animate__zoomIn">
                 <!-- <button type="button" aria-label="Toggle sidenav" mat-icon-button ></button> -->
 
-                <button mat-icon-button color="warn"  (click)="toggle()">
+                <!-- <button mat-icon-button color="warn"  (click)="toggle()">
                     <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-                </button>
+                </button> -->
+
+                <input type="checkbox" id="checkbox" (click)="toggle()">
+                <label for="checkbox" class="toggle">
+                    <div class="bars" id="bar1"></div>
+                    <div class="bars" id="bar2"></div>
+                    <div class="bars" id="bar3"></div>
+                </label>
             </li>
-            <li>
+            <li onclick="document.getElementById('checkbox').click()">
                 <span style="text-align: center;" >{{"App - TR "| titlecase}}</span>
             </li>
         </ul>

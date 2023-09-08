@@ -38,7 +38,6 @@ export class BreadcrumbService {
     ).subscribe({
       next : (data : NavigationEnd) => {
         this.construirBreadcrumb(this.route.root)
-        // console.log(this.route.root)
       }
     })
   }

@@ -2,6 +2,7 @@
   // height: 100%;
   height: 92vh;
   background-color: transparent !important;
+  // overflow: auto;
 }
 
 
@@ -15,11 +16,11 @@
 .cont-sidenav-list {
   width: 100%;
   height: 100%;
-  padding: 5px 0 16px 16px;
-  display: flex;
-  flex-direction: column;
-  // justify-content: center;
-  // align-items: center;
+  padding: 15px 0 16px 16px;
+  display: flex; //!!!!!!----------CAMBIO 
+  flex-direction: column; //!!!!!!-------CAMBIO
+  // justify-content: space-evenly;
+  align-items: center;
   gap: 10px;
   background-color: #eaf7ff;
 
@@ -28,9 +29,9 @@
 
 .cont-perfil-info,
 .cont-menu-list {
-  width: 90%;
+  width: 100%; //or 90%
   background-color: #fff;
-  box-shadow: 0px 0px 10px 1px rgba(226, 229, 232, 0.759);
+  // box-shadow: 0px 0px 10px 1px rgba(226, 229, 232, 0.759);
   border-radius: 10px;
 }
 
@@ -39,24 +40,26 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  // gap: 14px;
   background-color: transparent;
   box-shadow: none;
-  padding: 15px;
+  // padding: 15px;
 }
 
 .cont-img {
   width: 95px;
   height: 95px;
   border-radius: 50%;
+  border: 10px solid var(--background-02);
+  box-sizing: content-box;
   overflow: hidden;
   // background-color: red;
   // filter: drop-shadow(0 0 10px rgba(121, 18, 255, 0.545));
-  box-shadow: 0 5px 45px -5px rgba(255, 0, 0, 0.545);
+  // box-shadow: 0 5px 45px -5px rgba(255, 0, 0, 0.545);
   display: flex;
   align-items: center;
   justify-content: center;
-
+  margin-bottom: -15px;
 
   & img {
     height: 100%;
@@ -64,12 +67,16 @@
 
 }
 
-.cont-info{
+.cont-info {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  // background: rgba(207, 37, 207, 0.067);
-  & span{
+  background-color: #fff;
+  padding: 20px 16px 16px 16px;
+  border-radius: 10px;
+  // box-shadow: 0px 0px 10px 1px rgba(226, 229, 232, 0.759);
+  & span {
     font-size: smaller;
     font-weight: 600;
     color: var(--text-color-01);
@@ -77,7 +84,7 @@
     // background-color: red;
   }
 
-  & span:last-child{
+  & span:last-child {
     font-weight: 400;
     color: var(--disabled-text-02);
     --animate-duration: 1200ms;
@@ -86,42 +93,87 @@
 }
 
 .cont-menu-list {
+
   max-height: 90% !important;
+  width: 100%; //!!CAMBIO
   overflow: overlay;
   margin: 0;
   padding: 10px 0px;
-
+  transition: all 400ms ease-in-out !important;
   & ul {
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: 7px;
-
     & li {
       width: 100%;
 
       // background-color: aquamarine; 
       & button {
-        // background-color: var(--color-base-background-03);
-        // border-radius: 20px 0px 0px 20px;
         border-radius: 0px;
         width: 100%;
         height: 50px;
-        max-height: fit-content;
-        display: flex;
-        // gap: 5px;
+        // max-height: fit-content;
+        // gap: 25px;
         font-weight: 400;
+        display: flex;
         align-items: center;
         justify-content: flex-start;
         text-align: start;
+        
+        & mat-icon {
+
+          transition: all 400ms ease-in-out;
+
+          color: #f90e59;
+          margin: 0 6px 0px 0px;  //!!CAMBIO => all 0, se establece en el hover
+          // margin: 0 ;
+          padding: 15px 22px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 15px;
+        }
+
+        & span {
+          // display: none;
+          color: var(--text-color-01);
+        }
+
+      }
+
+      & button:hover:not(.active) {
+        & mat-icon {
+          background-color: rgb(255, 255, 255);
+          transform: scale(1.3)
+        }
       }
     }
   }
-}
 
+  /*SE PUEDE IMPLEMENTAR COMENTANDOLO Y PONIENDO UN WIDTH:30% INICIAL
+  &:hover {
+    
+    width: 100%; //!!! CAMBIO---------
+    & ul li button {
+      & mat-icon {
+        margin: 0 6px 0px 0px; 
+      }
+      & span {
+        
+        display: inline-block;
+      }
+    }
+  }*/
+}
 .active {
-  background-color: var(--background-02) !important;
-  // margin-left: 10px;
+  & mat-icon {
+    // background-color: var(--background-02) !important;
+    background-color: var(--purple-30) !important;
+    // background-color: #2d8cf0;
+    color: var(--color-base-background-01) !important;
+  }
+
 }
 
 
@@ -152,50 +204,59 @@
 }
 
 
-/* Estilos para motores Webkit y blink (Chrome, Safari, Opera... )*/
 
-
-// .cont-menu-list::-webkit-scrollbar {
-//   width:10px;
-// }
-
-// .cont-menu-list::-webkit-scrollbar-thumb {
-//   background-color: #797979;
-//   border-radius: 20px;
-//   border: 2px solid #f1f2f3;
-// }
-
-// .cont-menu-list::-webkit-scrollbar-track {
-//   border-radius: 10px;  
-// }
-
-
-
+//*ESTILO DEL CONTENEDOR DE SCREENS  
 .cont-drawer {
   // background-color: rgb(143, 120, 120);
   padding: 5px 16px;
   height: 100%;
-  // background-color: red;
-  // display: flex;
-  // flex-direction: column;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
   position: relative;
+  overflow: hidden;
 }
 
 .cont-breadcrumb {
-  // height: 6vh;
   position: sticky;
-  // display: none;
   top: 0;
   border-radius: 10px;
   overflow: hidden;
   // background-color: rgba(255, 255, 255, 0.927);
   background-color: #fff;
   // backdrop-filter: blur(60px);
-  box-shadow: 0px 0px 10px 1px rgba(226, 229, 232, 0.759);
+  // box-shadow: 0px 0px 10px 1px rgba(226, 229, 232, 0.759);
 
 }
 
-.cont-router{
-  padding: 16px 0px;
-  // flex: 1 1 auto;
+.cont-router {
+  padding: 16px 5px;
+  height: 100%;
+  overflow: auto;
+  // background-color: #28335b;
+}
+
+.cont-router::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.cont-router::-webkit-scrollbar-track {
+  background-color: transparent !important;
+  /*color de la barra de fondo*/
+}
+
+.cont-router::-webkit-scrollbar-thumb {
+  // width: 1px;
+  border-radius: 25px;
+  border: 5px solid transparent !important;
+  // background-color: var(--color-base-background-03); /*color del manejador*/
+  // background-color: var(--purple-30); 
+  background-color: #f00 
+}
+
+.cont-router::-webkit-scrollbar {
+  // display: none;
+  width: 5px;
+  /*ancho del scroll vertical*/
+  // height: 10px; /*alto del scroll horizontal*/
 }

@@ -1,17 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FullCalendarModule } from '@fullcalendar/angular';
+
+
+import { MaterialModule } from 'src/app/_material/material.module';
+
+
 
 @Component({
   selector: 'app-inicio',
   standalone: true,
   imports: [
     CommonModule,
-    FullCalendarModule
+    MaterialModule //!!!!!!!TEMPORAL
   ],
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.scss']
 })
-export class InicioComponent {
+export class InicioComponent  {
+  
 
+
+ 
 }

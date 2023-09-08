@@ -6,7 +6,7 @@ import { Observable, map } from 'rxjs';
 import { SidenavService } from '../../services/sidenav.service';
 
 @Component({
-  selector: 'app-home-tool-bar',
+  selector: 'component-home-tool-bar',
   templateUrl: './home-tool-bar.component.html',
   styleUrls: ['./home-tool-bar.component.scss']
 })
@@ -22,10 +22,16 @@ export class HomeToolBarComponent {
   // }
 
 
-  constructor(private sidenavService : SidenavService ){}
+  constructor(private sidenavService : SidenavService ){
+
+ 
+  }
 
   toggle(){
     this.sidenavService.sidenavCambio.next();
     // this.sidenavService.sdCambio.set(true);
   }
+
+
+  
 }

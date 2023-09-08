@@ -9,13 +9,16 @@ import { RouterModule } from '@angular/router';
 import { NavegationComponent } from './components/navegation/navegation.component';
 import { PrimengModule } from '../_primeng/primeng.module';
 import { BreadcrumbComponent } from '../shared/components/breadcrumb/breadcrumb.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 
 @NgModule({
   declarations: [
     HomeLayoutComponent,
     HomeToolBarComponent,
-    NavegationComponent
+    NavegationComponent,
+    CalendarComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +26,11 @@ import { BreadcrumbComponent } from '../shared/components/breadcrumb/breadcrumb.
     RouterModule,
     MaterialModule,
     PrimengModule,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    FullCalendarModule
+  ],
+  exports:[
+    CalendarComponent
   ]
 })
 export class HomeModule { }
