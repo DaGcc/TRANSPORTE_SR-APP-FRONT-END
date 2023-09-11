@@ -1,9 +1,47 @@
 <button mat-button (click)="toggleWeekends()">toggle weekends</button>
 
 
-<div class="cont-calendar">
+<section class="cont-calendar">
+    <div  class="cont-view">
 
-    <!-- <full-calendar  #calendar  [options]="calendarOptions" ></full-calendar> -->
-    <full-calendar  #calendar  [options]="calendarOptions" ></full-calendar>
 
-</div>
+        <div #externalEvents id="external-events" class="cont-eventos">
+            <p>
+                <strong>Draggable Events</strong>
+            </p>
+
+            <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
+                <div class='fc-event-main' data-event='{ "title": "my event", "duration": "02:00" }'>My Event 1</div>
+            </div>
+            <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
+                <div class='fc-event-main'>My Event 2</div>
+            </div>
+            <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
+                <div class='fc-event-main'>My Event 3</div>
+            </div>
+            <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
+                <div class='fc-event-main'>My Event 4</div>
+            </div>
+            <div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'>
+                <div class='fc-event-main'>My Event 5</div>
+            </div>
+
+            <p>
+                <mat-checkbox class="example-margin" [(ngModel)]="checked">remover eventos</mat-checkbox>
+            </p>
+
+        </div>
+
+        <div class="cont-calendario">
+            <!-- <full-calendar  #calendar  [options]="calendarOptions" ></full-calendar> -->
+            <!-- <div #calendar></div> -->
+
+            <full-calendar #calendar [options]="calendarOptions">
+            </full-calendar>
+
+        </div>
+
+
+    </div>
+
+</section>

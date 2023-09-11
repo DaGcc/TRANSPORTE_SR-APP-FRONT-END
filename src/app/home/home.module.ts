@@ -11,6 +11,7 @@ import { PrimengModule } from '../_primeng/primeng.module';
 import { BreadcrumbComponent } from '../shared/components/breadcrumb/breadcrumb.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     CommonModule,
     HomeRoutingModule,  
     RouterModule,
+    FormsModule,
     MaterialModule,
     PrimengModule,
     BreadcrumbComponent,
