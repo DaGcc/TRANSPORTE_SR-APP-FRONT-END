@@ -39,10 +39,6 @@ export class InicioComponent implements OnDestroy{
 
 
 
-  fnClick(){
-    
-  }
-
 
 
 

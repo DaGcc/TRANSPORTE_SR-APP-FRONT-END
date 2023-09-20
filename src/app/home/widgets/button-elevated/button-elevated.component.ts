@@ -19,7 +19,7 @@ export class ButtonElevatedComponent {
   @Input()
   fnClick<T>(...params: any) : T | void {
     //TODO: procesos...
-    console.log('Fn por defecto')
+    // console.log('Fn click por defecto')
   }
 
   @Input()

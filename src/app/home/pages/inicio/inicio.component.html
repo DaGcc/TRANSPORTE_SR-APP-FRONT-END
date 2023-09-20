@@ -6,34 +6,72 @@
             <widget-card-tittle></widget-card-tittle>
         </header>
 
-        <section>
+        <section class="font">
 
-                <div class="cont-util">
-                    <div class="font cont-date">
+                <div class="cont-util ">
+                    <div class=" cont-date">
                         <span class="point-tittle">{{'hoy' | uppercase}} </span>
                         <span >{{ _date  | date: 'MMM d, y, h:mm:ss a' }}</span>
                     </div>
-                    <widget-button-elevated [text]="'Ver mis actividades'" [fnClick]="fnClick" [routerLinkBtn]="'/page/calendar'"></widget-button-elevated>
+                    <widget-button-elevated [text]="'Ver mis actividades'"  [routerLinkBtn]="'/page/calendar'"></widget-button-elevated>
                 </div>
                 
-                <div class="cont-actions">
+                <div class="cont-actions ">
                     <span class="point-tittle">{{'De interes:' | titlecase}} </span>
                     <div class="cont-util">
-                        <widget-card-tittle class="util"></widget-card-tittle>
-                        <widget-card-tittle class="util"></widget-card-tittle>
-                        <widget-card-tittle class="util"></widget-card-tittle>
-                        <widget-card-tittle class="util"></widget-card-tittle>
-                        <widget-card-tittle class="util"></widget-card-tittle>
+                       
+                        <widget-card-action class="util" 
+                            title="solicitudes" 
+                            i="1." 
+                            src="../../../../assets/imgs/icons/action-add.svg" 
+                            issues="Realiza tu solicitud para servicios de transporte disponibles."
+                        />
+                        <widget-card-action class="util" 
+                            title="beneficios" 
+                            i="2." 
+                            src="../../../../assets/imgs/icons/regalo.svg" 
+                            issues="Disfruta de las promociones y descuentos."
+                        />
+                        <widget-card-action class="util" 
+                            title="beneficios" 
+                            i="3." 
+                            src="../../../../assets/imgs/icons/guia-user.svg" 
+                            issues="Conoce más del uso que le puedes dar a nuestro servicio web."
+                        />
                     </div>
                 </div>
 
 
                 <div class="cont-info">
-                    <div class="container">
-                        <div class="loader"></div>
-                        <div class="loader"></div>
-                        <div class="loader"></div>
+                    <span class="point-tittle">{{'Información:' | titlecase}} </span>
+
+                    <div class="cont-util">
+                        <div class="cont-puntos">
+                            <ul>
+                                <li>
+                                    <div class="cont-cabezera-punto">
+                                        <div><span>1</span></div><span>Mision</span>
+                                    </div>
+                                    
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias recusandae vero dad asdperferendis vel eius laborum!</p>
+                                </li>
+                                <li>
+                                    <div class="cont-cabezera-punto">
+                                        <div><span>2</span></div><span>Vision</span>
+                                    </div>
+                                    
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias recusandae vero dad asdperferendis vel eius laborum!</p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="cont-device">
+                            <div class="loader"></div>
+                            <div class="loader"></div>
+                            <div class="loader"></div>
+                        </div>
                     </div>
+
                     
                 </div>
 
