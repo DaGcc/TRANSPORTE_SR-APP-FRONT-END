@@ -36,10 +36,23 @@ export class InicioComponent implements OnDestroy{
   }
 
   
-  ngOnDestroy(): void {
-    this.s?.unsubscribe();
+
+
+
+  fnClick(){
+    
   }
 
 
+
+
+
+
+
+
+
+  ngOnDestroy(): void {
+    this.s?.unsubscribe();
+  }
 
 }

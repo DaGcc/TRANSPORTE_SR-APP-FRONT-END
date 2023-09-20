@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'widget-button-elevated',
@@ -11,4 +12,16 @@ export class ButtonElevatedComponent {
   text : string | undefined;
 
 
+
+                                                  //*(a = 1, b = 2) : void => console.log( a +b) ;
+  // fnClick : ((...params : any) => (any | void)) =  () : void => console.log('Fn por defecto') ;
+
+  @Input()
+  fnClick<T>(...params: any) : T | void {
+    //TODO: procesos...
+    console.log('Fn por defecto')
+  }
+
+  @Input()
+  routerLinkBtn : string | any[] | null | undefined = ['.']
 }
