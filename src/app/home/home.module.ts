@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
@@ -12,6 +12,9 @@ import { BreadcrumbComponent } from '../shared/components/breadcrumb/breadcrumb.
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { FormsModule } from '@angular/forms';
+import { FooterComponent } from './components/footer/footer.component';
+import { CardTittleComponent } from './widgets/card-tittle/card-tittle.component';
+import { ButtonElevatedComponent } from './widgets/button-elevated/button-elevated.component';
 
 
 @NgModule({
@@ -19,7 +22,10 @@ import { FormsModule } from '@angular/forms';
     HomeLayoutComponent,
     HomeToolBarComponent,
     NavegationComponent,
-    CalendarComponent
+    CalendarComponent,
+    FooterComponent,
+    CardTittleComponent,
+    ButtonElevatedComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +38,10 @@ import { FormsModule } from '@angular/forms';
     FullCalendarModule
   ],
   exports:[
-    CalendarComponent
+    CalendarComponent,
+    FooterComponent,
+    CardTittleComponent,
+    ButtonElevatedComponent
   ]
 })
 export class HomeModule { }

@@ -1,6 +1,49 @@
 <section class="cont-inicio">
 
-    <div style="width: 300px; height: 600px; margin: auto; background-color: aqua;"></div>
-    <div style="width: 300px; height: 600px; margin: auto; background-color: rgb(255, 21, 0);"></div>
+    <div class="cont-representacion">
+
+        <header class="header">
+            <widget-card-tittle></widget-card-tittle>
+        </header>
+
+        <section>
+
+                <div class="cont-util">
+                    <div class="font cont-date">
+                        <span class="point-tittle">{{'hoy' | uppercase}} </span>
+                        <span >{{ _date  | date: 'MMM d, y, h:mm:ss a' }}</span>
+                    </div>
+                    <widget-button-elevated [text]="'Ver mis actividades'"></widget-button-elevated>
+                </div>
+                
+                <div class="cont-actions">
+                    <span class="point-tittle">{{'De interes:' | titlecase}} </span>
+                    <div class="cont-util">
+                        <widget-card-tittle class="util"></widget-card-tittle>
+                        <widget-card-tittle class="util"></widget-card-tittle>
+                        <widget-card-tittle class="util"></widget-card-tittle>
+                        <widget-card-tittle class="util"></widget-card-tittle>
+                        <widget-card-tittle class="util"></widget-card-tittle>
+                    </div>
+                </div>
+
+
+                <div class="cont-info">
+                    <div class="container">
+                        <div class="loader"></div>
+                        <div class="loader"></div>
+                        <div class="loader"></div>
+                    </div>
+                    
+                </div>
+
+        </section>
+
+
+        <footer>    
+            <!-- <component-footer></component-footer> -->
+        </footer>
+    </div>
+
 
 </section>

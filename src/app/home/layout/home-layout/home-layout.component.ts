@@ -17,6 +17,8 @@ export class HomeLayoutComponent implements OnInit {
     this.screenHeight = window.innerHeight;
   } 
 
+
+
   @HostListener('window:resize', ['$event'])
   onWindowResize() {
     this.screenWidth = window.innerWidth;
