@@ -8,11 +8,8 @@ import { MaterialModule } from 'src/app/_material/material.module';
 
 @Component({
   selector: 'app-inicio',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MaterialModule //!!!!!!!TEMPORAL
-  ],
+  standalone: false,
+ 
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.scss']
 })

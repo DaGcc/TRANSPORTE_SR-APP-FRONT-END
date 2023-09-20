@@ -25,6 +25,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import {RatingModule} from 'primeng/rating';
 
 import {PanelMenuModule} from 'primeng/panelmenu';
+import { PasswordModule } from 'primeng/password';
 
 
 
@@ -51,7 +52,10 @@ import {PanelMenuModule} from 'primeng/panelmenu';
     InputTextModule,
     RatingModule,
     PanelMenuModule,
-    DialogModule
+    DialogModule,
+    PasswordModule,
+    InputTextModule,
+    DropdownModule,
   ],
   exports:[
     RippleModule, //tienes que configurar en el componente a true, o ve a la documentacion de este componente
@@ -73,7 +77,10 @@ import {PanelMenuModule} from 'primeng/panelmenu';
     InputTextModule,
     RatingModule,
     PanelMenuModule,
-    DialogModule
+    DialogModule,
+    PasswordModule,
+    InputTextModule,
+    DropdownModule,
   ],
   providers: [
     MessageService, //para que funcione ese speedDialModule (NO ES NECESARIO, ES OPCIONAL)

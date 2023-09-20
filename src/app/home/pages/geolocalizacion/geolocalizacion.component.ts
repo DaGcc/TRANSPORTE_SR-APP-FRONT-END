@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-geolocalizacion',
-  standalone: true,
-  imports: [CommonModule],
+  standalone: false,
   templateUrl: './geolocalizacion.component.html',
   styleUrls: ['./geolocalizacion.component.scss']
 })
