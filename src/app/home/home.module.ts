@@ -18,13 +18,6 @@ import { CardActionComponent } from './widgets/card-action/card-action.component
 import { SwitchDarkModeComponent } from '../shared/widgets/switch-dark-mode/switch-dark-mode.component';
 import { FormsModule } from '@angular/forms';
 
-import { SwitchDarkModeComponent } from '../shared/widgets/switch-dark-mode/switch-dark-mode.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { CardTittleComponent } from './widgets/card-tittle/card-tittle.component';
-import { ButtonElevatedComponent } from './widgets/button-elevated/button-elevated.component';
-import { CardActionComponent } from './widgets/card-action/card-action.component';
-import { FormsModule } from '@angular/forms';
-
 
 
 @NgModule({
