@@ -1,4 +1,4 @@
- import { NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
@@ -14,8 +14,9 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { FooterComponent } from './components/footer/footer.component';
 import { CardTittleComponent } from './widgets/card-tittle/card-tittle.component';
 import { ButtonElevatedComponent } from './widgets/button-elevated/button-elevated.component';
-import { FormsModule } from '@angular/forms';
+import { CardActionComponent } from './widgets/card-action/card-action.component';
 import { SwitchDarkModeComponent } from '../shared/widgets/switch-dark-mode/switch-dark-mode.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { SwitchDarkModeComponent } from '../shared/widgets/switch-dark-mode/swit
     CalendarComponent,
     FooterComponent,
     CardTittleComponent,
-    ButtonElevatedComponent
+    ButtonElevatedComponent,
+    CardActionComponent
   ],
   imports: [
     CommonModule,
@@ -43,7 +45,8 @@ import { SwitchDarkModeComponent } from '../shared/widgets/switch-dark-mode/swit
     CalendarComponent,
     FooterComponent,
     CardTittleComponent,
-    ButtonElevatedComponent
+    ButtonElevatedComponent,
+    CardActionComponent
   ]
 })
 export class HomeModule { }
