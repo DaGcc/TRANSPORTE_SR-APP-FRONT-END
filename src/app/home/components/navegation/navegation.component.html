@@ -1,12 +1,13 @@
 <mat-drawer-container class="sidenav-drawer" autosize>
 
-  <!-- Barra lateral  -->      
+  <!--* Barra lateral  -->      
   <!-- [mode]="(ish$ | async) ? 'over' : 'side'" [opened]="(ish$ | async) === false"                                                                   -->
   <mat-drawer #drawer class="sidenav"  
   [mode]="getScreenWidth<=pixelResponsive?'over':'side'" [opened]="getScreenWidth<=pixelResponsive?false:true">
 
     <div class="cont-sidenav-list">
 
+      <!--* pefil info -->
       <section class="cont-perfil-info">
 
         <div class="animate__animated animate__zoomIn animate__faster cont-img">
@@ -21,8 +22,12 @@
         </div>
 
       </section>
+      <!--* END - pefil info -->
 
-      <section class="animate__animated animate__backInLeft animate__fast cont-menu-list">
+
+      <!--* lista de botones -->
+      <!-- !PUEDES AGREGAR ESTAS CLASES PARA ANIMAR  => animate__animated animate__backInLeft animate__fast -->
+      <section class=" cont-menu-list">
         <ul>
 
           <li>
@@ -69,26 +74,29 @@
           </li>
         </ul>
       </section>
-
+      <!--* END - lista de botones -->
     </div>
+
   </mat-drawer>
-  <!-- END - Barra lateral  -->
+  <!--* END - Barra lateral  -->
 
 
-  <!-- contenido -->
+  <!--* contenedor de screens -->
   <mat-drawer-content class="cont-drawer">
 
 
-    <!-- cabezera - contenido  -->
+    <!--* cabezera -->
     <div class="cont-breadcrumb">
       <app-breadcrumb></app-breadcrumb>
     </div>
+    <!--* END - cabezera -->
 
-
+    <!--* screens  -->
     <div class="cont-router">
       <router-outlet  (activate)="onActivate($event)"></router-outlet>
     </div>
+    <!--* END - screens  -->
 
   </mat-drawer-content>
-  <!-- END - contenido -->
+  <!--* END - contenedor de screens  -->
 </mat-drawer-container>

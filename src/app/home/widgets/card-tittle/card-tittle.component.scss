@@ -1,0 +1,102 @@
+.cont-inicio {
+    width: 100%;
+    // background-color: red;
+    // height: 100vh;
+}
+
+.card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    // background: var(--purple-60);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: bold;
+    border-radius: 10px;
+    overflow: hidden;
+    // cursor: pointer;
+    user-select: none;
+}
+
+.card::before,
+.card::after {
+    position: absolute;
+    content: "";
+    width: 20%;
+    height: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: bold;
+    // background-color: #ffffff;
+    background: radial-gradient(circle at 30% 107%, #969fff 0%, #b349ff 90%);
+    // background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #ff53d4 60%, #62c2fe 90%);
+    // background: radial-gradient(circle at 100% 107%, #ff89cc 0%, #9cb8ec 30%, #00ffee 60%, #62c2fe 100%);
+
+
+    transition: all 0.5s;
+
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-delay: .2s;
+}
+
+.card::before {
+    top: 0;
+    right: 0;
+    border-radius: 0 15px 0 100%;
+    animation-name: efectoTopRight;
+}
+
+.card::after {
+    bottom: 0;
+    left: 0;
+    border-radius: 0 100% 0 15px;
+    animation-name: efectoBottomLeft;
+}
+
+@keyframes efectoTopRight {
+    100% {
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;
+        transition: all 0.5s;
+    }
+}
+
+@keyframes efectoBottomLeft {
+    100% {
+        width: 100%;
+        height: 100%;
+        // font-family: 'Ubuntu', sans-serif !important;
+        border-radius: 15px;
+        content: "Al Mundo Mágico";
+        color: #fff;
+        // filter: drop-shadow(0 0 15px white);
+        text-shadow: 0 0 15px #fff;
+        user-select: none;
+        
+    }
+}
+
+
+/*
+! Puedes descomentar estas clases, pero seran para otras acciones o eventos
+.card:hover::before,
+.card:hover:after {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    transition: all 0.5s;
+}
+
+
+.card:hover:after {
+    content: "HELLO";
+}
+
+*/

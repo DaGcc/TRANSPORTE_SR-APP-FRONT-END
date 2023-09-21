@@ -10,8 +10,6 @@
     --color-base-background-02: rgb(225, 237, 244);
     --color-base-background-03: rgb(168, 203, 226);
 
-    --color-base-background-dark-02: #11161e;
-
 
     --background-01: #ffffff;
     --background-02: #eaf7ff;
@@ -64,6 +62,8 @@
     --disabled-background: #f5f5f5;
     --disabled-text: #c4c4c4;
     --disabled-text-02: #8c8c8c;
+    --color-button-01: rgb(168, 38, 255);
+    --color-button-02: #f90e59;
     --red-dark: #3a0109;
     --red-90: #600315;
     --red-80: #890722;
@@ -187,4 +187,5 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .example-spacer {
     flex: 1 1 auto;
+
 }

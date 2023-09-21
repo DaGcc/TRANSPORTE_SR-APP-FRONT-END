@@ -7,9 +7,10 @@
 
 
 .sidenav {
-  background-color: transparent !important;
+  background-color: red !important;
   width: 280px;
   border-right-width: 0px;
+  // background-color: red;
 }
 
 
@@ -125,7 +126,7 @@
 
           transition: all 400ms ease-in-out;
 
-          color: #f90e59;
+          color: var(--color-button-02);
           margin: 0 6px 0px 0px;  //!!CAMBIO => all 0, se establece en el hover
           // margin: 0 ;
           padding: 15px 22px;
@@ -171,14 +172,13 @@
     // background-color: var(--background-02) !important;
     background-color: var(--purple-30) !important;
     // background-color: #2d8cf0;
-    color: var(--color-base-background-01) !important;
+    // color: var(--color-base-background-01) !important;
+    color: var(--color-button-01) !important;
   }
 
 }
 
-
-
-//!!!IMPORTANTE
+//!!!IMPORTANTE - estilos del scrol de los botones de la barra lateral
 .cont-menu-list::-webkit-scrollbar {
   -webkit-appearance: none;
 }
@@ -236,6 +236,7 @@
   // background-color: #28335b;
 }
 
+//!!!IMPORTANTE - estilos del scroll de los screens
 .cont-router::-webkit-scrollbar {
   -webkit-appearance: none;
 }

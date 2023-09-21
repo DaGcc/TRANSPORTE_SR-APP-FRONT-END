@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
@@ -11,7 +11,14 @@ import { PrimengModule } from '../_primeng/primeng.module';
 import { BreadcrumbComponent } from '../shared/components/breadcrumb/breadcrumb.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
+
 import { SwitchDarkModeComponent } from '../shared/widgets/switch-dark-mode/switch-dark-mode.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { CardTittleComponent } from './widgets/card-tittle/card-tittle.component';
+import { ButtonElevatedComponent } from './widgets/button-elevated/button-elevated.component';
+import { CardActionComponent } from './widgets/card-action/card-action.component';
+import { FormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -19,12 +26,17 @@ import { SwitchDarkModeComponent } from '../shared/widgets/switch-dark-mode/swit
     HomeLayoutComponent,
     HomeToolBarComponent,
     NavegationComponent,
-    CalendarComponent
+    CalendarComponent,
+    FooterComponent,
+    CardTittleComponent,
+    ButtonElevatedComponent,
+    CardActionComponent
   ],
   imports: [
     CommonModule,
     HomeRoutingModule,  
     RouterModule,
+    FormsModule,
     MaterialModule,
     PrimengModule,
     BreadcrumbComponent,
@@ -32,7 +44,11 @@ import { SwitchDarkModeComponent } from '../shared/widgets/switch-dark-mode/swit
     SwitchDarkModeComponent
   ],
   exports:[
-    CalendarComponent
+    CalendarComponent,
+    FooterComponent,
+    CardTittleComponent,
+    ButtonElevatedComponent,
+    CardActionComponent
   ]
 })
 export class HomeModule { }
