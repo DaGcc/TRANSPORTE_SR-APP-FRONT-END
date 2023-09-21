@@ -11,6 +11,7 @@ import { PrimengModule } from '../_primeng/primeng.module';
 import { BreadcrumbComponent } from '../shared/components/breadcrumb/breadcrumb.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { SwitchDarkModeComponent } from '../shared/widgets/switch-dark-mode/switch-dark-mode.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     MaterialModule,
     PrimengModule,
     BreadcrumbComponent,
-    FullCalendarModule
+    FullCalendarModule,
+    SwitchDarkModeComponent
   ],
   exports:[
     CalendarComponent
