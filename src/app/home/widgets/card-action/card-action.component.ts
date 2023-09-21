@@ -9,7 +9,7 @@ export class CardActionComponent {
 
 
   @Input()
-  i : string | number = '0'
+  i : string | number | undefined 
 
   @Input()
   title : string = 'your title'

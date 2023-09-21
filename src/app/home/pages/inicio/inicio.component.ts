@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from 'src/app/_material/material.module';
 import { HomeModule } from '../../home.module';
 import { Observable, Subscription } from 'rxjs';
+import { ButtonSocialComponent } from 'src/app/shared/widgets/button-social/button-social.component';
+import { TypeButton } from 'src/app/shared/widgets/button-social/btn-types';
 
 
 
@@ -14,12 +16,16 @@ import { Observable, Subscription } from 'rxjs';
   imports: [
     CommonModule,
     MaterialModule, //!!!!!!!TEMPORAL,
-    HomeModule
+    HomeModule,
+    ButtonSocialComponent
   ],
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.scss']
 })
 export class InicioComponent implements OnDestroy{
+
+
+  btnTypes = TypeButton
 
   _date: Date | undefined
   s : Subscription | undefined

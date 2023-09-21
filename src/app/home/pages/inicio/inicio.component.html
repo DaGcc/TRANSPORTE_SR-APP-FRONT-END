@@ -1,6 +1,6 @@
 <section class="cont-inicio">
 
-    <div class="cont-representacion">
+    <div class="cont-representacion font">
 
         <header class="header">
             <widget-card-tittle></widget-card-tittle>
@@ -50,17 +50,17 @@
                             <ul>
                                 <li>
                                     <div class="cont-cabezera-punto">
-                                        <div><span>1</span></div><span>Mision</span>
+                                        <div><span>1</span></div><span>MISION</span>
                                     </div>
                                     
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias recusandae vero dad asdperferendis vel eius laborum!</p>
+                                    <p>Misión Ofrecer un servicio de calidad, respetando la seguridad y el confort, para así consolidarnos con la confianza de nuestros clientes.</p>
                                 </li>
                                 <li>
                                     <div class="cont-cabezera-punto">
-                                        <div><span>2</span></div><span>Vision</span>
+                                        <div><span>2</span></div><span>VISION</span>
                                     </div>
                                     
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias recusandae vero dad asdperferendis vel eius laborum!</p>
+                                    <p>Visión Posicionarnos en el mercado local como una de las empresas con el mejor servicio de transportes de personal, aprendiendo y mejorando continuamente. </p>
                                 </li>
                             </ul>
                         </div>
@@ -73,13 +73,46 @@
                     </div>
 
                     
+                    <div class="cont-util">
+                       
+                        <widget-card-action class="util" 
+                            
+                            title="Empresa" 
+                            src="../../../../assets/imgs/icons/action-add.svg" 
+                            issues="Realiza tu solicitud para servicios de transporte disponibles."
+                        />
+                        <widget-card-action class="util" 
+                            title="Ubicación" 
+                            src="../../../../assets/imgs/icons/regalo.svg" 
+                            issues="Disfruta de las promociones y descuentos."
+                        />
+                        <widget-card-action class="util" 
+                            title="Empleabilidad" 
+                            src="../../../../assets/imgs/icons/guia-user.svg" 
+                            issues="Conoce más del uso que le puedes dar a nuestro servicio web."
+                        />
+                    </div>
+                    
                 </div>
 
         </section>
 
 
-        <footer>    
-            <!-- <component-footer></component-footer> -->
+        <footer class="footer">    
+            <div class="cont-derechos">
+                <span></span>
+                <span class="derechos">Todos los derechos reservados - © grupo 8</span>
+                <span></span>
+            </div>
+            <div class="cont-redes-sociales">
+                
+                    <!-- los tipos de boton estan definidos en el archivo btn-types.ts -->
+                    <widget-button-social class="redes-sociales" [btnType]="btnTypes.BtnGitHub" link="https://github.com/DaGcc/TRANSPORTE_SR-APP-FRONT-END"></widget-button-social>
+                    <widget-button-social class="redes-sociales" [btnType]="btnTypes.BtnInstagram" link="." ></widget-button-social>
+                    <widget-button-social class="redes-sociales" [btnType]="btnTypes.BtnTwitter"></widget-button-social>
+            
+            </div>
+            
         </footer>
     </div>
 
