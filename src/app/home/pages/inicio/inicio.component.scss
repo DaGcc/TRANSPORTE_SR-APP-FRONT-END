@@ -1,4 +1,4 @@
-.cont-inicio {
+.cont-page {
   width: 100%;
   // max-width: 1300px;
   margin: auto;
@@ -20,6 +20,16 @@
   display: flex;
   align-items: center;
   // gap: 10px;
+  //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
+  transition: all .2s ease;
+
+  .cont-page.dark & {
+
+    color: var(--text-color-darkmode-00);
+
+  }
+
+  //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
 }
 
 .cont-date {
@@ -39,6 +49,17 @@
   display: flex;
   flex-direction: column;
   gap: 25px;
+
+  //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
+  transition: all .2s ease;
+
+  .cont-page.dark & {
+
+    color: var(--text-color-darkmode-00);
+
+  }
+
+  //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
 }
 
 .cont-actions {
@@ -49,13 +70,14 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 20px;
-    // height: 200px; //!el tamaño sera para cada item, no para el contenedor, pues el tamaño afectara al wrap, es decir, no aumentara de altura, solo lo ocultara
+    // height: 200px; //!DATO:el tamaño sera para cada item, no para el contenedor, pues el tamaño afectara al wrap, es decir, no aumentara de altura, solo lo ocultara
 
     & .util {
       width: 300px;
       height: 200px;
     }
   }
+
 }
 
 
@@ -111,10 +133,12 @@
           justify-content: center;
           border-radius: 50%;
           // background-color: var(--purple-30);
-          background: radial-gradient(circle at 30% 107%, #969fff 0%, #b349ff 90%);;
+          background: radial-gradient(circle at 30% 107%, #969fff 0%, #b349ff 90%);
+          ;
           color: var(--color-buton-01);
         }
-        & span{
+
+        & span {
           font-weight: 500;
           font-size: medium;
         }
@@ -122,7 +146,13 @@
 
     }
   }
+
+
 }
+
+// .cont-info, .cont-actions, .cont-util{
+//   color: var(--text-color-darkmode-00);
+// }
 
 
 
@@ -151,8 +181,9 @@
 .cont-device {
   width: 300px;
   height: 300px;
-  background-color: aqua;
+  // background-color: aqua;
   position: relative;
+  transform: scale(1.1);
 }
 
 .loader {
