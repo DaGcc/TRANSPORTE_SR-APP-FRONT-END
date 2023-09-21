@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewChild, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 
@@ -7,6 +7,7 @@ import { HomeModule } from '../../home.module';
 import { Observable, Subscription } from 'rxjs';
 import { ButtonSocialComponent } from 'src/app/shared/widgets/button-social/button-social.component';
 import { TypeButton } from 'src/app/shared/widgets/button-social/btn-types';
+import { SidenavService } from '../../services/sidenav.service';
 
 
 
@@ -23,6 +24,9 @@ import { TypeButton } from 'src/app/shared/widgets/button-social/btn-types';
   styleUrls: ['./inicio.component.scss']
 })
 export class InicioComponent implements OnDestroy{
+
+  
+  public sidenavService = inject(SidenavService)
 
 
   btnTypes = TypeButton

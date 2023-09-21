@@ -1,4 +1,4 @@
-<mat-toolbar color="warn" class="tool-bar">
+<mat-toolbar color="warn" class="tool-bar" [ngClass]="{'dark' : sidenavService.isDarkMode() }">
 
     <!--* seccion izquierda del logo y titulo  -->
     <section class="cont-left font">
@@ -26,6 +26,10 @@
 
     <span class="example-spacer"></span>
 
+
+    <widget-switch-dark-mode style="margin-right: 7px; transform: scale(0.8);"></widget-switch-dark-mode>
+
+    
     <!--* seccion derecha de acciones  -->
     <section class="cont-right">
 

@@ -1,4 +1,4 @@
-<mat-drawer-container class="sidenav-drawer" autosize>
+<mat-drawer-container class="sidenav-drawer" autosize [ngClass]="{'dark' : sidenavService.isDarkMode()}">
 
   <!--* Barra lateral  -->      
   <!-- [mode]="(ish$ | async) ? 'over' : 'side'" [opened]="(ish$ | async) === false"                                                                   -->
@@ -61,6 +61,12 @@
             </button>
           </li>
           <li>
+            <button mat-flat-button routerLink="./" class="font">
+              <mat-icon >contacts</mat-icon>
+              <span>Gestion de Clientes</span>
+            </button>
+          </li>
+          <li>
             <button mat-flat-button routerLink="/page/geolocalizacion" [routerLinkActive]="'active'" class="font">
               <mat-icon >my_location</mat-icon>
               <span>Geolocalizacion</span>
@@ -72,6 +78,7 @@
               <span>Gestion de actividades</span>
             </button>
           </li>
+
         </ul>
       </section>
       <!--* END - lista de botones -->

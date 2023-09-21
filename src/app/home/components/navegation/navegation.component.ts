@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Inject, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, Input, OnInit, ViewChild, inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { filter, map, shareReplay } from 'rxjs/operators';
@@ -15,6 +15,8 @@ import { MatDrawer, MatSidenav } from '@angular/material/sidenav';
 })
 export class NavegationComponent implements OnInit, AfterViewInit {
 
+ 
+
   
   pixelResponsive: number = 900
   @Input()
@@ -29,7 +31,7 @@ export class NavegationComponent implements OnInit, AfterViewInit {
   // public ish$! : Observable<boolean>; 
 
 
-  constructor(private sidenavService : SidenavService ){
+  constructor(public sidenavService : SidenavService ){
     // this.ish$ = this.sidenavService.isHandset$;
   }
 

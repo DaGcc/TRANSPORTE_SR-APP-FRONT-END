@@ -1,4 +1,4 @@
-.cont-inicio {
+.cont-page {
   width: 100%;
   // max-width: 1300px;
   margin: auto;
@@ -20,6 +20,23 @@
   display: flex;
   align-items: center;
   // gap: 10px;
+  //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
+  transition: all .2s ease;
+
+  .cont-page.dark & {
+
+    color: var(--text-color-darkmode-00);
+
+  }
+
+  //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
+}
+
+.cont-btns{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
 }
 
 .cont-date {
@@ -42,6 +59,17 @@
   display: flex;
   flex-direction: column;
   gap: 25px;
+
+  //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
+  transition: all .2s ease;
+
+  .cont-page.dark & {
+
+    color: var(--text-color-darkmode-00);
+
+  }
+
+  //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
 }
 
 /**************************************************/
@@ -55,13 +83,14 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 20px;
-    // height: 200px; //!el tamaño sera para cada item, no para el contenedor, pues el tamaño afectara al wrap, es decir, no aumentara de altura, solo lo ocultara
+    // height: 200px; //!DATO:el tamaño sera para cada item, no para el contenedor, pues el tamaño afectara al wrap, es decir, no aumentara de altura, solo lo ocultara
 
     & .util {
       width: 300px;
       height: 200px;
     }
   }
+
 }
 
 /**************************************************/
@@ -145,8 +174,7 @@
           ;
           color: var(--color-buton-01);
         }
-
-        &>span {
+        & span{
           font-weight: 500;
           font-size: medium;
           color: var(--color-button-02);
@@ -155,7 +183,13 @@
 
     }
   }
+
+
 }
+
+// .cont-info, .cont-actions, .cont-util{
+//   color: var(--text-color-darkmode-00);
+// }
 
 /**************************************************/
 //********* CSS - SECCION DE MISION-VISION ********/
@@ -350,10 +384,11 @@
 
 //** EFECTOS DE LOS DISPOSITIVOS
 .cont-device {
-  width: 155px;
-  height: 155px;
+  width: 150px;
+  height: 150px;
   // background-color: aqua;
   position: relative;
+  transform: scale(1.1);
 }
 
 .loader {

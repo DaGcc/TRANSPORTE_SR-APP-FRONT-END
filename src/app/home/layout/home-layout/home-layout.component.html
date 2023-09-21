@@ -1,4 +1,4 @@
-<section class="cont-layout-home">
+<section class="cont-layout-home" [ngClass]="{'dark' : sidenavService.isDarkMode() }">
 
     <div class="cont-tool-bar">
         <component-home-tool-bar></component-home-tool-bar>

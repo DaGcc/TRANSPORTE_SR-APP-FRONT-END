@@ -1,4 +1,5 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, inject } from '@angular/core';
+import { SidenavService } from '../../services/sidenav.service';
 
 @Component({
   selector: 'app-home-layout',
@@ -11,6 +12,7 @@ export class HomeLayoutComponent implements OnInit {
   public screenHeight: any;
   public estadoSide: boolean = true
 
+  public sidenavService = inject(SidenavService)
 
   ngOnInit(): void {
     this.screenWidth = window.innerWidth;

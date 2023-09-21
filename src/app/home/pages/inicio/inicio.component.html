@@ -1,4 +1,4 @@
-<section class="cont-inicio">
+<section class="cont-page" [ngClass]="{'dark' : sidenavService.isDarkMode() }">
 
     <div class="cont-representacion font">
 
@@ -13,7 +13,11 @@
                         <span class="point-tittle">{{'hoy' | uppercase}} </span>
                         <span >{{ _date  | date: 'MMM d, y, h:mm:ss a' }}</span>
                     </div>
-                    <widget-button-elevated [text]="'Ver mis actividades'"  [routerLinkBtn]="'/page/calendar'"></widget-button-elevated>
+                    <div class="cont-btns">
+                        <widget-button-elevated [text]="'Ver mis actividades'"  [routerLinkBtn]="'/page/calendar'"></widget-button-elevated>
+                        <widget-button-elevated [text]="'Ver mi perfíl'"  [routerLinkBtn]="'/page/calendar'"></widget-button-elevated>
+                    </div>
+
                 </div>
                 
                 <div class="cont-actions ">

@@ -11,6 +11,8 @@
   width: 280px;
   border-right-width: 0px;
   // background-color: red;
+
+
 }
 
 
@@ -24,6 +26,15 @@
   align-items: center;
   gap: 10px;
   background-color: #eaf7ff;
+
+  //*---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
+  transition: all .2s ease;
+
+  .sidenav-drawer.dark & {
+    background-color: var(--background-dark-01);
+  }
+
+  //*---- ---- ---- ---- END - dark-mode ---- ---- ---- 
 
 }
 
@@ -66,6 +77,17 @@
     height: 100%;
   }
 
+
+
+
+  //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
+  transition: all .2s ease;
+
+  .sidenav-drawer.dark & {
+    border: 10px solid var(--background-dark-01);
+  }
+
+  //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
 }
 
 .cont-info {
@@ -76,6 +98,7 @@
   background-color: #fff;
   padding: 20px 16px 16px 16px;
   border-radius: 10px;
+
   // box-shadow: 0px 0px 10px 1px rgba(226, 229, 232, 0.759);
   & span {
     font-size: smaller;
@@ -91,6 +114,15 @@
     --animate-duration: 1200ms;
     // --animate-delay: 2s ;
   }
+
+  //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
+  transition: all .2s ease;
+
+  .sidenav-drawer.dark & {
+    background-color: var(--dark-widget-01);
+  }
+
+  //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
 }
 
 .cont-menu-list {
@@ -100,14 +132,18 @@
   overflow: overlay;
   margin: 0;
   padding: 10px 0px;
-  transition: all 400ms ease-in-out !important;
+  // transition: all 200ms ease-in-out !important;
+
   & ul {
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: 7px;
+    background: transparent;
+
     & li {
       width: 100%;
+      background: transparent;
 
       // background-color: aquamarine; 
       & button {
@@ -121,19 +157,20 @@
         align-items: center;
         justify-content: flex-start;
         text-align: start;
-        
+        background: transparent;
+
         & mat-icon {
 
           transition: all 400ms ease-in-out;
 
           color: var(--color-button-02);
-          margin: 0 6px 0px 0px;  //!!CAMBIO => all 0, se establece en el hover
+          margin: 0 6px 0px 0px; //!!CAMBIO => all 0, se establece en el hover
           // margin: 0 ;
           padding: 15px 22px;
           display: flex;
           align-items: center;
           justify-content: center;
-          border-radius: 15px;
+          border-radius: 20px;
         }
 
         & span {
@@ -146,12 +183,21 @@
       & button:hover:not(.active) {
         & mat-icon {
           background-color: rgb(255, 255, 255);
-          transform: scale(1.3)
+          transform: scale(1.2)
         }
       }
     }
+
+
+
   }
 
+  //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
+  transition: all .2s ease;
+  .sidenav-drawer.dark & {
+    background-color: var(--dark-widget-01);
+  }
+  //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
   /*SE PUEDE IMPLEMENTAR COMENTANDOLO Y PONIENDO UN WIDTH:30% INICIAL
   &:hover {
     
@@ -167,6 +213,7 @@
     }
   }*/
 }
+
 .active {
   & mat-icon {
     // background-color: var(--background-02) !important;
@@ -227,6 +274,16 @@
   // backdrop-filter: blur(60px);
   // box-shadow: 0px 0px 10px 1px rgba(226, 229, 232, 0.759);
 
+  //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
+  transition: all .2s ease;
+
+  .sidenav-drawer.dark & {
+    background-color: var(--dark-widget-01);
+    color: var(--text-color-darkmode-00);
+  }
+
+  //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
+
 }
 
 .cont-router {
@@ -252,7 +309,7 @@
   border: 5px solid transparent !important;
   // background-color: var(--color-base-background-03); /*color del manejador*/
   // background-color: var(--purple-30); 
-  background-color: #f00 
+  background-color: #f00
 }
 
 .cont-router::-webkit-scrollbar {

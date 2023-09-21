@@ -22,7 +22,7 @@ export class HomeToolBarComponent {
   // }
 
 
-  constructor(private sidenavService : SidenavService ){
+  constructor(public sidenavService : SidenavService ){
 
  
   }
