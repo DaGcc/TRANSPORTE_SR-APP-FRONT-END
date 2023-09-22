@@ -114,12 +114,12 @@
     //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
     transition: all .2s ease;
 
-    .tool-bar.dark & {
+    ::ng-deep .cont-layout-home.dark & {
         background-color: var(--dark-widget-01);
         & ul {
             & li {
                 & span {
-                    color: var(--text-color-darkmode-00);
+                    color: var(--text-color-darkmode-00) !important;
                 }
             }
         }

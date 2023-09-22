@@ -1,9 +1,8 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { DOCUMENT, ViewportScroller } from '@angular/common';
-import { Component, ElementRef, Input, Inject } from '@angular/core';
 
-import { Observable, map } from 'rxjs';
+import { Component } from '@angular/core';
+
 import { SidenavService } from '../../services/sidenav.service';
+import { DarkModeService } from '@shared/widgets/switch-dark-mode/dark-mode.service';
 
 @Component({
   selector: 'component-home-tool-bar',
@@ -22,9 +21,8 @@ export class HomeToolBarComponent {
   // }
 
 
-  constructor(public sidenavService : SidenavService ){
+  constructor(public sidenavService : SidenavService, public darkModeService : DarkModeService ){
 
- 
   }
 
   toggle(){

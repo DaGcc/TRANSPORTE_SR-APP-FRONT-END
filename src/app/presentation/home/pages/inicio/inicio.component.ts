@@ -25,8 +25,6 @@ import { SidenavService } from '../../services/sidenav.service';
 })
 export class InicioComponent implements OnDestroy{
 
-  
-  public sidenavService = inject(SidenavService)
 
 
   btnTypes = TypeButton

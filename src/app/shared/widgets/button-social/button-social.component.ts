@@ -29,8 +29,8 @@ export class ButtonSocialComponent implements  OnChanges{
   constructor(){
   }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.btnTypes.BtnGitHub.toLocaleString())
-    console.log(this.link)
+    // console.log(this.btnTypes.BtnGitHub.toLocaleString())
+    // console.log(this.link)
   }
 
 

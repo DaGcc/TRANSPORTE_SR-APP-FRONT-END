@@ -1,4 +1,4 @@
-.card {
+.cont-card-action {
     width: 100%;
     height: 100%;
     background: #ffffff;
@@ -8,9 +8,20 @@
     padding: 2em;
     transition: transform 0.4s ease;
     overflow: hidden;
+
+
+    //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
+    transition: all .2s ease;
+    ::ng-deep .cont-layout-home.dark & {
+       
+        // color: var(--text-color-darkmode-00);
+        background-color: var(--dark-widget-02);
+    }
+
+    //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
 }
 
-.card .card-content {
+.cont-card-action .card-content {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -19,43 +30,47 @@
     transition: transform 0.4s ease;
 }
 
-.card .card-top,
-.card .card-bottom {
+.cont-card-action .card-top,
+.cont-card-action .card-bottom {
     user-select: none;
     display: flex;
     justify-content: space-between;
 }
 
-.card .card-top p,
-.card .card-top .card-title,
-.card .card-bottom p,
-.card .card-bottom .card-title {
+.cont-card-action .card-top p,
+.cont-card-action .card-top .card-title,
+.cont-card-action .card-bottom p,
+.cont-card-action .card-bottom .card-title {
     margin: 0;
 }
 
 
-.card .card-top p {
+.cont-card-action .card-top p {
     font-weight: 600;
+    color: var( --color-button-01);
 }
-.card .card-top span{
+
+.cont-card-action .card-top span {
     color: var(--color-button-02);
 }
 
-.card .card-title {
+.cont-card-action .card-title {
     font-weight: bold;
 }
 
-.card .card-bottom p {
+.cont-card-action .card-bottom p {
     font-weight: 400;
     user-select: none;
+
 }
 
-.card .card-bottom {
+.cont-card-action .card-bottom {
     align-items: flex-end;
     color: rgb(79, 97, 104);
+    // color: #93ff93;
 }
 
-.card .card-image {
+.cont-card-action .card-image {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -67,7 +82,7 @@
     user-select: none;
 }
 
-.card .card-image img {
+.cont-card-action .card-image img {
     //or svg
     width: 45px;
     height: 45px;
@@ -78,20 +93,20 @@
 
 }
 
-.card:hover {
+.cont-card-action:hover {
     cursor: pointer;
     transform: scale(0.97);
 }
 
-.card:hover .card-content {
+.cont-card-action:hover .card-content {
     transform: scale(0.96);
 }
 
-.card:hover .card-image img {
+.cont-card-action:hover .card-image img {
     //or svg
     transform: scale(1.12);
 }
 
-.card:active {
+.cont-card-action:active {
     transform: scale(0.9);
 }

@@ -1,4 +1,5 @@
-<mat-drawer-container class="sidenav-drawer" autosize [ngClass]="{'dark' : sidenavService.isDarkMode()}">
+<!-- [ngClass]="{'dark' : darkModeService.isDarkMode()}" -> esto si es que no usas ::ng-deep -->
+<mat-drawer-container class="sidenav-drawer" autosize >
 
   <!--* Barra lateral  -->      
   <!-- [mode]="(ish$ | async) ? 'over' : 'side'" [opened]="(ish$ | async) === false"                                                                   -->

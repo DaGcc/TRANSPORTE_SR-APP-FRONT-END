@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit, inject } from '@angular/core';
-import { SidenavService } from '../../services/sidenav.service';
+import { DarkModeService } from '@shared/widgets/switch-dark-mode/dark-mode.service';
 
 @Component({
   selector: 'app-home-layout',
@@ -12,11 +12,13 @@ export class HomeLayoutComponent implements OnInit {
   public screenHeight: any;
   public estadoSide: boolean = true
 
-  public sidenavService = inject(SidenavService)
+  public darkModeService = inject(DarkModeService)
 
   ngOnInit(): void {
     this.screenWidth = window.innerWidth;
     this.screenHeight = window.innerHeight;
+
+    console.log(this.darkModeService.isDarkMode())
   } 
 
 

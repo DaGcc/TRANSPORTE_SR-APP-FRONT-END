@@ -23,18 +23,7 @@ export class SidenavService {
 
   constructor(private breakpointObserver: BreakpointObserver) {
     // console.log(this.isHandset$)
-    this.isDarkMode();
   }
-
-
-  isDarkMode(){
-    if (sessionStorage.getItem('isDarkMode')){
-      return true;
-    } else{
-      return false;
-    }
-  }
-
 
 
 

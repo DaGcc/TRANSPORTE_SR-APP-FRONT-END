@@ -1,8 +1,8 @@
-<div class="card font">
+<div class="cont-card-action font">
     <div class="card-content">
       <div class="card-top">
         <span class="card-title" *ngIf="i!== undefined" >{{i}}</span>
-        <p [ngStyle]="{'color': i? '' : 'red' }" >{{title | titlecase}}</p>
+        <p [ngStyle]="{'color': i? '' : 'var(--color-button-01)' }" >{{title | titlecase}}</p>
       </div>
       <div class="card-bottom">
         <p>{{issues}}</p>

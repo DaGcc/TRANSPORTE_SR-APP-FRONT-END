@@ -7,6 +7,7 @@ import { MenuItem } from 'primeng/api';
 import { NavigationEnd, Router, UrlSegmentGroup, UrlTree } from '@angular/router';
 import { SidenavService } from './../../services/sidenav.service';
 import { MatDrawer, MatSidenav } from '@angular/material/sidenav';
+import { DarkModeService } from '@shared/widgets/switch-dark-mode/dark-mode.service';
 
 @Component({
   selector: 'component-navegation',
@@ -31,7 +32,7 @@ export class NavegationComponent implements OnInit, AfterViewInit {
   // public ish$! : Observable<boolean>; 
 
 
-  constructor(public sidenavService : SidenavService ){
+  constructor(public sidenavService : SidenavService, public darkModeService : DarkModeService ){
     // this.ish$ = this.sidenavService.isHandset$;
   }
 

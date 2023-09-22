@@ -23,16 +23,17 @@
   //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
   transition: all .2s ease;
 
-  .cont-page.dark & {
+  ::ng-deep .cont-layout-home.dark & {
 
-    color: var(--text-color-darkmode-00);
+    // color: var(--text-color-darkmode-00);
+    color: var(--color-base-background-03);
 
   }
 
   //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
 }
 
-.cont-btns{
+.cont-btns {
   display: flex;
   align-items: center;
   gap: 15px;
@@ -63,10 +64,12 @@
   //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
   transition: all .2s ease;
 
-  .cont-page.dark & {
-
-    color: var(--text-color-darkmode-00);
-
+  ::ng-deep .cont-layout-home.dark .cont-body__inicio & {
+    ///ES OTRA FORMA DE USAR EL MODO DARK - pero cuidado ocn tener otra clase llamada ".cont-layout-home"
+    // color: var(--text-color-darkmode-01);
+    // color:var(--text-color-01);
+    color: var(--color-base-background-03);
+    background-color: transparent;
   }
 
   //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
@@ -118,9 +121,21 @@
     // gap: 20px;
     height: fit-content;
     // background-color: rgb(53, 146, 12);
+
+    //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
+    // transition: all .2s ease;
+
+    ::ng-deep .cont-layout-home.dark .cont-body__inicio & {
+      color: var(--text-color-darkmode-01) !important; 
+      // color:var(--text-color-01);
+      color: var(--color-base-background-03);
+      background-color: transparent;
+    }
+
+    //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
   }
 
-  & >.cont-util:last-child {
+  &>.cont-util:last-child {
     // flex-direction: row;
     // align-items: center;
     gap: 20px;
@@ -174,7 +189,8 @@
           ;
           color: var(--color-buton-01);
         }
-        & span{
+
+        & span {
           font-weight: 500;
           font-size: medium;
           color: var(--color-button-02);
