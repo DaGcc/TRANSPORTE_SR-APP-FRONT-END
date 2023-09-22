@@ -6,12 +6,12 @@ const routes: Routes = [
 
   {
     path : 'auth',
-    loadChildren : () => import('src/app/auth/auth.module').then( m => m.AuthModule ),
+    loadChildren : () => import('src/app/presentation/auth/auth.module').then( m => m.AuthModule ),
     data: { titulo:'Auth-M', url: "/auth", icon : null }
   },
   {
     path: 'page',
-    loadChildren: () => import('src/app/home/home.module').then( m => m.HomeModule ),
+    loadChildren: () => import('src/app/presentation/home/home.module').then( m => m.HomeModule ),
     data: { titulo: 'Page' , url: "/page", icon : 'layers' }
   },
   {

@@ -1,8 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { DOCUMENT, ViewportScroller } from '@angular/common';
 import { Inject, Injectable, signal } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable, map, shareReplay } from 'rxjs';
 import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'

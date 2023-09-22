@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, Inject, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SidenavService } from 'src/app/home/services/sidenav.service';
+import { SidenavService } from 'src/app/presentation/home/services/sidenav.service';
 
 @Component({
   selector: 'widget-switch-dark-mode',

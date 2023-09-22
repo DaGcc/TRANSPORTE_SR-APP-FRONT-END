@@ -4,19 +4,19 @@ import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
 import { HomeToolBarComponent } from './components/home-tool-bar/home-tool-bar.component';
-import { MaterialModule } from '../_material/material.module';
 import { RouterModule } from '@angular/router';
 import { NavegationComponent } from './components/navegation/navegation.component';
-import { PrimengModule } from '../_primeng/primeng.module';
-import { BreadcrumbComponent } from '../shared/components/breadcrumb/breadcrumb.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { FooterComponent } from './components/footer/footer.component';
 import { CardTittleComponent } from './widgets/card-tittle/card-tittle.component';
 import { ButtonElevatedComponent } from './widgets/button-elevated/button-elevated.component';
 import { CardActionComponent } from './widgets/card-action/card-action.component';
-import { SwitchDarkModeComponent } from '../shared/widgets/switch-dark-mode/switch-dark-mode.component';
 import { FormsModule } from '@angular/forms';
+import { MaterialModule } from 'src/app/_material/material.module';
+import { PrimengModule } from 'src/app/_primeng/primeng.module';
+import { BreadcrumbComponent } from 'src/app/shared/components/breadcrumb/breadcrumb.component';
+import { SwitchDarkModeComponent } from 'src/app/shared/widgets/switch-dark-mode/switch-dark-mode.component';
 
 
 
