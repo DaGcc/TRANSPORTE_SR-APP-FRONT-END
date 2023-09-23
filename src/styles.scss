@@ -13,17 +13,18 @@
     --background-dark-01: #010409;
 
 
-    --text-color-00 : #000;
+    --text-color-00 : #757c80;
     --text-color-01: #4f6168;
     --text-color-02: #161d1f;
     
-    --text-color-darkmode-00: #fff;
+    --text-color-darkmode-00: #ffffff;
     --text-color-darkmode-01: #e2e0da;
     --text-color-darkmode-02: #3d3e3f;
 
-    
+    --dark-widget-00: #323b48;
     --dark-widget-01: #161b22;
     --dark-widget-02: #b69bff;
+    --dark-widget-03 : rgb(155, 78, 255);
 
     --color-canvas-default: #0d1117;
     --color-canvas-overlay: #161b22;
@@ -215,5 +216,65 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .example-spacer {
     flex: 1 1 auto;
-
 }
+
+
+.cont-page {
+    width: 100%;
+    // max-width: 1300px;
+    margin: auto;
+    // background-color: red;
+  }
+  
+/********************************************************/
+//************* ESTILOS - A HEREDAR *********************/ 
+/********************************************************/
+.inputContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inputField {
+    // border: 2px solid white;
+    border: 2px solid rgb(155, 78, 255);
+    ;
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 12px 15px;
+    color: black;
+    font-weight: 500;
+    outline: none;
+    caret-color: rgb(155, 78, 255);
+    transition-duration: .3s;
+    // font-family: Whitney, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+
+.userIcon {
+    position: absolute;
+    fill: rgb(155, 78, 255);
+    width: 12px;
+    top: -23px;
+    left: -15px;
+    opacity: 0;
+    transition: .2s linear;
+}
+
+.usernameLabel {
+    position: absolute;
+    top: -25px;
+    left: 5px;
+    // color: white;
+    color: var(--text-color-01);
+    font-size: 14px;
+    font-weight: 400;
+    font-family: Whitney, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    overflow: hidden;
+    transition: .2s linear;
+    opacity: 0;
+}
+
+/********************************************************/
+//************ END - ESTILOS - A HEREDAR ****************
+/********************************************************/

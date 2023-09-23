@@ -1,0 +1,217 @@
+.cont-table-crud {
+    height: 100%;
+    width: 100%;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    height: 100%;
+    width: 100%;
+}
+
+.cont-filter {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &>* {
+        width: 100%;
+    }
+
+    & .inputField:focus~.usernameLabel,
+    .inputField:valid~.usernameLabel {
+        transform: translateX(20px);
+        opacity: 1;
+    }
+
+    & .inputField:focus~.userIcon,
+    .inputField:valid~.userIcon {
+        transform: translateX(20px);
+        opacity: 1;
+    }
+
+    & .inputField:focus,
+    .inputField:valid {
+        background-color: rgba(188, 137, 255, 0.5);
+        transition-duration: .3s;
+    }
+
+    & .inputField:focus::placeholder {
+        transition: all .2s ease-out;
+        color: transparent;
+    }
+}
+
+
+
+
+
+.cont-operations {
+    // background-color: red;
+    // margin: auto;
+    width: 100%;
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    // background-color: rebeccapurple;
+}
+
+.cont-table {
+    height: 90%;
+    overflow-y: overlay;
+
+}
+
+.cont-table::-webkit-scrollbar-track {
+    background-color: transparent;
+    /*color de la barra de fondo*/
+}
+
+.cont-table::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    transition: all 1s;
+    /*color del manejador*/
+}
+
+.cont-table:hover::-webkit-scrollbar-thumb {
+    background-color: var(--accent);
+    // transition: all 1s;
+    border-radius: 5px;
+}
+
+.cont-table::-webkit-scrollbar {
+    width: 5px;
+    // height: 8px;
+}
+
+
+table {
+    width: 100%;
+    height: 100%;
+    // border-radius: 20px;
+}
+
+.cont-acction-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.cont-paginator {
+    // background-color: rgb(213, 175, 255) !important;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+
+    & .cont-paginator-btns {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &>.paginator {
+        background-color: transparent;
+
+    }
+
+    //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
+    transition: all .2s ease;
+
+    ::ng-deep .cont-layout-home.dark & {
+        background-color: var(--dark-widget-03) !important;
+        // color: var(--text-color-darkmode-00);
+
+        & * {
+
+            color: #fff !important;
+        }
+
+    }
+
+    //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+td,
+th {
+    width: 25%;
+    font-family: 'Ubuntu', sans-serif !important;
+}
+
+th {
+    // background-color: var(--dark-widget-01) !important;
+    color: #000;
+
+    // &:nth-child(1){
+    //     background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(249,0,0,1) 57%, rgba(255,0,0,1) 100%);
+    // }
+    // &:last-child{
+    //     background: linear-gradient(270deg, rgba(0,0,0,0) 0%, rgba(249,0,0,1) 57%, rgba(255,0,0,1) 100%);
+    // }
+    //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
+    transition: all .2s ease;
+
+    ::ng-deep .cont-layout-home.dark & {
+        background-color: var(--dark-widget-00) !important;
+        // color: var(--text-color-darkmode-00);
+        color: var(--color-base-background-03);
+
+    }
+
+    //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
+
+}
+
+td {
+    //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
+    transition: all .2s ease;
+
+    ::ng-deep .cont-layout-home.dark & {
+        background-color: var(--dark-widget-01) !important;
+        // color: var(--text-color-darkmode-00);
+        color: #fff;
+
+    }
+
+    //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
+}
+
+td:nth-child(1) {
+    font-weight: 700;
+    // border-color: red;
+}
+
+
+@media screen and (max-width : 700px) {
+
+    .cont-paginator {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: center;
+
+        // padding: 5px 0px;
+        &>* {
+            width: 100%;
+            // background-color: #000;
+        }
+
+        & .paginator {
+            width: 100%;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+    }
+}

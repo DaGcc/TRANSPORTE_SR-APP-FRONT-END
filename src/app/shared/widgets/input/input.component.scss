@@ -1,0 +1,24 @@
+
+
+.inputField:focus~.usernameLabel,
+.inputField:valid~.usernameLabel {
+    transform: translateX(20px);
+    opacity: 1;
+}
+
+.inputField:focus~.userIcon,
+.inputField:valid~.userIcon {
+    transform: translateX(20px);
+    opacity: 1;
+}
+
+.inputField:focus,
+.inputField:valid {
+    background-color: rgba(188, 137, 255, 0.5);
+    transition-duration: .3s;
+}
+
+.inputField:focus::placeholder {
+    transition: all .2s ease-out;
+    color: transparent;
+}

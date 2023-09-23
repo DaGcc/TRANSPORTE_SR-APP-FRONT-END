@@ -21,7 +21,12 @@ const routes: Routes = [
         path: 'calendar',
         loadComponent: () => import('./pages/calendario/calendario.component').then( m => m.CalendarioComponent ),
         data : { titulo:'Gestion de actividades', url: "/page/calendar",icon: null }
-      },  
+      },
+      {
+        path: 'trabajadores',
+        loadComponent: () => import('./pages/trabajadores/trabajadores.component').then( m => m.TrabajadoresComponent ),
+        data : { titulo:'Gestion de trabajadores', url: "/page/trabajadores",icon: null }
+      }, 
       {
         path:'',
         redirectTo: 'inicio',
