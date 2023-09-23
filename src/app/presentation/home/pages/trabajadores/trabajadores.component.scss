@@ -2,7 +2,10 @@
 .cont-representacion {
   display: flex;
   flex-direction: column;
+  // align-items: center;
+  // justify-content: center;
   gap: 30px;
+  // max-width: 1400px;
 }
 
 .cont-action {
@@ -28,7 +31,7 @@
 }
 
 .cont-datasource {
-
-  
-
+  // width: 100%;
+  height: 60vh;
+  // background-color: red;
 }
