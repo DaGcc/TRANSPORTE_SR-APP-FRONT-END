@@ -16,4 +16,7 @@ import { InputComponent } from '@shared/widgets/input/input.component';
 })
 export class TrabajadoresComponent {
 
+
+
+  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit', 'acciones'];
 }

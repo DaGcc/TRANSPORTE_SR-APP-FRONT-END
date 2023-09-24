@@ -1,10 +1,11 @@
-import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit, OnChanges, SimpleChanges, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from 'src/app/_material/material.module';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { InputComponent } from '@shared/widgets/input/input.component';
+import { find } from 'rxjs';
 
 export interface UserData {
   id: string;
@@ -55,25 +56,54 @@ const NAMES: string[] = [
   templateUrl: './table-view.component.html',
   styleUrls: ['./table-view.component.scss']
 })
-export class TableViewComponent implements OnInit, AfterViewInit{
+export class TableViewComponent implements OnInit, AfterViewInit, OnChanges{
 
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit', 'acciones'];
+  @Input()
+  displayedColumns: string[] = [];
+  
+
+
+  @Input()
+  data : any ;
+  
   dataSource!: MatTableDataSource<any>;
   
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
+
+  //***********************************************
+  //******* ciclos de vida del componente *********
+  //***********************************************
+  ngOnInit(): void {
+    const users : any = Array.from({ length: 100 }, (_, k) => this.createNewUser(k + 1));
+    let v  = this.displayedColumns[1]
+    let user = users[0][v];
+    console.log(user)
+    console.log(v)
+    this.dataSource = new MatTableDataSource(users);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('changes')
+    this.dataSource = new MatTableDataSource(this.data);
+  }
+
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator
   }
- 
-  ngOnInit(): void {
-    const users = Array.from({ length: 100 }, (_, k) => this.createNewUser(k + 1));
-    this.dataSource = new MatTableDataSource(users);
+  //***********************************************
+  //***** END - ciclos de vida del componente *****
+  //***********************************************
 
-  }
+
+
+
+  
+  //TODO: metodos y sus implementaciones
+
   createNewUser(id: number): UserData {
     const name =
       NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
@@ -88,10 +118,6 @@ export class TableViewComponent implements OnInit, AfterViewInit{
       fruit: FRUITS[Math.round(Math.random() * (FRUITS.length - 1))],
     };
   }
-
-
-
-
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

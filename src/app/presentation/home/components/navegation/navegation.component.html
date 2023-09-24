@@ -4,7 +4,7 @@
   <!--* Barra lateral  -->      
   <!-- [mode]="(ish$ | async) ? 'over' : 'side'" [opened]="(ish$ | async) === false"                                                                   -->
   <mat-drawer #drawer class="sidenav"  
-  [mode]="getScreenWidth<=pixelResponsive?'over':'side'" [opened]="getScreenWidth<=pixelResponsive?false:true">
+  [mode]="getScreenWidth<=pixelResponsive?'over':'side'" [opened]="getScreenWidth<=pixelResponsive?false:true" [autoFocus]="'flase'" >
 
     <div class="cont-sidenav-list">
 
