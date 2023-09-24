@@ -15,7 +15,11 @@
     
         </section>
         <section class="cont-datasource">
-            <componente-table-view class="datasource" [displayedColumns]="displayedColumns" [fnCU]="openDialogEdition" ></componente-table-view>
+            <componente-table-view class="datasource" [displayedColumns]="displayedColumns"
+                [fnCreateOrUpdate]="openDialogEdition" 
+                [fnDelete]="fnDelete"
+             >
+            </componente-table-view>
         </section>
     </div>
 

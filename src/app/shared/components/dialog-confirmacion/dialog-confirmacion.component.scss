@@ -1,0 +1,46 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: content-box;
+}
+
+.card{
+    width: 500px;
+    // height: 200px;
+    padding: 24px;
+}
+
+.title{
+    
+    color: #000000;
+}
+.subtitle{
+    color: #b69bff;
+}
+
+p{
+    font-family: 'Ubuntu', sans-serif;
+    font-size: medium;
+}
+
+
+.cont-accions{
+    flex : 1 1 auto;
+}
+.btn-cont{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.btn-cont button{
+    font-family: 'Ubuntu', sans-serif;
+    width: 40%;
+}
+.btn-cont button:nth-child(1){
+    color: #ff0000;
+}
+.btn-cont button:nth-child(2){
+    color: #0000ff;
+}

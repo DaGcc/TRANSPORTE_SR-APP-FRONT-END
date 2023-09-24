@@ -1,0 +1,51 @@
+<section>
+    <mat-card class="card font">
+
+        <!--* contenedor del titulo y el body  -->
+        <section class="cont-title-info">
+
+            <!--* titulo -->
+            <div>
+                <mat-card-title class="title" *ngIf="data?.header; else headerEmpty ">{{ data.header }}</mat-card-title>
+                <ng-template #headerEmpty>
+                    <mat-card-title class="title">
+                        Sin asunto
+                    </mat-card-title>
+                </ng-template>  
+                <mat-card-subtitle class="subtitle">{{fecha | date:'full'}}</mat-card-subtitle>
+            </div>
+            <!--* end - titulo  -->
+    
+            <!--* body -->
+            <div>
+                <mat-card-content *ngIf="data?.header; else bodyEmpty">
+                    <p>{{ data.body }}</p>
+                </mat-card-content>
+                <ng-template #bodyEmpty>
+                    <mat-card-content>
+                        Sin asunto , Lorem ipsum, dolor sit amet consectetur adipisicing elit. A officia quasi sunt modi alias? Sit velit quas doloremque natus aliquam praesentium.
+                    </mat-card-content>
+                </ng-template>
+            </div>
+            <!--* end - body -->
+    
+        </section>
+        <!--* END - contenedor del titulo y el body  -->
+
+
+
+        <mat-divider></mat-divider>
+
+        <!--* contenedor de acciones -->
+        <mat-card-actions class="cont-accions">
+
+            <!--* contenedor de botones  -->
+            <div class="btn-cont">
+                <button mat-button cdkFocusInitial (click)="cancelar()" color="warn">CANCELAR</button>
+                <button mat-button (click)="aceptar()" color="primary">CONFIRMAR</button>
+            </div>
+            <!--* END - contenedor de botones  -->
+        </mat-card-actions>
+        <!--* END -contenedor de acciones -->
+    </mat-card>
+</section>

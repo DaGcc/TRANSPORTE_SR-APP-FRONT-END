@@ -7,6 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { InputComponent } from '@shared/widgets/input/input.component';
 import { find } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
+import { Overlay } from '@angular/cdk/overlay';
 
 export interface UserData {
   id: string;
@@ -61,30 +62,39 @@ const NAMES: string[] = [
 })
 export class TableViewComponent implements OnInit, AfterViewInit, OnChanges {
 
-
+  //********** INYECTIONES DE SERVICIOS CORE *************
   dialog = inject(MatDialog);
+  overlay = inject(Overlay);
+  //**************************************************** */
 
+  //!-------------------------------------------------------------------------
+
+  //********** PROPIEDADES CORE DEL COMPOENTE *************
   @Input()
   displayedColumns: string[] = ['id', 'name', 'progress', 'fruit', 'acciones'];;
-
-
-
   @Input()
   data: any;
+  //**************************************************** */
 
+  //!-------------------------------------------------------------------------
 
-  
   // fnCU<T>(...params : any) : T | void {
   //   //TODO: procesos...
   //   // console.log('Fn click por defecto')
   // } 
+
+  //********** FUNCIONES CORE DEL COMPONENTE *************
   @Input()
-  fnCU : ( a? : any) => void | any = () => {}
+  fnCreateOrUpdate: (...params: any) => void | any = () => { };
+  @Input()
+  fnDelete: (...params: any) => void | any = () => { }
+  //**************************************************** */
+
+  //!-------------------------------------------------------------------------
+
 
 
   dataSource!: MatTableDataSource<any>;
-
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -94,10 +104,6 @@ export class TableViewComponent implements OnInit, AfterViewInit, OnChanges {
   //***********************************************
   ngOnInit(): void {
     const users: any = Array.from({ length: 100 }, (_, k) => this.createNewUser(k + 1));
-    let v = this.displayedColumns[1]
-    let user = users[0][v];
-    console.log(user)
-    console.log(v)
     this.dataSource = new MatTableDataSource(users);
   }
 
