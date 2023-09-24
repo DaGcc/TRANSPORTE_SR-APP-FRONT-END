@@ -28,6 +28,11 @@ const routes: Routes = [
         data : { titulo:'Gestion de trabajadores', url: "/page/trabajadores",icon: null }
       }, 
       {
+        path: 'clientes',
+        loadComponent: () => import('./pages/clientes/clientes.component').then( m => m.ClientesComponent ),
+        data : { titulo:'Gestion de clientes', url: "/page/clientes",icon: null }
+      }, 
+      {
         path:'',
         redirectTo: 'inicio',
         pathMatch: 'full'

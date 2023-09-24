@@ -9,26 +9,29 @@
                 <input required="required" class="inputField" placeholder="Filtro" type="text"
                     (keyup)="applyFilter($event)" #input>
                 <label class="usernameLabel font">Filtro</label>
-                <img class="userIcon" src="../../../../assets/imgs/icons/filter.svg" >
+                <img class="userIcon" src="../../../../assets/imgs/icons/filter.svg">
 
             </div>
         </div>
         <!--* END - cont del filtro -->
 
-
+        <!--* contenedor de la tabla y el paginador  -->
         <div class="cont-operations">
+
+            <!--* contenedor de la tabla  -->
             <div class="cont-table" id="dvContTable">
+                <!--* TABLA  -->
                 <table mat-table [dataSource]="dataSource" matSort>
 
                     <!-- ID Column -->
                     <ng-container *ngFor="let d of displayedColumns">
 
-                        <ng-container  *ngIf="d!='acciones'; else acciones" [matColumnDef]="d">
+                        <ng-container *ngIf="d!='acciones'; else acciones" [matColumnDef]="d">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> {{d | titlecase}} </th>
                             <td mat-cell *matCellDef="let row ; let i = index"> {{row[d]}} </td>
                         </ng-container>
                     </ng-container>
-                    
+
 
                     <!-- Progress Column -->
                     <!-- <ng-container matColumnDef="progress">
@@ -52,16 +55,16 @@
                         <ng-container matColumnDef="acciones">
                             <th mat-header-cell *matHeaderCellDef> Acciones </th>
                             <td mat-cell *matCellDef="let row">
-    
+
                                 <div class="cont-acction-buttons">
-                                    <button mat-icon-button color="primary"><mat-icon>edit</mat-icon></button>
+                                    <button mat-icon-button color="primary" (click)="fnCU()"><mat-icon>edit</mat-icon></button>
                                     <button mat-icon-button color="warn"><mat-icon>delete</mat-icon></button>
                                 </div>
-    
+
                             </td>
                         </ng-container>
                     </ng-template>
-                    
+
 
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -72,14 +75,18 @@
                         <td class="mat-cell" colspan="4">No hay datos que coincidan con el filtro "{{input.value}}"</td>
                     </tr>
                 </table>
+                <!--* END - TABLA -->
             </div>
+            <!--* END - contenedor de la tabla  -->
 
             <!--* cont - paginador -->
             <div class="cont-paginator">
 
                 <!--* cont de los botones  -->
                 <div class="cont-paginator-btns">
-                    <button mat-icon-button color="primary"><mat-icon>picture_as_pdf</mat-icon></button>
+                    <button mat-icon-button color="primary"><img class="p-b" style="color: red;"
+                            src="../../../../assets/imgs/icons/file-pdf.png" alt=""></button>
+                    <button mat-icon-button color="primary" (click)="fnCU()"><mat-icon>add</mat-icon></button>
                 </div>
                 <!--* END - cont de los botones  -->
 
@@ -94,6 +101,7 @@
             <!--* END - cont - paginador -->
 
         </div>
+        <!--* END - contenedor de la taba y el paginador -->
 
     </div>
 

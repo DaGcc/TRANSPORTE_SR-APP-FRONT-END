@@ -4,8 +4,9 @@
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
+
 :root {
-  
+
     --color-base-background-01: #5b36f2;
     --color-base-background-02: rgb(225, 237, 244);
     --color-base-background-03: rgb(168, 203, 226);
@@ -13,10 +14,10 @@
     --background-dark-01: #010409;
 
 
-    --text-color-00 : #757c80;
+    --text-color-00: #757c80;
     --text-color-01: #4f6168;
     --text-color-02: #161d1f;
-    
+
     --text-color-darkmode-00: #ffffff;
     --text-color-darkmode-01: #e2e0da;
     --text-color-darkmode-02: #3d3e3f;
@@ -24,7 +25,7 @@
     --dark-widget-00: #323b48;
     --dark-widget-01: #161b22;
     --dark-widget-02: #b69bff;
-    --dark-widget-03 : rgb(155, 78, 255);
+    --dark-widget-03: rgb(155, 78, 255);
 
     --color-canvas-default: #0d1117;
     --color-canvas-overlay: #161b22;
@@ -32,14 +33,14 @@
     --color-canvas-subtle: #161b22;
     --color-border-default: #30363d;
     --color-border-muted: #21262d;
-    --color-border-subtle: rgba(240,246,252,0.1);
+    --color-border-subtle: rgba(240, 246, 252, 0.1);
     --color-shadow-small: 0 0 transparent;
     --color-shadow-medium: 0 3px 6px #010409;
     --color-shadow-large: 0 8px 24px #010409;
     --color-shadow-extra-large: 0 12px 48px #010409;
     --color-neutral-emphasis-plus: #6e7681;
     --color-neutral-emphasis: #6e7681;
-    
+
 
     --background-01: #ffffff;
     --background-02: #eaf7ff;
@@ -196,20 +197,29 @@
     --azure-10: #e4f3ff;
     --azure-0: #f4faff;
 }
-*{
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-.font{
+.font {
     font-family: 'Ubuntu', sans-serif !important;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 
-.custom-snackbar{
+.custom-snackbar {
     background: #fff !important;
 }
 
@@ -224,11 +234,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     // max-width: 1300px;
     margin: auto;
     // background-color: red;
-  }
-  
-/********************************************************/
-//************* ESTILOS - A HEREDAR *********************/ 
-/********************************************************/
+}
+
+/********************************************************************/
+//************* ESTILOS - QUE USA EL INPUT DEL SARED ****************/ 
+/********************************************************************/
 .inputContainer {
     position: relative;
     display: flex;
@@ -275,6 +285,65 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     opacity: 0;
 }
 
-/********************************************************/
-//************ END - ESTILOS - A HEREDAR ****************
-/********************************************************/
+/********************************************************************/
+//********** END - ESTILOS - QUE USA EL INPUT DEL SARED *************/ 
+/********************************************************************/
+
+
+
+/********************************************************************/
+//***** ESTILOS - QUE USA EL MODULO DE TRABAJADORES - CLIENTES ******/ 
+/********************************************************************/
+.cont-page {
+    // ! height: 100%;
+    // background-color: red;
+}
+
+.cont-representacion {
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    // justify-content: center;
+    gap: 30px;
+    // max-width: 1400px;
+    height: 100%;
+    // max-height: 700px;
+}
+
+
+.cont-action {
+
+    display: flex;
+    // background-color: red;
+    justify-content: center;
+    align-items: center;
+}
+
+.cont-ipts {
+    padding: 25px 0 0 0;
+    display: flex;
+    // justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    width: 100%;
+
+    // background-color: aqua;
+    & .w-ipt {
+        // margin: 10px;
+        flex: 1 1 auto !important;
+    }
+}
+
+.cont-datasource {
+    // width: 100%;
+    height: 60vh;
+    flex: 1 1 auto;
+    // background-color: red;
+    // & .datasource {
+    //     height: 100%;
+    // }
+}
+
+/*********************************************************************/
+//*** END - ESTILOS - QUE USA EL MODULO DE TRABAJADORES - CLIENTES ***/ 
+/*********************************************************************/

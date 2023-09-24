@@ -55,10 +55,12 @@
     // background-color: red;
     // margin: auto;
     width: 100%;
-    height: 85%;//??esto se complementa con el flex 1 1 auto
+    height: 85%; //??esto se complementa con el flex 1 1 auto
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
+    border-radius: 15px;
+    overflow: hidden;
     // background-color: rebeccapurple;
 }
 
@@ -83,7 +85,7 @@
 //     background-color: var(--dark-widget-03);
 //     // transition: all 1s;
 //     border-radius: 5px;
-    
+
 // }
 
 .cont-table::-webkit-scrollbar {
@@ -96,6 +98,7 @@
 table {
     width: 100%;
     height: 100%;
+    background-color: transparent !important;
     // border-radius: 20px;
 }
 
@@ -181,9 +184,10 @@ th {
 }
 
 td {
+    background: #fff;
     //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
     transition: all .2s ease;
-
+    
     ::ng-deep .cont-layout-home.dark & {
         background-color: var(--dark-widget-01) !important;
         // color: var(--text-color-darkmode-00);
@@ -198,6 +202,34 @@ td:nth-child(1) {
     font-weight: 700;
     // border-color: red;
 }
+
+.p-b {
+    /* 
+    *  DATO:
+    *- invert(1): Invierte los colores, lo que convierte los colores oscuros en colores claros y viceversa. Esto cambia el color de fondo del SVG.
+    *- sepia(1): Aplica un efecto sepia al SVG, lo que le da un tono marrón.
+    *- saturate(5): Aumenta la saturación del color. Puedes ajustar el valor para hacerlo más o menos saturado. => el color más desaturado (más apagado) o más saturado (más vivo)
+    *- hue-rotate(0deg): Rota el matiz del color. Puedes cambiar el valor para cambiar el color de manera específica.
+    ?0 grados representa el rojo, 120 grados representa el verde y 240 grados representa el azul, 
+    */
+    filter: invert(1) sepia(1) saturate(100) hue-rotate(262deg);
+
+        //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
+        transition: all .2s ease;
+    
+        ::ng-deep .cont-layout-home.dark & {
+            //* El valor 1 en grayscale significa que la imagen se convertirá completamente en blanco y negro.
+            filter: invert(1) grayscale(1);
+    
+        }
+    
+        //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
+}
+
+
+
+
+
 
 
 @media screen and (max-width : 700px) {

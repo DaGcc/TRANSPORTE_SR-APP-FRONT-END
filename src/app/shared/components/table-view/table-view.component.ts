@@ -1,11 +1,12 @@
-import { Component, ViewChild, OnInit, AfterViewInit, OnChanges, SimpleChanges, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ViewChild, OnInit, AfterViewInit, OnChanges, SimpleChanges, Input, inject } from '@angular/core';
+import { CommonModule, NgFor, NgIf, TitleCasePipe } from '@angular/common';
 import { MaterialModule } from 'src/app/_material/material.module';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { InputComponent } from '@shared/widgets/input/input.component';
 import { find } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 
 export interface UserData {
   id: string;
@@ -49,26 +50,41 @@ const NAMES: string[] = [
   selector: 'componente-table-view',
   standalone: true,
   imports: [
-    CommonModule,
+    NgIf,
+    NgFor,
+    TitleCasePipe,
     MaterialModule,
     InputComponent
   ],
   templateUrl: './table-view.component.html',
   styleUrls: ['./table-view.component.scss']
 })
-export class TableViewComponent implements OnInit, AfterViewInit, OnChanges{
+export class TableViewComponent implements OnInit, AfterViewInit, OnChanges {
+
+
+  dialog = inject(MatDialog);
 
   @Input()
-  displayedColumns: string[] = [];
-  
+  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit', 'acciones'];;
+
 
 
   @Input()
-  data : any ;
+  data: any;
+
+
   
+  // fnCU<T>(...params : any) : T | void {
+  //   //TODO: procesos...
+  //   // console.log('Fn click por defecto')
+  // } 
+  @Input()
+  fnCU : ( a? : any) => void | any = () => {}
+
+
   dataSource!: MatTableDataSource<any>;
-  
-  
+
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -77,8 +93,8 @@ export class TableViewComponent implements OnInit, AfterViewInit, OnChanges{
   //******* ciclos de vida del componente *********
   //***********************************************
   ngOnInit(): void {
-    const users : any = Array.from({ length: 100 }, (_, k) => this.createNewUser(k + 1));
-    let v  = this.displayedColumns[1]
+    const users: any = Array.from({ length: 100 }, (_, k) => this.createNewUser(k + 1));
+    let v = this.displayedColumns[1]
     let user = users[0][v];
     console.log(user)
     console.log(v)
@@ -88,6 +104,8 @@ export class TableViewComponent implements OnInit, AfterViewInit, OnChanges{
   ngOnChanges(changes: SimpleChanges): void {
     console.log('changes')
     this.dataSource = new MatTableDataSource(this.data);
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator
   }
 
   ngAfterViewInit(): void {
@@ -101,7 +119,7 @@ export class TableViewComponent implements OnInit, AfterViewInit, OnChanges{
 
 
 
-  
+
   //TODO: metodos y sus implementaciones
 
   createNewUser(id: number): UserData {
