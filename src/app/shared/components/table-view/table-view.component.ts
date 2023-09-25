@@ -93,7 +93,6 @@ export class TableViewComponent implements OnInit, AfterViewInit, OnChanges {
   //!-------------------------------------------------------------------------
 
 
-
   dataSource!: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -143,6 +142,7 @@ export class TableViewComponent implements OnInit, AfterViewInit, OnChanges {
     };
   }
 
+  //*********** METODO DE FILTRO CORE ********* */
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -151,5 +151,5 @@ export class TableViewComponent implements OnInit, AfterViewInit, OnChanges {
       this.dataSource.paginator.firstPage();
     }
   }
-
+ //******* END - METODO DE FILTRO CORE ****+*** */
 }

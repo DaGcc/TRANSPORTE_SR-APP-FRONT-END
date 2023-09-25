@@ -41,7 +41,7 @@ export class TrabajadoresComponent {
 
     this.dialog.open(TrabajadoresEdicionComponent, {
       scrollStrategy: this.overlay.scrollStrategies.noop(),
-      disableClose : true
+      disableClose : true,
       // width: '250px',
     });
     
