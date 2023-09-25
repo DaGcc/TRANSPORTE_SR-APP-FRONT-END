@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MaterialModule } from 'src/app/_material/material.module';
@@ -28,8 +28,10 @@ export class TrabajadoresEdicionComponent implements OnInit{
   dialogRef = inject(MatDialogRef<TrabajadoresEdicionComponent>);
 
 
+ 
   frmGroupTrabajador! : FormGroup
   frmGruopCredencials! : FormGroup
+  hide = true;
 
   generos: Genero[] = [
     {idGenero: '1', tipo: 'Hombre'},
@@ -43,8 +45,9 @@ export class TrabajadoresEdicionComponent implements OnInit{
 
 
   ngOnInit(): void {
+    
     this.frmGroupTrabajador = new FormGroup({
-      'id' : new FormControl(undefined),
+      'id' : new FormControl(0),
       'nombres' : new FormControl(undefined, [Validators.required , Validators.minLength(2), Validators.maxLength(40) ]),
       'apellidoPaterno' : new FormControl(undefined, Validators.required),
       'apellidoMaterno' : new FormControl(undefined, Validators.required),
@@ -54,7 +57,7 @@ export class TrabajadoresEdicionComponent implements OnInit{
       'estado' : new FormControl(undefined, Validators.required),
       'genero': new FormControl(undefined, Validators.required)
     })
-
+    console.log(this.frmGroupTrabajador)
 
     this.frmGruopCredencials = new FormGroup({
       'username' : new FormControl(undefined, Validators.required),

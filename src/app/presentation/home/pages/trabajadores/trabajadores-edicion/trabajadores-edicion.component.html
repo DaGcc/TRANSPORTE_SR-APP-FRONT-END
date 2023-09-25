@@ -18,6 +18,7 @@
 
 
                 <form #frmTrabajador [formGroup]="frmGroupTrabajador" class="form-edicion">
+                    
 
                     <div class="container-mff" style="display: none;">
                         <mat-form-field>
@@ -28,14 +29,13 @@
 
                     <div class="container-mff">
                         <mat-form-field>
-                            <mat-label>Enter your email</mat-label>
+                            <mat-label>Nombres</mat-label>
                             <input matInput placeholder="pat@example.com" formControlName="nombres" required
                                 minlength="2">
                         </mat-form-field>
                     </div>
 
                     <div class="row-ipt">
-
                         <div class="container-mff">
                             <mat-form-field>
                                 <mat-label>Apellido paterno</mat-label>
@@ -57,48 +57,55 @@
                                 required>
                             </mat-form-field>
                         </div>
-
+                        
                         <div class="container-mff">
                             <mat-form-field>
-                                <mat-label>Enter your email</mat-label>
+                                <mat-label>Número de celular</mat-label>
                                 <input matInput #iptTelefono placeholder="pat@example.com" formControlName="telefono"
-                                    required minlength="9" maxlength="9" min="9000000000" max="999999999" type="number">
+                                    required minlength="9" maxlength="9" min="900000000" max="999999999" type="number">
                                 <mat-hint align="end">{{iptTelefono.value.length}}/9</mat-hint>
                             </mat-form-field>
                         </div>
 
                     </div>
+                    <div class="row-ipt">
+
+
+                        <div class="container-mff">
+                            <mat-form-field>
+                                <!-- <mat-label>Estado</mat-label> -->
+                                <mat-select placeholder="Estado" [(value)]="estadoSeleccionado" formControlName="estado">
+                                    <mat-option *ngFor="let estado of estados" [value]="estado">
+                                        {{estado}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        
+                        <div class="container-mff">
+                            <mat-form-field>
+                                <!-- <mat-label>Genero</mat-label> -->
+                                <mat-select placeholder="Genero" [(value)]="generoSeleccionado" formControlName="genero">
+                                    <mat-option *ngFor="let genero of generos" [value]="genero">
+                                        {{genero.tipo }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                       
+
+                    </div>
 
                     <div class="container-mff">
                         <mat-form-field>
-                            <mat-label>Enter your email</mat-label>
+                            <mat-label>Ingresa tu email</mat-label>
                             <input matInput placeholder="pat@example.com" formControlName="email" required
                                 minlength="2">
                             <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
                         </mat-form-field>
                     </div>
 
-                    <div class="container-mff">
-                        <mat-form-field>
-                            <!-- <mat-label>Estado</mat-label> -->
-                            <mat-select placeholder="Estado" [(value)]="estadoSeleccionado" formControlName="estado">
-                                <mat-option *ngFor="let estado of estados" [value]="estado">
-                                    {{estado}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    
-                    <div class="container-mff">
-                        <mat-form-field>
-                            <!-- <mat-label>Genero</mat-label> -->
-                            <mat-select placeholder="Genero" [(value)]="generoSeleccionado" formControlName="genero">
-                                <mat-option *ngFor="let genero of generos" [value]="genero">
-                                    {{genero.tipo }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
 
 
 
@@ -106,9 +113,9 @@
                 </form>
 
                 <div class="cont-accion-edicion">
-                    <button mat-stroked-button color="warn" (click)="dialogRef.close()"><mat-icon>close</mat-icon>
+                    <button mat-stroked-button color="warn" type="button"  (click)="dialogRef.close()"><mat-icon>close</mat-icon>
                         CANCELAR </button>
-                    <button mat-stroked-button color="primary"><mat-icon>chevron_right</mat-icon> SIGUIENTE </button>
+                    <button mat-stroked-button type="button" color="primary" matStepperNext [disabled]="frmGroupTrabajador.invalid"><mat-icon>chevron_right</mat-icon> SIGUIENTE </button>
 
                 </div>
 
@@ -129,24 +136,33 @@
                     </div>
 
                     <div class="container-mff">
+                        
                         <mat-form-field>
-                            <mat-label>Pasword</mat-label>
-                            <input matInput placeholder="Ingrese su contraseña" formControlName="password" required
-                                minlength="2">
-                        </mat-form-field>
+                            <mat-label>Password</mat-label>
+                            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Ingrese su contraseña" formControlName="password" required>
+                            <button mat-icon-button matSuffix (click)="hide = !hide" >
+                              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                          </mat-form-field>
+                        
                     </div>
 
                     <div class="container-mff">
+
                         <mat-form-field>
                             <mat-label>Confirmacion del pasword</mat-label>
-                            <input matInput placeholder="Ingrese su contraseña" formControlName="passwordConfir"
-                                required minlength="2">
-                        </mat-form-field>
+                            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Ingrese su contraseña" formControlName="passwordConfir" required>
+                            <button mat-icon-button matSuffix (click)="hide = !hide" >
+                              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                          </mat-form-field>
                     </div>
 
-                    <div>
-                        <button mat-stroked-button matStepperPrevious>Back</button>
-                        <button mat-stroked-button matStepperNext>Next</button>
+                    <div class="cont-accion-edicion">
+                        <button mat-stroked-button color="warn" type="button" matStepperPrevious ><mat-icon>ATRAS</mat-icon>
+                            CANCELAR </button>
+                        <button mat-stroked-button type="button" color="primary"  [disabled]="frmGroupTrabajador.invalid"><mat-icon>check</mat-icon></button>
+    
                     </div>
                 </form>
             </mat-step>
