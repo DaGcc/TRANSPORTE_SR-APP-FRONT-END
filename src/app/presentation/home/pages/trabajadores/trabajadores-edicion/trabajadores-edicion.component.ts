@@ -31,7 +31,8 @@ export class TrabajadoresEdicionComponent implements OnInit{
  
   frmGroupTrabajador! : FormGroup
   frmGruopCredencials! : FormGroup
-  hide = true;
+  hidePassword = true;
+  hidePasswordConfirmacion = true;
 
   generos: Genero[] = [
     {idGenero: '1', tipo: 'Hombre'},
@@ -43,9 +44,7 @@ export class TrabajadoresEdicionComponent implements OnInit{
   estados : boolean[] = [true, false]
   estadoSeleccionado : boolean | undefined
 
-
-  ngOnInit(): void {
-    
+  constructor(){
     this.frmGroupTrabajador = new FormGroup({
       'id' : new FormControl(0),
       'nombres' : new FormControl(undefined, [Validators.required , Validators.minLength(2), Validators.maxLength(40) ]),
@@ -65,6 +64,11 @@ export class TrabajadoresEdicionComponent implements OnInit{
       'passwordConfir' : new FormControl( undefined, Validators.required)
 
     })
+  }
+
+  ngOnInit(): void {
+    
+
   }
 
 
