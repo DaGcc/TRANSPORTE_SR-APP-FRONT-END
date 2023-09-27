@@ -1,10 +1,43 @@
-<p>geolocalizacion works!</p>
 <section class="cont-page">
 
-    cale
-    <div style="width: 300px; height: 600px; margin: auto; background-color: aqua;"></div>
-    <div style="width: 300px; height: 600px; margin: auto; background-color: rgb(255, 21, 0);"></div>
+    <div class="cont-representacion">
+        <!-- loading  -->
+        <!-- <div class="loding-map">
+            <div class="cont-text">
+                <h3>Espere por favor</h3>
+                <span>Localizando...</span>
 
+            </div>
+        </div> -->
+        <!--   END - loading  -->
+
+        <div class="cont-loadeer" *ngIf="!isUserLocationReady; else mapReady">
+
+            <div class="loader">
+                <div class="face">
+                    <div class="circle"></div>
+                </div>
+                <div class="face">
+                    <div class="circle"></div>
+                </div>
+            </div>
+            <div class="cont-text font">
+                <h3>Espere por favor</h3>
+                <span>Localizando...</span>
+
+            </div>
+        </div>
+        
+
+        <ng-template #mapReady>
+            <div style="height: 100%; width: 100%;" class="cont-map">
+                <component-map-view></component-map-view>
+            </div>
+            <!-- <div style="width: 100%; height: 100%; background-color: red;"></div> -->
+        </ng-template>
+        
+
+    </div>
 
 
 </section>
