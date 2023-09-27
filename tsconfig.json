@@ -4,6 +4,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "@infraestructure/*": ["src/app/infraestructure/*"],
       "@auth/*" :["src/app/presentation/auth/*"],
       "@home/*" :["src/app/presentation/home/*"],
       "@shared/*": ["src/app/shared/*"]

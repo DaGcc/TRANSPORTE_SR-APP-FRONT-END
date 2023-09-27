@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeModule } from '../../home.module';
-import { MapViewComponent } from '@home/components/map-view/map-view.component';
-import { PlacesService } from '@home/services/places.service';
-import { ButtonMyLocationComponent } from '@home/widgets/button-my-location/button-my-location.component';
+import { MapViewComponent } from '@home/pages/geolocalizacion/components/map-view/map-view.component';
+import { ButtonMyLocationComponent } from '@home/pages/geolocalizacion/widgets/button-my-location/button-my-location.component';
+import { PlacesService } from './services/places.service';
 
 @Component({
   selector: 'app-geolocalizacion',

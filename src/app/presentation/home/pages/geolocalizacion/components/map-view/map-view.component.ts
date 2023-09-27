@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Map, Popup, Marker } from 'mapbox-gl';
-import { PlacesService } from '@home/services/places.service';
-import { MapService } from '@home/services/map.service';
+import { MapService } from '@home/pages/geolocalizacion/services/map.service';
+import { PlacesService } from '../../services/places.service';
 
 
 @Component({
