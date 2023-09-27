@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Map, Popup, Marker } from 'mapbox-gl';
 import { PlacesService } from '@home/services/places.service';
+import { MapService } from '@home/services/map.service';
 
 
 @Component({
@@ -19,20 +20,30 @@ export class MapViewComponent implements AfterViewInit {
   @ViewChild('mapDiv')
   mapDivElement!: ElementRef
 
-  constructor(private placeService: PlacesService) {
+  constructor(private placeService: PlacesService, private mapService: MapService) {
     console.log(this.placeService.userLocation)
   }
   ngAfterViewInit(): void {
 
-    if( !this.placeService.userLocation ) throw new Error('No hay placesService.userLocation')
-
-
+    if (!this.placeService.userLocation) throw new Error('No hay placesService.userLocation')
     const map = new Map({
       container: this.mapDivElement.nativeElement, // container ID
-      style: 'mapbox://styles/mapbox/dark-v11', // style URL  
+      style: 'mapbox://styles/mapbox/streets-v12', // style URL  
       center: this.placeService.userLocation, // starting position [lng, lat]
-      zoom: 14, // starting zoom
+      zoom: 14, // starting zoom; numero menor es alejamiento, y el mayor es acercamiento
     });
+
+    const popup = new Popup()
+      .setHTML(`
+    <h3>Aquí estoy</h3>
+      <span>Estoy en este lugar del mundo</span>
+    `)
+    new Marker({ color: '#f00' })
+      .setLngLat(this.placeService.userLocation) //posicion en la que estara ubicado en el mundo
+      .setPopup(popup)
+      .addTo(map)
+
+    this.mapService.setMap(map)
   }
 }
 

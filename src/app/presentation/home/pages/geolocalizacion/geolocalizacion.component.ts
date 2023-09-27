@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HomeModule } from '../../home.module';
 import { MapViewComponent } from '@home/components/map-view/map-view.component';
 import { PlacesService } from '@home/services/places.service';
+import { ButtonMyLocationComponent } from '@home/widgets/button-my-location/button-my-location.component';
 
 @Component({
   selector: 'app-geolocalizacion',
@@ -10,7 +11,8 @@ import { PlacesService } from '@home/services/places.service';
   imports: [
     CommonModule,
     HomeModule,
-    MapViewComponent
+    MapViewComponent,
+    ButtonMyLocationComponent
   ],
   templateUrl: './geolocalizacion.component.html',
   styleUrls: ['./geolocalizacion.component.scss']
