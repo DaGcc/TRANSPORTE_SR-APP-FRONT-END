@@ -1,0 +1,23 @@
+
+.cont-places{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 5px;
+    list-style: none;
+}
+
+
+.place{
+    width: 100%;
+    padding: 10px;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+p{
+    font-size: 12px;
+}

@@ -4,6 +4,7 @@ import { HomeModule } from '../../home.module';
 import { MapViewComponent } from '@home/pages/geolocalizacion/components/map-view/map-view.component';
 import { ButtonMyLocationComponent } from '@home/pages/geolocalizacion/widgets/button-my-location/button-my-location.component';
 import { PlacesService } from './services/places.service';
+import { BuscadorBarComponent } from './components/buscador-bar/buscador-bar.component';
 
 @Component({
   selector: 'app-geolocalizacion',
@@ -12,7 +13,8 @@ import { PlacesService } from './services/places.service';
     CommonModule,
     HomeModule,
     MapViewComponent,
-    ButtonMyLocationComponent
+    ButtonMyLocationComponent,
+    BuscadorBarComponent
   ],
   templateUrl: './geolocalizacion.component.html',
   styleUrls: ['./geolocalizacion.component.scss']

@@ -1,9 +1,14 @@
 <div class="search-container">
-    <input 
-    type="text" 
-    class="form-control" 
-    placeholder="Buscar lugar..." 
-    #txtQuery
-    (keyup)="onQueryChange(txtQuery.value)">
-    <component-buscador-bar></component-buscador-bar>
+    <mat-form-field appearance="fill">
+        <mat-label>Outline form field</mat-label>
+        <input matInput  placeholder="Buscar lugar..." (keyup)="onQueryChange(txtQuery.value)" #txtQuery>
+        <mat-icon matSuffix>travel_explore</mat-icon>
+        <!-- <mat-hint>Hint</mat-hint> -->
+    </mat-form-field>
+
+    <div class="cont-places-result">
+
+        <component-places-result-buscador></component-places-result-buscador>
+    </div>
+
 </div>

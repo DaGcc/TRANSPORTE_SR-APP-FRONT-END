@@ -1,1 +1,23 @@
-<p>places-result-buscador works!</p>
+<div *ngIf="(isLoadingPlaces && preLoading); else resultPlaces" class="alert alert-primary mt-2 text-center">
+    <h6>Cargando</h6>
+    <span>Espere por favor...</span>
+</div>
+
+<ng-template #resultPlaces>
+
+    <ul class="cont-places" *ngIf="places.length>0">
+        <li class="place pointer font" *ngFor="let place of places" (click)="flyTo(place)"
+            [ngClass]="{'active': selectedId === place.id }">
+            <h4>{{place.text_es }}</h4>
+            <span>
+                {{place.place_name}}
+            </span>
+
+            <button  mat-button style="width: 100%;" (click)="getDireccions( place )"
+            [ngClass]="(place.id=== selectedId) ?'btn-outline-light':'btn-outline-primary'">Ruta <mat-icon>polyline</mat-icon></button>
+            <mat-divider></mat-divider>
+        </li>
+        
+    </ul>
+
+</ng-template>

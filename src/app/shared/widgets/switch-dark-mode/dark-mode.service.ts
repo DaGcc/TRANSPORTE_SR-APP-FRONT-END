@@ -17,7 +17,9 @@ export class DarkModeService {
     //   return false;
     // }
     // console.log(sessionStorage.getItem('isDarkMode'))
-    return sessionStorage.getItem('isDarkMode')  ? true : false; 
+
+    // return sessionStorage.getItem('isDarkMode')  ? true : false; 
+    return !!sessionStorage.getItem('isDarkMode'); 
   }
 
 }

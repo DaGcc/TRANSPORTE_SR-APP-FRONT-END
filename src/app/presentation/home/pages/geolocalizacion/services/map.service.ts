@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
+import { DirectionsResponse, Route } from '@infraestructure/interfaces/directions';
 import { Feature } from '@infraestructure/interfaces/places';
-import { Marker,Map, LngLatLike, Popup, LngLatBounds } from 'mapbox-gl';;
+import { Marker,Map, LngLatLike, Popup, LngLatBounds, AnySourceData } from 'mapbox-gl';import { DirectionsApiClientService } from '../api/directions-api-client.service';
+;
 
 @Injectable({
   providedIn: 'root'
 })
+/*
+  * Este servicio tendra los efectos en el mapa 
+ */
 export class MapService {
 
    
@@ -12,7 +17,7 @@ export class MapService {
   private markers : Marker[] = []
 
 
-  constructor() { }
+  constructor(private directionsAPi :  DirectionsApiClientService) { }
 
   setMap( map : Map){
     this.map = map;
@@ -33,6 +38,7 @@ export class MapService {
       center: coords
     })
   }
+
 
 
   createMarkersFromPlaces( places : Feature[],  userLocation : [number , number] | undefined ){
@@ -75,6 +81,76 @@ export class MapService {
     } )
 
   }
+
+
+  getRouteBetweenPoints( start : [number, number], end : [number, number]){
+    this.directionsAPi.get<DirectionsResponse>(`/${ start.join(',')};${ end.join(',')}`)
+    .subscribe( {
+      next : data  => this.drawPolyLine(data.routes[0])
+    })
+  }
+
+  private drawPolyLine( route : Route){
+    if(!this.map) throw Error('Mapa no inicializada')
+    console.log( { kms: route.distance/1000, duration : route.duration/60})
+    
+    const coords = route.geometry.coordinates
+
+    const bounds = new LngLatBounds();
+    coords.forEach( ([lng, lat]) => {
+      bounds.extend([lng, lat]) 
+    })
+
+    this.map?.fitBounds( bounds, {
+        padding: 200
+      }
+    )
+
+    //polyLine
+    const sourceData : AnySourceData = {
+      type : 'geojson',
+      data: {
+        type: 'FeatureCollection',
+        features: [
+          {
+            type: 'Feature',
+            properties: {},
+            geometry: {
+              type: 'LineString',
+              coordinates: coords
+            }
+          }
+        ]
+      }
+    }
+
+    //primero borramos la polyline 
+    if(this.map.getLayer('RouteString')){
+      this.map.removeLayer('RouteString')
+      this.map.removeSource('RouteString');
+    }
+
+
+    
+    this.map.addSource('RouteString', sourceData)
+
+    //liena
+    this.map.addLayer({
+      id: 'RouteString',
+      type: 'line',
+      source: 'RouteString',
+      layout: {
+        "line-cap": 'round',
+        "line-join": 'round'
+      },
+      paint: {
+        "line-color": 'black',
+        "line-width": 3
+      }
+    })
+
+  }
+
 
 
 }  
