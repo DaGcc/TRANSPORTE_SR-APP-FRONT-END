@@ -31,7 +31,8 @@
   transition: all .2s ease;
 
   ::ng-deep .cont-layout-home.dark & {
-    background-color: var(--background-dark-01);
+    background-color: var(--body-color-dark);
+
   }
 
   //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
@@ -84,7 +85,7 @@
   transition: all .2s ease;
 
   ::ng-deep .cont-layout-home.dark & {
-    border: 10px solid var(--background-dark-01);
+    border: 10px solid var(--body-color-dark);
   }
 
   //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
@@ -119,7 +120,8 @@
   transition: all .2s ease;
 
   ::ng-deep .cont-layout-home.dark & {
-    background-color: var(--dark-widget-01);
+    background-color: var(--container-color-dark);
+    // border: .5px solid var(--border-color-dark);
   }
 
   //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
@@ -195,7 +197,7 @@
   //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
   transition: all .2s ease;
   ::ng-deep .cont-layout-home.dark & {
-    background-color: var(--dark-widget-01);
+    background-color: var(--container-color-dark);
   }
   //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
   /*SE PUEDE IMPLEMENTAR COMENTANDOLO Y PONIENDO UN WIDTH:30% INICIAL
@@ -291,8 +293,8 @@
   transition: all .2s ease;
 
   ::ng-deep .cont-layout-home.dark & {
-    background-color: var(--dark-widget-01);
-    color: var(--text-color-darkmode-00);
+    background-color: var(--container-color-dark);
+    color: var(--title-color-dark);
   }
 
   //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 

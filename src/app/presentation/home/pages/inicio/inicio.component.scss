@@ -180,8 +180,9 @@
           border-radius: 50%;
           // background-color: var(--purple-30);
           background: radial-gradient(circle at 30% 107%, #969fff 0%, #b349ff 90%);
-          ;
-          color: var(--color-buton-01);
+          & > span{
+            color: #fff !important;
+          }
         }
 
         & span {

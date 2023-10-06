@@ -7,7 +7,7 @@
     //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
     transition: all .2s ease;
     &.dark{
-        background-color: var(--background-dark-01);
+        background-color: var(--body-color-dark);
     }
     //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
 }
