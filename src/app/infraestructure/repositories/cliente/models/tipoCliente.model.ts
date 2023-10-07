@@ -1,4 +1,4 @@
-export interface TipoCliente {
+export interface TipoClienteModel {
     idTipoCliente: number;
     tipo:          string;
 }

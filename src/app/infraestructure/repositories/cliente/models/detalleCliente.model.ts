@@ -1,8 +1,8 @@
-import { Genero } from "./genero.model";
+import { GeneroModel } from "./genero.model";
 
-export interface DetalleCliente {
+export interface DetalleClienteModel {
     idDetalleCliente: number;
-    genero:           Genero;
+    genero:           GeneroModel;
     apellidoPaterno:  string;
     apellidoMaterno:  string;
     dni:              string;

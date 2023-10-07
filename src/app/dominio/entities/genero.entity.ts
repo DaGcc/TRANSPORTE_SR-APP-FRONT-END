@@ -1,4 +1,4 @@
-export interface Genero {
+export interface GeneroEntity {
     idGenero: number;
     tipo:     string;
 }

@@ -1,8 +1,8 @@
-import { Genero } from "./genero.entity";
+import { GeneroEntity } from "./genero.entity";
 
-export interface DetalleCliente {
+export interface DetalleClienteEntity {
     idDetalleCliente: number;
-    genero:           Genero;
+    genero:           GeneroEntity;
     apellidoPaterno:  string;
     apellidoMaterno:  string;
     dni:              string;

@@ -2,20 +2,23 @@
 
     <div class="cont-representacion">
         <section class="cont-action">
-        
+
             <div class="cont-ipts">
-                
+
                 <widget-input [label]="'nombres'" [placeholder]="'nombres'" class="w-ipt"></widget-input>
-                <widget-input [label]="'apellido paterno'"  [placeholder]="'apellido paterno'" class="w-ipt"></widget-input>
-                <widget-input [label]="'apellido materno'"  [placeholder]="'apellido materno'" class="w-ipt"></widget-input>
-                <widget-input [label]="'dni'" [placeholder]="'DNI'"   [type]="'number'" class="w-ipt"></widget-input>
+                <widget-input [label]="'apellido paterno'" [placeholder]="'apellido paterno'"
+                    class="w-ipt"></widget-input>
+                <widget-input [label]="'apellido materno'" [placeholder]="'apellido materno'"
+                    class="w-ipt"></widget-input>
+                <widget-input [label]="'dni'" [placeholder]="'DNI'" [type]="'number'" class="w-ipt"></widget-input>
                 <widget-input [label]="'RUC'" [placeholder]="'RUC'" [type]="'number'" class="w-ipt"></widget-input>
-    
+
             </div>
-    
+
         </section>
         <section class="cont-datasource">
-            <componente-table-view class="datasource" [displayedColumns]="displayedColumns" ></componente-table-view>
+            <componente-table-view class="datasource" [displayedColumns]="displayedColumns" [data]="data" 
+                [fnCreateOrUpdate]="openDialogEdition" [fnDelete]="fnDelete" />
         </section>
     </div>
 

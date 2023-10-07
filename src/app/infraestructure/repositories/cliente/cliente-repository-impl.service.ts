@@ -6,6 +6,7 @@ import { ClienteRepository } from 'src/app/dominio/repositories/cliente.reposito
 import { environment } from 'src/app/environments/environments';
 import { ClienteMapperImpl } from './mappers/cliente.repository.mapper';
 import { ClienteModel } from './models/cliente.model';
+import { PageSpringBoot } from 'src/base/utils/page-spring-boot';
 
 @Injectable({
   providedIn: 'root'
@@ -31,13 +32,19 @@ export class ClienteRepositoryImplService extends ClienteRepository {
       return this.userMapper.mapFrom(c);//convertimos la respuesta del api rest en la estructura de negocio de la app
     }));
   }
-  override readByPage(pageNumber: number, size: number): Observable<any> {
-    throw new Error('Method not implemented.');
+  override readByPage(pageNumber: number, size: number): Observable<PageSpringBoot<ClienteEntity>> {
+    return this.http.get<PageSpringBoot<ClienteModel>>(`${this.url}/paginado?page=${pageNumber}&size=${size}&sort=idCliente,desc`).pipe(map( d => {
+      
+      let pe : PageSpringBoot<ClienteEntity> = d;
+      pe.content.map( m => {
+        return this.userMapper.mapFrom(m);
+      })
+      return pe;
+    }))
   }
   override deleteById(id: number, deep?: boolean | undefined): Observable<void> {
-    throw new Error('Method not implemented.');
+    return this.http.delete<void>(`${this.url}/detach/${id}?deep=${deep}`);
   }
-
 
 }
 

@@ -58,7 +58,8 @@
 
                                 <div class="cont-acction-buttons">
                                     <button mat-icon-button color="primary" (click)="fnCreateOrUpdate( row )"><mat-icon>edit</mat-icon></button>
-                                    <button mat-icon-button color="warn"(click)="fnDelete( row )" ><mat-icon>delete</mat-icon></button>
+                                    <button mat-icon-button color="warn"(click)="fnDelete( row, true )" ><mat-icon>delete</mat-icon></button>
+                                    <button mat-icon-button color="accent"(click)="fnDelete( row, false )" ><mat-icon>bookmark_remove</mat-icon></button>
                                 </div>
 
                             </td>

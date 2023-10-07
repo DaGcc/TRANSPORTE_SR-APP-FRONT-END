@@ -8,6 +8,7 @@ import { InputComponent } from '@shared/widgets/input/input.component';
 import { find } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { Overlay } from '@angular/cdk/overlay';
+import { ClienteRepositoryImplService } from '@infraestructure/repositories/cliente/cliente-repository-impl.service';
 
 export interface UserData {
   id: string;
@@ -67,11 +68,16 @@ export class TableViewComponent implements OnInit, AfterViewInit, OnChanges {
   overlay = inject(Overlay);
   //**************************************************** */
 
+  clienteService = inject(ClienteRepositoryImplService)
+
   //!-------------------------------------------------------------------------
 
   //********** PROPIEDADES CORE DEL COMPOENTE *************
   @Input()
-  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit', 'acciones'];;
+  // service : any;
+
+  @Input()
+  displayedColumns: string[] = ['id', 'name', 'progress', 'fruit', 'acciones'];
   @Input()
   data: any;
   //**************************************************** */
