@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { DatePipe, NgIf } from '@angular/common';
+import { DatePipe, NgIf, UpperCasePipe } from '@angular/common';
 import { MaterialModule } from 'src/app/_material/material.module';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { EstructuraDialogoConfirmacion } from './estructura-dialogo-confirmacion';
@@ -8,6 +8,7 @@ import { EstructuraDialogoConfirmacion } from './estructura-dialogo-confirmacion
   selector: 'app-dialog-confir',
   standalone: true,
   imports: [
+    UpperCasePipe,
     DatePipe,
     NgIf,
     MaterialModule

@@ -68,7 +68,13 @@ export class TableViewComponent implements OnInit, AfterViewInit, OnChanges {
   overlay = inject(Overlay);
   //**************************************************** */
 
-  clienteService = inject(ClienteRepositoryImplService)
+
+  //?=================== INYECCIONES VOLATILES ======================
+
+  clienteService = inject(ClienteRepositoryImplService);
+
+  
+  //?================================================================
 
   //!-------------------------------------------------------------------------
 
@@ -94,6 +100,8 @@ export class TableViewComponent implements OnInit, AfterViewInit, OnChanges {
   fnCreateOrUpdate: (...params: any) => void | any = () => { };
   @Input()
   fnDelete: (...params: any) => void | any = () => { }
+  @Input()
+  fnReloadData(){}
   //**************************************************** */
 
   //!-------------------------------------------------------------------------
@@ -113,7 +121,8 @@ export class TableViewComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes')
+
+    console.log('change')
     this.dataSource = new MatTableDataSource(this.data);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator

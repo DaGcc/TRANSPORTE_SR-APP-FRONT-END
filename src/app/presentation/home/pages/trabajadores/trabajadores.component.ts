@@ -50,12 +50,13 @@ export class TrabajadoresComponent {
   fnDelete( obj : any ){
     let data : EstructuraDialogoConfirmacion = {
       header :  `Delete`,
-      body : `¿Desea eliminar al trabajador con id ${obj.id}?`
+      body : `¿Desea eliminar al trabajador con id ${obj.id}?`,
     } 
     const result = this.dialog.open(DialogConfirmacionComponent, {
       scrollStrategy: this.overlay.scrollStrategies.noop(),
       disableClose : true ,
-      data
+      data,
+ 
     });
     result.afterClosed().subscribe({
       next : r => console.log(r)

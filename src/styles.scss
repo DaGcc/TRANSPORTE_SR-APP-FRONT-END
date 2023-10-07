@@ -301,6 +301,7 @@ body {
 //********** END - ESTILOS - QUE USA EL INPUT DEL SARED *************/ 
 /********************************************************************/
 
+//!---------------------------- F - I ----------------------------------
 
 
 /********************************************************************/
@@ -351,12 +352,283 @@ body {
     height: 60vh;
     // max-height: 60vh;
     flex: 1 1 auto;
-    // background-color: red;
-    // & .datasource {
-    //     height: 100%;
-    // }
+ 
+    & .datasource {
+        height: 100%;
+    }
 }
 
 /*********************************************************************/
 //*** END - ESTILOS - QUE USA EL MODULO DE TRABAJADORES - CLIENTES ***/ 
 /*********************************************************************/
+
+
+//!---------------------------- F - I ----------------------------------
+
+/********************************************************************/
+//******************** ESTILOS - DE LA TABLA ************************/ 
+/********************************************************************/
+
+.cont-table-crud {
+    height: 100%;
+    width: 100%;
+
+    & .body-cont-table {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        height: 100%;
+        width: 100%;
+    }
+    
+    & .cont-filter {
+        // height: 10%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    
+        &>* {
+            width: 100%;
+        }
+    
+        & .inputField:focus~.usernameLabel,
+        .inputField:valid~.usernameLabel {
+            transform: translateX(20px);
+            opacity: 1;
+        }
+    
+        & .inputField:focus~.userIcon,
+        .inputField:valid~.userIcon {
+            transform: translateX(20px);
+            opacity: 1;
+        }
+    
+        & .inputField:focus,
+        .inputField:valid {
+            background-color: rgba(188, 137, 255, 0.5);
+            transition-duration: .3s;
+        }
+    
+        & .inputField:focus::placeholder {
+            transition: all .2s ease-out;
+            color: transparent;
+        }
+    }
+    
+    
+    
+    
+    
+    & .cont-operations {
+        // background-color: red;
+        // margin: auto;
+        width: 100%;
+        max-height: 100%; //??esto se complementa con el flex 1 1 auto
+        display: flex;
+        flex-direction: column;
+        // flex: 1 1 auto;
+        border-radius: 15px;
+        overflow: hidden;
+        // background-color: rebeccapurple;
+    }
+    
+    & .cont-table {
+        position: relative;
+        height: 90%;
+        overflow-y: overlay;
+    
+    }
+    
+    & .cont-table::-webkit-scrollbar-track {
+        background-color: transparent;
+        /*color de la barra de fondo*/
+    }
+    
+    & .cont-table::-webkit-scrollbar-thumb {
+        background-color: transparent;
+        /*color del manejador*/
+    }
+    
+    // .cont-table:hover::-webkit-scrollbar-thumb {
+    //     background-color: var(--dark-widget-03);
+    //     // transition: all 1s;
+    //     border-radius: 5px;
+    
+    // }
+    
+    & .cont-table::-webkit-scrollbar {
+        width: 3px;
+        display: none;
+        // height: 8px;
+    }
+    
+    
+    & table {
+        width: 100%;
+        height: 100%;
+        background-color: transparent !important;
+        // border-radius: 20px;
+    }
+    
+    & .cont-acction-buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    
+    }
+    
+    & .cont-paginator {
+        // background-color: rgb(213, 175, 255) !important;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        padding: 5px;
+    
+        & .cont-paginator-btns {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    
+        &>.paginator {
+            background-color: transparent;
+    
+        }
+    
+        //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
+        transition: all .2s ease;
+    
+        .cont-layout-home.dark & {
+            background-color: var(--dark-widget-03) !important;
+            // color: var(--text-color-darkmode-00);
+    
+            & * {
+    
+                color: #fff !important;
+            }
+    
+        }
+    
+        //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
+    }
+    
+    & .mat-form-field {
+        font-size: 14px;
+        width: 100%;
+    }
+    
+    & td,
+    th {
+        width: 25%;
+        font-family: 'Ubuntu', sans-serif !important;
+    }
+    
+    & th {
+        // background-color: var(--dark-widget-01) !important;
+        color: #000;
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background-color: var(--dark-widget-02) !important;
+        color: #fff;
+    
+        &:last-child{
+            // background-color: red;
+            text-align: center !important; 
+        }
+    
+        // &:nth-child(1){
+        //     background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(249,0,0,1) 57%, rgba(255,0,0,1) 100%);
+        // }
+        // &:last-child{
+        //     background: linear-gradient(270deg, rgba(0,0,0,0) 0%, rgba(249,0,0,1) 57%, rgba(255,0,0,1) 100%);
+        // }
+        //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
+        transition: all .2s ease;
+    
+       .cont-layout-home.dark & {
+            background-color: var(--dark-widget-00) !important;
+            // color: var(--text-color-darkmode-00);
+            color: var(--color-base-background-03);
+    
+        }
+    
+        //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
+    
+    }
+    
+    & td {
+        background: #fff;
+        //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
+        transition: all .2s ease;
+        
+        .cont-layout-home.dark & {
+            background-color: var(--dark-widget-01) !important;
+            // color: var(--text-color-darkmode-00);
+            color: #fff;
+    
+        }
+    
+        //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
+    }
+    
+    & td:nth-child(1) {
+        font-weight: 700;
+        // border-color: red;
+    }
+    
+    & .p-b {
+        /* 
+        *  DATO:
+        *- invert(1): Invierte los colores, lo que convierte los colores oscuros en colores claros y viceversa. Esto cambia el color de fondo del SVG.
+        *- sepia(1): Aplica un efecto sepia al SVG, lo que le da un tono marrón.
+        *- saturate(5): Aumenta la saturación del color. Puedes ajustar el valor para hacerlo más o menos saturado. => el color más desaturado (más apagado) o más saturado (más vivo)
+        *- hue-rotate(0deg): Rota el matiz del color. Puedes cambiar el valor para cambiar el color de manera específica.
+        ?0 grados representa el rojo, 120 grados representa el verde y 240 grados representa el azul, 
+        */
+        filter: invert(1) sepia(1) saturate(100) hue-rotate(262deg);
+    
+            //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
+            transition: all .2s ease;
+        
+            .cont-layout-home.dark & {
+                //* El valor 1 en grayscale significa que la imagen se convertirá completamente en blanco y negro.
+                filter: invert(1) grayscale(1);
+        
+            }
+        
+            //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
+    }
+    
+}
+
+
+
+@media screen and (max-width : 700px) {
+
+    .cont-paginator {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: center;
+
+        // padding: 5px 0px;
+        &>* {
+            width: 100%;
+            // background-color: #000;
+        }
+
+        & .paginator {
+            width: 100%;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
+
+/********************************************************************/
+//***************** END - ESTILOS - DE LA TABLA *********************/ 
+/********************************************************************/

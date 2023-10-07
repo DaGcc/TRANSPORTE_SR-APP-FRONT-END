@@ -1,6 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TableViewComponent } from '@shared/components/table-view/table-view.component';
 import { InputComponent } from '@shared/widgets/input/input.component';
 import { ClienteRepositoryImplService } from '@infraestructure/repositories/cliente/cliente-repository-impl.service';
 import { PageSpringBoot } from 'src/base/utils/page-spring-boot';
@@ -10,52 +9,61 @@ import { MatDialog } from '@angular/material/dialog';
 import { EstructuraDialogoConfirmacion } from '@shared/components/dialog-confirmacion/estructura-dialogo-confirmacion';
 import { DialogConfirmacionComponent } from '@shared/components/dialog-confirmacion/dialog-confirmacion.component';
 import { Overlay } from '@angular/cdk/overlay';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { MaterialModule } from 'src/app/_material/material.module';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'app-clientes',
   standalone: true,
   imports: [
     CommonModule,
-    TableViewComponent,
+    MaterialModule,
     InputComponent
   ],
   templateUrl: './clientes.component.html',
   styleUrls: ['./clientes.component.scss']
 })
-export class ClientesComponent {
+export class ClientesComponent implements OnInit{
 
 
   //************ Inyecciones de dependencia **+********
+  // appService = inject(AppService);
 
   dialog = inject(MatDialog);
   overlay = inject(Overlay);
-
 
   //************************************************ */
 
   //!-----------------------------------------------------
 
 
-  data: ClienteEntity[] = [];
-
   displayedColumns: string[] = ['idCliente', 'nombres', 'telefono', 'email', 'estado', 'acciones'];
+  dataSource!: MatTableDataSource<any>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
 
   constructor(public clienteService :ClienteRepositoryImplService ) {
+
+  }
+  ngOnInit(): void {
+    // this.appService.isLoad.next(true);
     this.clienteService.readByPage(0, 5).subscribe({
       next: (data: PageSpringBoot<ClienteEntity>) => {
-        this.data = data.content;
+        this.dataSource = new MatTableDataSource(data.content);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+        // this.appService.isLoad.next(false);
       }
     })
   }
 
-  get service(){
-    return this.clienteService;
-  }
-  
 
 
-
-  openDialogEdition(obj?: any, i: number = 1): void {
+  fnCreateOrUpdate(obj?: any, i: number = 1): void {
 
 
     if (obj != undefined || obj != null) {
@@ -75,14 +83,23 @@ export class ClientesComponent {
   }
 
   fnDelete(obj: ClienteEntity, deep: boolean) {
+    let body : string; 
+    let isEnableBtnConfir : boolean;
+    if(obj.estado){
+       body = deep ?
+       `¿Desea eliminar de manera permanente al cliente con id ${obj.idCliente}?` : //eliminacion total de la bbdd   
+       `¿Desea eliminar al cliente con id ${obj.idCliente}, pero conservando su información?`; //eliminacion con solo el estado
+       isEnableBtnConfir = true;
+    }else {
+      body = `No puede realizar dicha accion en este usuario debido a su estado del Cliente con id: ${obj.idCliente}.`;
+      isEnableBtnConfir = false;
+    }
                                                          
-    let body = deep ?
-     `¿Desea eliminar de manera permanente al cliente con id ${obj.idCliente}?` : //eliminacion total de la bbdd   
-     `¿Desea eliminar al cliente con id ${obj.idCliente}, pero conservando su información?`; //eliminacion con solo el estado
 
     let data: EstructuraDialogoConfirmacion = {
       header: `Delete`,
-      body
+      body,
+      isEnableBtnConfir 
     }
 
 
@@ -103,6 +120,28 @@ export class ClientesComponent {
         console.log('Ocurrio un error en el dialo de comfirmación.')
       }
     })
+  }
+
+
+  fnReloadData(){
+
+    this.clienteService.readByPage(0,5).subscribe({
+      next: (data: PageSpringBoot<ClienteEntity>) => {
+        this.dataSource = new MatTableDataSource(data.content);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator
+      }
+    })
+  }
+
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
 }

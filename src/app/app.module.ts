@@ -3,9 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 
-import { HttpClientModule } from '@angular/common/http'
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { InterceptorHttpService } from './shared/interceptor/interceptor-http.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -17,9 +20,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    MatProgressBarModule,
+    MatSnackBarModule
   ],
 
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorHttpService,
+      multi: true,
+    }
+    
   ],
   bootstrap: [AppComponent]
 })

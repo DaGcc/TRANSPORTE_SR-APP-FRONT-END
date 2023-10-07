@@ -17,8 +17,125 @@
 
         </section>
         <section class="cont-datasource">
-            <componente-table-view class="datasource" [displayedColumns]="displayedColumns" [data]="data" 
-                [fnCreateOrUpdate]="openDialogEdition" [fnDelete]="fnDelete" />
+
+            <div class="datasource">
+                <div class="cont-table-crud">
+
+                    <div class="body-cont-table">
+
+                        <!--* cont del filtro -->
+                        <div class="cont-filter">
+
+                            <div class="inputContainer ">
+                                <input required="required" class="inputField" placeholder="Filtro" type="text"
+                                    (keyup)="applyFilter($event)" #input>
+                                <label class="usernameLabel font">Filtro</label>
+                                <img class="userIcon" src="../../../../assets/imgs/icons/filter.svg">
+
+                            </div>
+                        </div>
+                        <!--* END - cont del filtro -->
+
+                        <!--* contenedor de la tabla y el paginador  -->
+                        <div class="cont-operations">
+
+                            <!--* contenedor de la tabla  -->
+                            <div class="cont-table" id="dvContTable">
+                                <!--* TABLA  -->
+                                <table mat-table [dataSource]="dataSource" matSort>
+
+                                    <!-- ['idCliente', 'nombres', 'telefono', 'email', 'estado', 'acciones']; -->
+                               
+                                    <!-- ID Column -->
+                                    <ng-container matColumnDef="idCliente">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                                        <td mat-cell *matCellDef="let row"> {{row.idCliente}} </td>
+                                    </ng-container>
+
+                                    <!-- Nombres Column -->
+                                    <ng-container matColumnDef="nombres">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombres </th>
+                                        <td mat-cell *matCellDef="let row"> {{row.nombres}} </td>
+                                    </ng-container>
+
+                                    <!-- Telefono Column -->
+                                    <ng-container matColumnDef="telefono">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Telefono </th>
+                                        <td mat-cell *matCellDef="let row"> {{row.telefono}} </td>
+                                    </ng-container>
+                                    <!-- Email Column -->
+                                    <ng-container matColumnDef="email">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                                        <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+                                    </ng-container>
+                                    <!-- Estado Column -->
+                                    <ng-container matColumnDef="estado">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+                                        <td mat-cell *matCellDef="let row"> {{row.estado}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="acciones">
+                                        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                                        <td mat-cell *matCellDef="let row">
+
+                                            <div class="cont-acction-buttons">
+                                                <button mat-icon-button color="primary"
+                                                    (click)="fnCreateOrUpdate( row )"><mat-icon>edit</mat-icon></button>
+                                                <button mat-icon-button color="warn"
+                                                    (click)="fnDelete( row, true )"><mat-icon>delete</mat-icon></button>
+                                                <button mat-icon-button color="accent"
+                                                    (click)="fnDelete( row, false )"><mat-icon>bookmark_remove</mat-icon></button>
+                                            </div>
+
+                                        </td>
+                                    </ng-container>
+
+
+
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                                    <!-- Row shown when there is no matching data. -->
+                                    <tr class="mat-row" *matNoDataRow style="width: 100% !important;">
+                                        <td class="mat-cell" colspan="4">No hay datos que coincidan con el filtro
+                                            "{{input.value}}"</td>
+                                    </tr>
+                                </table>
+                                <!--* END - TABLA -->
+                            </div>
+                            <!--* END - contenedor de la tabla  -->
+
+                            <!--* cont - paginador -->
+                            <div class="cont-paginator">
+
+                                <!--* cont de los botones  -->
+                                <div class="cont-paginator-btns">
+                                    <button mat-icon-button color="primary"><img class="p-b" style="color: red;"
+                                            src="../../../../assets/imgs/icons/file-pdf.png" alt=""></button>
+                                    <button mat-icon-button color="primary"
+                                        (click)="fnCreateOrUpdate()"><mat-icon>add</mat-icon></button>
+                                    <button mat-icon-button color="primary"
+                                        (click)="fnReloadData()"><mat-icon>cloud_sync</mat-icon></button>
+                                </div>
+                                <!--* END - cont de los botones  -->
+
+                                <div class="example-spacer "></div>
+
+                                <!--* paginador -->
+                                <mat-paginator class="paginator" [pageSizeOptions]="[5, 10, 25, 100]"
+                                    aria-label="Select page of users"></mat-paginator>
+                                <!--* END - paginador -->
+
+                            </div>
+                            <!--* END - cont - paginador -->
+
+                        </div>
+                        <!--* END - contenedor de la taba y el paginador -->
+
+                    </div>
+
+                </div>
+            </div>
         </section>
     </div>
 

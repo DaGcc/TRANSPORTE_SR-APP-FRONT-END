@@ -6,7 +6,7 @@
 
             <!--* titulo -->
             <div>
-                <mat-card-title class="title" *ngIf="data?.header; else headerEmpty ">{{ data.header }}</mat-card-title>
+                <mat-card-title class="title" *ngIf="data?.header; else headerEmpty ">{{ data.header | uppercase }}</mat-card-title>
                 <ng-template #headerEmpty>
                     <mat-card-title class="title">
                         Sin asunto
@@ -41,8 +41,8 @@
 
             <!--* contenedor de botones  -->
             <div class="btn-cont">
-                <button mat-button cdkFocusInitial (click)="cancelar()" color="warn">CANCELAR</button>
-                <button mat-button (click)="aceptar()" color="primary">CONFIRMAR</button>
+                <button mat-button cdkFocusInitial (click)="cancelar()" color="warn" >CANCELAR</button>
+                <button mat-button (click)="aceptar()" color="primary" *ngIf="data.isEnableBtnConfir">CONFIRMAR</button>
             </div>
             <!--* END - contenedor de botones  -->
         </mat-card-actions>
