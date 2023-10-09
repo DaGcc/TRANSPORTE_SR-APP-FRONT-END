@@ -1,8 +1,8 @@
 <section class="cont-edicion font">
 
     <section class="cont-header-edicion font">
-        <span>Titulo aqui</span>
-        <span>subtitulo aqui</span>
+        <span>{{data.title || ''}}</span>
+        <span>{{data.subtitle || '' }}</span>
     </section>
 
 
@@ -24,6 +24,7 @@
                             <input matInput formControlName="idCliente" required>
                         </mat-form-field>
                     </div>
+
                     <div class="container-mff " style="display: none;">
                         <mat-form-field>
                             <mat-label>ID Detalle CLiente</mat-label>
@@ -35,9 +36,9 @@
 
                         <div class="container-mff">
                             <mat-form-field>
-                                <mat-select placeholder="Tipo de cliente*" [(value)]="tipoClienteSeleccionado"
-                                    formControlName="tipoCliente" (selectionChange)="evaluarFormulario()">
-                                    <mat-option *ngFor="let tc of tiposCliente" [value]="tc">
+                                <mat-select placeholder="Tipo de cliente*" #optTipoCliete formControlName="tipoCliente"
+                                    (selectionChange)="evaluarFormulario(optTipoCliete.value)">
+                                    <mat-option *ngFor="let tc of tiposCliente" [value]="tc.idTipoCliente">
                                         {{tc.tipo}}
                                     </mat-option>
                                 </mat-select>
@@ -54,8 +55,6 @@
 
                     </div>
 
-
-
                     <div class="container-mff ">
                         <mat-form-field>
                             <mat-label>Nombres</mat-label>
@@ -63,8 +62,6 @@
                                 minlength="2">
                         </mat-form-field>
                     </div>
-
-
 
                     <div class="row-ipt">
                         <div class="container-mff">
@@ -99,14 +96,14 @@
                         </div>
 
                     </div>
+
                     <div class="row-ipt">
 
 
                         <div class="container-mff">
                             <mat-form-field>
                                 <!-- <mat-label for="sltEstatus">Estado</mat-label> -->
-                                <mat-select placeholder="Estado*" [(value)]="estadoSeleccionado"
-                                    formControlName="estado" id="sltEstatus">
+                                <mat-select placeholder="Estado*" formControlName="estado" id="sltEstatus">
                                     <mat-option *ngFor="let estado of estados" [value]="estado">
                                         {{estado}}
                                     </mat-option>
@@ -117,9 +114,8 @@
                         <div class="container-mff">
                             <mat-form-field>
                                 <!-- <mat-label>Genero</mat-label> -->
-                                <mat-select placeholder="Genero*" [(value)]="generoSeleccionado"
-                                    formControlName="genero">
-                                    <mat-option *ngFor="let genero of generos" [value]="genero">
+                                <mat-select placeholder="Genero*" formControlName="genero">
+                                    <mat-option *ngFor="let genero of generos" [value]="genero.idGenero">
                                         {{genero.tipo }}
                                     </mat-option>
                                 </mat-select>
@@ -140,12 +136,14 @@
                         <div class="container-mff">
                             <mat-form-field>
                                 <mat-label>Ingresa tu dni</mat-label>
-                                <input matInput placeholder="Ej. 88888888" formControlName="dni" required
-                                    minlength="8" maxlength="8">
+                                <input matInput placeholder="Ej. 88888888" formControlName="dni" required minlength="8"
+                                    maxlength="8">
                                 <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
                             </mat-form-field>
                         </div>
                     </div>
+
+
 
                 </form>
 
@@ -154,16 +152,21 @@
                         (click)="dialogRef.close()"><mat-icon>close</mat-icon>
                         CANCELAR </button>
                     <button mat-stroked-button type="button" color="primary" matStepperNext
+                        *ngIf="!hideSteepTwo; else btnListo"
                         [disabled]="frmGroupCliente.invalid"><mat-icon>chevron_right</mat-icon> SIGUIENTE </button>
-
+                    <ng-template #btnListo>
+                        <button mat-stroked-button type="button" color="primary" [disabled]="frmGroupCliente.invalid" (click)="operar(1)">
+                            <mat-icon>check</mat-icon>LISTO
+                        </button>
+                    </ng-template>
                 </div>
 
             </mat-step>
             <!--* END - PASO 1 -->
 
             <!--* PASO 2 -->
-            <mat-step [stepControl]="frmGruopCredencials" [editable]="true">
-                <form [formGroup]="frmGruopCredencials">
+            <mat-step [stepControl]="frmGruopCredencials" [editable]="true" *ngIf="!hideSteepTwo">
+                <form [formGroup]="frmGruopCredencials" (submit)="operar(2)">
                     <ng-template matStepLabel>Datos de la cuenta</ng-template>
 
                     <div class="container-mff">
@@ -203,7 +206,7 @@
                     <div class="cont-accion-edicion">
                         <button mat-stroked-button color="warn" type="button" matStepperPrevious>
                             <mat-icon>chevron_left</mat-icon> ATRAS </button>
-                        <button mat-stroked-button type="button" color="primary"
+                        <button mat-stroked-button type="submit" color="primary"
                             [disabled]="frmGroupCliente.invalid || frmGruopCredencials.invalid">
                             <mat-icon>check</mat-icon>CREAR
                         </button>

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, AfterViewInit } from '@angular/core';
 import { Observable, filter } from 'rxjs';
 import { PrimeNGConfig } from 'primeng/api';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -15,30 +15,39 @@ export class AppComponent implements OnInit {
 
 
   appService = inject(AppService);
-  isLoad : boolean = false;
+  isLoad: boolean = false;
 
-  constructor(private primengConfig: PrimeNGConfig, private breadcrumbService : BreadcrumbService,
-    
+  constructor(private primengConfig: PrimeNGConfig, private breadcrumbService: BreadcrumbService,
+
     private router: Router,
     private viewPortScroller: ViewportScroller
-    ) {}
+  ) {
 
-  ngOnInit() {
-      this.primengConfig.ripple = true;
-
-      this.router.events.pipe(
-        filter(event => event instanceof NavigationEnd))
-        .subscribe(() => this.viewPortScroller.scrollToPosition([0, 0]));
-
-
-      this.appService.isLoad.subscribe( d => this.isLoad = d);
   }
 
-  
+
+  ngOnInit() {
+    this.primengConfig.ripple = true;
+
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd))
+      .subscribe(() => this.viewPortScroller.scrollToPosition([0, 0]));
+
+    this.appService.isLoad.subscribe(d => {
+      // setTimeout(()=> {
+      //   console.log(d)
+      //   this.isLoad = d;
+      // }, 100) 
+      console.log(d)
+      this.isLoad = d;
+    });
+  }
+
+
   // time = new Observable<string>(observer => {
   //   setInterval(() => observer.next(new Date().toString()), 1000);
   // });
 
 
-  
+
 }

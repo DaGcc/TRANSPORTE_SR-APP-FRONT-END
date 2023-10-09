@@ -70,8 +70,8 @@
                                     </ng-container>
                                     <!-- Estado Column -->
                                     <ng-container matColumnDef="estado">
-                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
-                                        <td mat-cell *matCellDef="let row"> {{row.estado}} </td>
+                                        <th mat-header-cell *matHeaderCellDef id="estadoTh" > Estado </th>
+                                        <td mat-cell *matCellDef="let row" id="estadoTd" > <mat-icon style="text-align: center;" [ngStyle]="{color: row.estado? '#0f0':'#f00'}" >radio_button_unchecked</mat-icon> </td>
                                     </ng-container>
 
                                     <ng-container matColumnDef="acciones">

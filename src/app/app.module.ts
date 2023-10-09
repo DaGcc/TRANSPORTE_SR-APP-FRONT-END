@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { InterceptorHttpService } from './shared/interceptor/interceptor-http.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({

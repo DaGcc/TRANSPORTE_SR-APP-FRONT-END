@@ -1,0 +1,15 @@
+<div class="cont-loader" >
+
+    <div class="loader">
+        <div class="face">
+            <div class="circle"></div>
+        </div>
+        <div class="face">
+            <div class="circle"></div>
+        </div>
+    </div>
+    <div class="cont-text font" *ngIf="title || subtitle;">
+        <h3>{{title || ''}}</h3>
+        <span>{{subtitle || '' }}</span>
+    </div>
+</div>

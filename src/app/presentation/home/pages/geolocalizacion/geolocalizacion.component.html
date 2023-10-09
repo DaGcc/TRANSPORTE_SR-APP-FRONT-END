@@ -11,22 +11,8 @@
         </div> -->
         <!--   END - loading  -->
 
-        <div class="cont-loadeer" *ngIf="!isUserLocationReady; else mapReady">
 
-            <div class="loader">
-                <div class="face">
-                    <div class="circle"></div>
-                </div>
-                <div class="face">
-                    <div class="circle"></div>
-                </div>
-            </div>
-            <div class="cont-text font">
-                <h3>Espere por favor</h3>
-                <span>Localizando...</span>
-
-            </div>
-        </div>
+        <component-loader class="loding-map" *ngIf="!isUserLocationReady; else mapReady"  [title]="'Espere por favor'" [subtitle]="'localizando...'"></component-loader>
         
 
         <ng-template #mapReady>

@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { CommonModule, NgIf, NgStyle } from '@angular/common';
 import { InputComponent } from '@shared/widgets/input/input.component';
 import { ClienteRepositoryImplService } from '@infraestructure/repositories/cliente/cliente-repository-impl.service';
 import { PageSpringBoot } from 'src/base/utils/page-spring-boot';
@@ -13,29 +13,36 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MaterialModule } from 'src/app/_material/material.module';
-import { AppService } from 'src/app/app.service';
+import { IEntityEditionDialog } from '@shared/interfaces/IEntityEditionDialog';
 
 @Component({
   selector: 'app-clientes',
   standalone: true,
   imports: [
-    CommonModule,
+    NgIf,
+    NgStyle,
     MaterialModule,
     InputComponent
   ],
   templateUrl: './clientes.component.html',
   styleUrls: ['./clientes.component.scss']
 })
-export class ClientesComponent implements OnInit{
+export class ClientesComponent implements OnInit, OnDestroy{
 
 
   //************ Inyecciones de dependencia **+********
-  // appService = inject(AppService);
 
   dialog = inject(MatDialog);
   overlay = inject(Overlay);
 
   //************************************************ */
+
+
+  //************ Subscriptores ***********************/
+
+
+  //************************************************ */
+
 
   //!-----------------------------------------------------
 
@@ -46,38 +53,49 @@ export class ClientesComponent implements OnInit{
   @ViewChild(MatSort) sort!: MatSort;
 
 
-  constructor(public clienteService :ClienteRepositoryImplService ) {
-
-  }
+  constructor(public clienteService :ClienteRepositoryImplService ) { }
+  
+  
   ngOnInit(): void {
-    // this.appService.isLoad.next(true);
+    
+    this.clienteService.clientesCambio.subscribe({
+      next : (data :  PageSpringBoot<ClienteEntity>) => {
+        console.log(data)
+        this.dataSource = new MatTableDataSource(data.content);
+      }
+    })
+
     this.clienteService.readByPage(0, 5).subscribe({
       next: (data: PageSpringBoot<ClienteEntity>) => {
         this.dataSource = new MatTableDataSource(data.content);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        // this.appService.isLoad.next(false);
       }
     })
+    
+  }
+  ngOnDestroy(): void {
+
   }
 
 
 
-  fnCreateOrUpdate(obj?: any, i: number = 1): void {
+  fnCreateOrUpdate(obj?: ClienteEntity): void {
 
+    let data : IEntityEditionDialog<ClienteEntity>;
 
     if (obj != undefined || obj != null) {
       //*EDICION
-
+      data = {title : 'EDICION', subtitle: `ID DEL CLIENTE : ${obj.idCliente}`, body : obj }
     } else {
       //*CREACION
-
+      data = {title : 'CREACION', subtitle: 'Formulario para crear a un nuevo cliente' }
     }
 
     this.dialog.open(ClienteEdicionComponent, {
       scrollStrategy: this.overlay.scrollStrategies.noop(),
       disableClose: true,
-      // width: '250px',
+      data
     });
 
   }
@@ -124,12 +142,11 @@ export class ClientesComponent implements OnInit{
 
 
   fnReloadData(){
-
     this.clienteService.readByPage(0,5).subscribe({
       next: (data: PageSpringBoot<ClienteEntity>) => {
         this.dataSource = new MatTableDataSource(data.content);
         this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator
+        this.dataSource.paginator = this.paginator;
       }
     })
   }

@@ -18,7 +18,7 @@ export class HomeLayoutComponent implements OnInit {
     this.screenWidth = window.innerWidth;
     this.screenHeight = window.innerHeight;
 
-    console.log(this.darkModeService.isDarkMode())
+   // console.log(this.darkModeService.isDarkMode())
   } 
 
 
