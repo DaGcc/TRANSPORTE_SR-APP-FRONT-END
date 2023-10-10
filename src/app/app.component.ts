@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
       //   console.log(d)
       //   this.isLoad = d;
       // }, 100) 
-      console.log(d)
+      // console.log(d)
       this.isLoad = d;
     });
   }

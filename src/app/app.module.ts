@@ -9,8 +9,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { InterceptorHttpService } from './shared/interceptor/interceptor-http.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { CommonModule } from '@angular/common';
+import { environment } from './environments/environments';
+import { JwtModule } from '@auth0/angular-jwt';
 
+export function tokenGetter() {
+  let tk = sessionStorage.getItem(environment.TOKEN_NAME);
+  console.log(tk)
+  let token=tk!=null?tk : '';
+  return token;
+}
 
 @NgModule({
   declarations: [
@@ -22,7 +29,20 @@ import { CommonModule } from '@angular/common';
     AppRoutingModule,
     HttpClientModule,
     MatProgressBarModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+
+
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:8080"],
+        disallowedRoutes: [
+          // "http://localhost:8080/oauth/token"
+        ],
+      },
+    }),
+
+
   ],
 
   providers: [
@@ -31,7 +51,7 @@ import { CommonModule } from '@angular/common';
       useClass: InterceptorHttpService,
       multi: true,
     }
-    
+
   ],
   bootstrap: [AppComponent]
 })

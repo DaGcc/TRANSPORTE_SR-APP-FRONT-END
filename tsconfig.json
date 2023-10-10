@@ -4,10 +4,13 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "@dominio/*" : ["src/app/dominio/*"],
       "@infraestructure/*": ["src/app/infraestructure/*"],
+      "@base/*":["src/base/*"],
       "@auth/*" :["src/app/presentation/auth/*"],
       "@home/*" :["src/app/presentation/home/*"],
-      "@shared/*": ["src/app/shared/*"]
+      "@shared/*": ["src/app/shared/*"],
+      "@environments/*": ["src/app/environments/*"]
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

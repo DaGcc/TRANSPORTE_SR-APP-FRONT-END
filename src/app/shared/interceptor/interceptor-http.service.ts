@@ -42,10 +42,9 @@ export class InterceptorHttpService implements HttpInterceptor {
                 */
                 if (event instanceof HttpResponse) {
 
-                    console.log('http response')
                     //*!Efecto visual que manda a cargar el progres bar, sirve para activarlo
                     this.appService.isLoad.next(true);//!empieza la solicitud.
-
+                    
 
                     //*evaluamos si esa instancia contiene algun error en la respuesta http
                     if (event.body && event.body.error === true && event.body.errorMessage) {
@@ -88,11 +87,11 @@ export class InterceptorHttpService implements HttpInterceptor {
 
                 //https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
                 if (err.status === 400) {//? error de fallo de parte del usuario
-                    this.snackBar.open(err.mensaje, 'ERROR 400', { duration: 5000 });
+                    this.snackBar.open(err.mensaje || err.error.error_description, 'ERROR 400', { duration: 5000 });
                 }
                 else if (err.status === 401) {//? error de falta de credenciales 
                     //console.log(err.message);
-                    this.snackBar.open(err.mensaje, 'ERROR 401', { duration: 5000 });
+                    this.snackBar.open(err.error.error_description, 'ERROR 401', { duration: 5000 });
                     //!Falta implementar que vamos a limpiar en el session storage, esto para no perder el darkmode
                     //? sessionStorage.clear();
                     this.router.navigate(['/auth/login']);
