@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   standalone: true,
@@ -18,7 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class ResponseUnauthorizedComponent  implements OnInit {
 
-  constructor(private router: Router, private snackBar: MatSnackBar) { }
+  constructor(private router: Router, private snackBar: MatSnackBar,private appService :AppService) { }
 
   ngOnInit(): void {
     window.scroll(0,0);
@@ -27,12 +28,15 @@ export class ResponseUnauthorizedComponent  implements OnInit {
 
   navegar() {
 
+    this.appService.isLoad.next(true);
     this.snackBar.open('Redirigiendo a la pagina de login', 'AVISO', {
-      duration: 1750,
+      duration: 1000,
       panelClass: 'custom-snackbar',
     })
     setTimeout(() => {
       this.router.navigate(['/auth/login'])
-    }, 700)
+      this.appService.isLoad.next(false);
+
+    }, 1000)
   }
 }

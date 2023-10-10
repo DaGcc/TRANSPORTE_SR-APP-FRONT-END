@@ -30,8 +30,7 @@ export function tokenGetter() {
     HttpClientModule,
     MatProgressBarModule,
     MatSnackBarModule,
-
-
+    
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

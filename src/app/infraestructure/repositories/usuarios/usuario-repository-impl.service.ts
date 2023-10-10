@@ -8,6 +8,7 @@ import { UsuarioModel } from './models/usuario.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/app/environments/environments';
 import { JwtOauth } from 'src/base/utils/jwt-oauth';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class UsuarioRepositoryImplService extends UsuarioRepository {
   url: string = `${environment.host}/usuarios`;
   urlAuth: string = `${environment.host}/oauth/token`;
   
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient, private router :Router) { 
     super();
   }
 
@@ -60,8 +61,16 @@ export class UsuarioRepositoryImplService extends UsuarioRepository {
         .set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
         .set('Authorization', 'Basic ' + btoa(environment.TOKEN_AUTH_USERNAME + ':' + environment.TOKEN_AUTH_PASSWORD))
     });
-    
   }
 
+
+  isLogged(){
+    return !!sessionStorage.getItem(environment.TOKEN_NAME)
+  }
+
+  signOut(route : string){
+    sessionStorage.removeItem(environment.TOKEN_NAME);
+    this.router.navigate([`${route}`]);
+  }
   
 }

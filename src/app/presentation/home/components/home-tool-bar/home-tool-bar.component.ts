@@ -1,8 +1,9 @@
 
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { SidenavService } from '../../services/sidenav.service';
 import { DarkModeService } from '@shared/widgets/switch-dark-mode/dark-mode.service';
+import { UsuarioRepositoryImplService } from '@infraestructure/repositories/usuarios/usuario-repository-impl.service';
 
 @Component({
   selector: 'component-home-tool-bar',
@@ -12,6 +13,10 @@ import { DarkModeService } from '@shared/widgets/switch-dark-mode/dark-mode.serv
 export class HomeToolBarComponent {
   
 
+
+  //****************INYECCIONES DE DEPENDENCIA *****************/
+  usuarioService  = inject(UsuarioRepositoryImplService)
+  //************************************************************/
 
 
   // isHandset$ :  Observable<boolean> ;
@@ -30,6 +35,11 @@ export class HomeToolBarComponent {
     // this.sidenavService.sdCambio.set(true);
   }
 
+
+
+  get isLogged(){
+    return this.usuarioService.isLogged();
+  }
 
   
 }

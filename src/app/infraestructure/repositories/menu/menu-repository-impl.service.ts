@@ -4,7 +4,7 @@ import { PageSpringBoot } from '@base/utils/page-spring-boot';
 import { MenuEntity } from '@dominio/entities/menu.entity';
 import { MenuRepository } from '@dominio/repositories/menu.repository';
 import { environment } from '@environments/environments';
-import { EMPTY, Observable, map } from 'rxjs';
+import { EMPTY, Observable, Subject, map } from 'rxjs';
 import { MenuModel } from './models/menu.model';
 import { MenuMapperImpl } from './mappers/menu.mapper';
 
@@ -16,7 +16,10 @@ export class MenuRepositoryImplService extends MenuRepository {
 
   menuMapper : MenuMapperImpl = new MenuMapperImpl();
 
+  
   url: string = `${environment.host}/menus`;
+
+  menuCambio$ = new Subject<MenuEntity[]>();
 
   constructor(private http: HttpClient) { 
     super();
