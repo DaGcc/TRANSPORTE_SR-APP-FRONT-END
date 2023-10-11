@@ -25,11 +25,14 @@
         </ul>
     </section>
     <!--* END - seccion del logo y titulo  -->
+    
 
     <span class="example-spacer"></span>
 
 
+    <!--* Toggle para el cambio de modo -->
     <widget-switch-dark-mode style="margin-right: 7px; transform: scale(0.7);"></widget-switch-dark-mode>
+    <!--* END - Toggle para el cambio de modo -->
 
     
     <!--* seccion derecha de acciones  -->
@@ -46,7 +49,7 @@
                     </button>
                 </li>
                 <li>
-                    <button mat-button color="warn">
+                    <button mat-button color="warn" (click)="singOut()">
                         <mat-icon style="color: #f90e59;">logout</mat-icon>
                         <span>Cerrar session</span>
                     </button>
@@ -54,6 +57,8 @@
             </ng-container>
             
 
+            <!--* no funciona debido a que nuestra app siempre requerira un logeo -->
+            <!--! pero lo dejamos, por si algun dia se require ver la pagina de inicio sin logearse -->
             <ng-template #sinLogin>
                 <li>
                     <button mat-button  color="warn" routerLink="/auth/login">

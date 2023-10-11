@@ -7,6 +7,7 @@ import { MenuRepositoryImplService } from "@infraestructure/repositories/menu/me
 import { UsuarioRepositoryImplService } from "@infraestructure/repositories/usuarios/usuario-repository-impl.service";
 import { MenuEntity } from '@dominio/entities/menu.entity';
 import { map } from "rxjs";
+import { ResponseUnauthorizedComponent } from "@shared/components/web/response-unauthorized/response-unauthorized.component";
 
 export const guardFn: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
 
@@ -33,7 +34,8 @@ export const guardFn: CanActivateFn = (route: ActivatedRouteSnapshot, state: Rou
 
 
             return menuService.findAllUserMenuByRolWithEmail(decodedToken.email).pipe(map((menus: MenuEntity[]) => {
-                menuService.menuCambio$.next(menus);
+                // console.log({...menus})
+                menuService.menus = menus;
                 let bd: boolean = false;
                 for (let menu of menus) {
                     if (menu.url.length > 0 && menu.url !== './') {
@@ -59,6 +61,10 @@ export const guardFn: CanActivateFn = (route: ActivatedRouteSnapshot, state: Rou
 
         } else {
             usuarioService.signOut('unauthorized-401');
+            snackBar.openFromComponent(ResponseUnauthorizedComponent,{//?????????
+                data: "Hola",
+                duration: 5000
+            })
         }
 
         return true;

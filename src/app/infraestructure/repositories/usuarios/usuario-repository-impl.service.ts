@@ -21,7 +21,35 @@ export class UsuarioRepositoryImplService extends UsuarioRepository {
 
   url: string = `${environment.host}/usuarios`;
   urlAuth: string = `${environment.host}/oauth/token`;
+
+
   
+  // ********************************************************************************************************
+  //* ESTE METODO ES : Compartir Datos a través de un Servicio Común - necesita get y set
+  //* Pues al ser un service provide in root, este es singleton
+  //* es decir, que todo los componentes que inyecten a este servicio, accederan a la misma instancia del service: 
+  
+  private emailUserSingle : string | undefined;
+  private UserRoleSingle : string[] | string | undefined;
+
+  set email( usuarioEntity : string) {
+    this.emailUserSingle = usuarioEntity;
+  }
+
+  get email(): string | undefined{
+    return this.emailUserSingle;
+  }
+
+  set userRole( UserRoleSingle : string | string[] | undefined ) {
+    this.UserRoleSingle = UserRoleSingle;
+  }
+
+  get userRole(): string | string[] | undefined{
+    return this.UserRoleSingle;
+  }
+  //************************** END -  Compartir Datos a través de un Servicio Común ******************** */
+
+
   constructor(private http: HttpClient, private router :Router) { 
     super();
   }
@@ -74,3 +102,15 @@ export class UsuarioRepositoryImplService extends UsuarioRepository {
   }
   
 }
+
+
+
+/** 
+ * ? DATO?:
+ ** Si tu modulo de carga de forma peresoza, puedes optar por el metodo de "Compartir Datos a través de un Servicio Común"
+ ** esto, si tu modulo a que tiene un componente que adquiere valores, lo quiere pasar a otro componente de otro modulo que recien se va a cargar(lazy)
+ *
+ * ! ------ Contra parte -------
+ * 
+ ** Pero usa Subject o BehaviorSubject, si los compoentes que se van a intercambiar info estan en el mismo modulo y ya cargados.
+ */

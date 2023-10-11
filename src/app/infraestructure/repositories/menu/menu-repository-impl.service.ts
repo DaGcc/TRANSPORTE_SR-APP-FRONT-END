@@ -21,6 +21,24 @@ export class MenuRepositoryImplService extends MenuRepository {
 
   menuCambio$ = new Subject<MenuEntity[]>();
 
+
+  // ********************************************************************************************************
+  //* ESTE METODO ES : Compartir Datos a través de un Servicio Común - necesita get y set
+  //* Pues al ser un service provide in root, este es singleton
+  //* es decir, que todo los componentes que inyecten a este servicio, accederan a la misma instancia del service: 
+  private menuCambio: MenuEntity[] = [];
+
+  set menus(menus: MenuEntity[]) {
+    this.menuCambio = menus;
+  }
+
+  get menus(): MenuEntity[] {
+    return this.menuCambio;
+  }
+  //************************** END -  Compartir Datos a través de un Servicio Común ******************** */
+
+
+
   constructor(private http: HttpClient) { 
     super();
   }
@@ -52,3 +70,13 @@ export class MenuRepositoryImplService extends MenuRepository {
   }
 
 }
+
+/** 
+ * ? DATO?:
+ ** Si tu modulo de carga de forma peresoza, puedes optar por el metodo de "Compartir Datos a través de un Servicio Común"
+ ** esto, si tu modulo a que tiene un componente que adquiere valores, lo quiere pasar a otro componente de otro modulo que recien se va a cargar(lazy)
+ *
+ * ! ------ Contra parte -------
+ * 
+ ** Pero usa Subject o BehaviorSubject, si los compoentes que se van a intercambiar info estan en el mismo modulo y ya cargados.
+ */

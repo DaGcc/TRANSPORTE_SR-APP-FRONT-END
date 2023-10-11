@@ -11,7 +11,8 @@ const routes: Routes = [
       {
         path: 'inicio',
         loadComponent : () => import('./pages/inicio/inicio.component').then( m => m.InicioComponent ),
-        data: { titulo:'Inicio', url: "/page/inicio",icon: 'home_app_logo'  }
+        data: { titulo:'Inicio', url: "/page/inicio",icon: 'home_app_logo'  },
+        canActivate : [guardFn]
       },
       {
         path: 'geolocalizacion',

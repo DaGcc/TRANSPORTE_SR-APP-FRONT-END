@@ -18,8 +18,8 @@
         </div>
 
         <div class="cont-info font">
-          <span class="animate__animated animate__fadeInDown">Daniel Gutierrez</span>
-          <span class="animate__animated animate__fadeInDown">gutierrezcallazacadaniel@gmail.com</span>
+          <span class="animate__animated animate__fadeInDown">{{emailUser}}</span>
+          <span class="animate__animated animate__fadeInDown">{{roles}}</span>
         </div>
 
       </section>
@@ -31,13 +31,15 @@
       <section class=" cont-menu-list">
         <ul>
 
-          <li>
-            <button mat-flat-button routerLink="/page/inicio" [routerLinkActive]="'active'" class="font">
-              <mat-icon >home</mat-icon>
-              <span>Inicio</span>
+          <li *ngFor="let m of menus" >
+            <button mat-flat-button [routerLink]="m.url" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact : true}" class="font">
+              <mat-icon >{{m.icon}}</mat-icon>
+              <span>{{m.nombre}}</span>
             </button>
           </li>
-          <li>
+
+
+          <!-- <li>
             <button mat-flat-button class="font">
               <mat-icon >fact_check</mat-icon>
               <span>Gestion de facturas</span>
@@ -84,7 +86,7 @@
               <mat-icon>calendar_month</mat-icon>
               <span>Gestion de actividades</span>
             </button>
-          </li>
+          </li> -->
 
         </ul>
       </section>
@@ -107,7 +109,8 @@
 
     <!--* screens  -->
     <div class="cont-router">
-      <router-outlet  (activate)="onActivate($event)"></router-outlet>
+      <!-- (activate)="onActivate($event)" -->
+      <router-outlet  ></router-outlet>
     </div>
     <!--* END - screens  -->
 

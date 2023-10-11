@@ -13,11 +13,11 @@ import { UsuarioRepositoryImplService } from '@infraestructure/repositories/usua
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
- 
+
 
   //************* Inyecciones de dependencia *****************/
 
-  usuarioService  = inject(UsuarioRepositoryImplService)
+  usuarioService = inject(UsuarioRepositoryImplService)
   menuService = inject(MenuRepositoryImplService)
   router = inject(Router)
 
@@ -30,21 +30,21 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
-      email : new FormControl(undefined, [Validators.email, Validators.required]),
-      "password" : new FormControl(undefined, Validators.required)
+      email: new FormControl(undefined, [Validators.email, Validators.required]),
+      "password": new FormControl(undefined, Validators.required)
     })
   }
 
 
-  acceder(){
+  acceder() {
     //TODO: inicio de session
 
-    this.usuarioService.login(this.formGroup.value.email,this.formGroup.value.password).subscribe({
-      next: (data : JwtOauth) => {
+    this.usuarioService.login(this.formGroup.value.email, this.formGroup.value.password).subscribe({
+      next: (data: JwtOauth) => {
         // console.log(data.access_token)
 
         const helper = new JwtHelperService();//*creamos una instancia del JwtHelperService, que es propio de la libreria auth0/angular-jwt
-        
+
         sessionStorage.setItem(environment.TOKEN_NAME, data.access_token);//*guardamos en el session estorage el token que vino como respuesta
 
         /**
@@ -52,18 +52,21 @@ export class LoginComponent implements OnInit {
          ** Ademas de que podemos ver si expiro o no.
          */
         let decodedToken = helper.decodeToken(data.access_token);
+        this.usuarioService.email = decodedToken.email;
+        this.usuarioService.userRole = decodedToken.authorities;
 
-        console.log(decodedToken);
+        // console.log(decodedToken);
 
+        //* Listamos los menus del usuario con tal email, ademas de que se evaluara su ROL
         this.menuService.findAllUserMenuByRolWithEmail(decodedToken.user_name).subscribe({
-          next : (data:MenuEntity[]) => {
-            console.log(data)
-            
+          next: (data: MenuEntity[]) => {
+            // this.menuService.menuCambio$.next(data);//!no funciona al ser una app lazy loading, y que el componente que se subcribe se carga de forma lazy
+            this.menuService.menus = data; //*seteamos la data
             this.router.navigate(['/page/inicio'])
           }
-        });     
+        });
       }
     })
-    
+
   }
 }
