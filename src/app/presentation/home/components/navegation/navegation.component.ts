@@ -91,4 +91,10 @@ export class NavegationComponent implements OnInit {
   //   //or document.querySelector('body').scrollTo(0,0)
   // }
 
+
+  singOut(){
+    return this.usuarioService.signOut('/auth/login');
+  }
+  
+
 }

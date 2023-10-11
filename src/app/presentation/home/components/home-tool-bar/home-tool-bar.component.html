@@ -43,7 +43,7 @@
 
             <ng-container *ngIf="isLogged; else sinLogin">
                 <li>
-                    <button mat-button color="warn" routerLink="/inicio">
+                    <button mat-button color="warn" routerLink="/page/perfil" [routerLinkActive]="'active'">
                         <mat-icon style="color: #f90e59;">person</mat-icon>
                         <span>Mi perfil</span>
                     </button>

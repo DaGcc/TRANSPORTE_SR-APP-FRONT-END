@@ -39,6 +39,13 @@ const routes: Routes = [
         canActivate : [guardFn]
       }, 
       {
+        path: 'perfil',
+        loadComponent: () => import('./pages/perfil-user/perfil-user.component').then( m => m.PerfilUserComponent ),
+        data : { titulo:'Perfil usuario', url: "/page/perfil",icon: null },
+        canActivate : [guardFn]
+      }, 
+
+      {
         path:'',
         redirectTo: 'inicio',
         pathMatch: 'full'

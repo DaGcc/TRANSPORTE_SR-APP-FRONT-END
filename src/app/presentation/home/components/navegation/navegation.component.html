@@ -11,6 +11,22 @@
       <!--* pefil info -->
       <section class="cont-perfil-info">
 
+        <div class="cont-btn-menus ">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" color="warn" style="color: var(--color-button-02);">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item  (click)="getScreenWidth<=pixelResponsive? drawer.close() : '' " routerLink="/page/perfil" >
+              <mat-icon  style="color: var(--color-button-02);">person</mat-icon>
+              <span class="font">Mi perfil</span>
+            </button>
+            <button mat-menu-item (click)="singOut()">
+              <mat-icon  style="color: var(--color-button-02);" >logout</mat-icon>
+              <span  class="font">Cerra session</span>
+            </button>
+          </mat-menu>
+        </div>
+
         <div class="animate__animated animate__zoomIn animate__faster cont-img">
 
           <img src="../../../../assets/imgs/perfil/sad.png" alt="">
@@ -32,7 +48,7 @@
         <ul>
 
           <li *ngFor="let m of menus" >
-            <button mat-flat-button [routerLink]="m.url" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact : true}" class="font">
+            <button *ngIf="m.url!=='/page/perfil'" mat-flat-button (click)="getScreenWidth<=pixelResponsive? drawer.close() : '' " [routerLink]="m.url" [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact : true}" class="font">
               <mat-icon >{{m.icon}}</mat-icon>
               <span>{{m.nombre}}</span>
             </button>

@@ -29,23 +29,23 @@ export class UsuarioRepositoryImplService extends UsuarioRepository {
   //* Pues al ser un service provide in root, este es singleton
   //* es decir, que todo los componentes que inyecten a este servicio, accederan a la misma instancia del service: 
   
-  private emailUserSingle : string | undefined;
-  private UserRoleSingle : string[] | string | undefined;
+  // private emailUserSingle : string | undefined;
+  // private UserRoleSingle : string[] | string | undefined;
 
   set email( usuarioEntity : string) {
-    this.emailUserSingle = usuarioEntity;
+    sessionStorage.setItem(environment.EMAIL_USER,usuarioEntity);
   }
 
   get email(): string | undefined{
-    return this.emailUserSingle;
+    return sessionStorage.getItem(environment.EMAIL_USER)?.toString();
   }
 
   set userRole( UserRoleSingle : string | string[] | undefined ) {
-    this.UserRoleSingle = UserRoleSingle;
+    sessionStorage.setItem(environment.ROLE_USER, JSON.stringify(UserRoleSingle));
   }
 
   get userRole(): string | string[] | undefined{
-    return this.UserRoleSingle;
+    return JSON.parse(sessionStorage.getItem(environment.ROLE_USER)!);
   }
   //************************** END -  Compartir Datos a través de un Servicio Común ******************** */
 

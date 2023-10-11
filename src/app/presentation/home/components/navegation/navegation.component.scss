@@ -49,6 +49,7 @@
 }
 
 .cont-perfil-info {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,6 +58,13 @@
   background-color: transparent;
   box-shadow: none;
   // padding: 15px;
+}
+
+.cont-btn-menus{
+  position: absolute;
+  top:0;
+  left: 0;
+  
 }
 
 .cont-img {
@@ -332,4 +340,10 @@
   width: 5px;
   /*ancho del scroll vertical*/
   // height: 10px; /*alto del scroll horizontal*/
+}
+
+@media screen and (max-width: 900px) {
+  .cont-sidenav-list{
+    padding: 10px 16px;
+  }
 }

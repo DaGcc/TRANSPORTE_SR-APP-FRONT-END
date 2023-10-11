@@ -9,6 +9,8 @@ export const environment = {
     TOKEN_NAME: 'jwt',
     TOKEN_AUTH_USERNAME: 'tr',
     TOKEN_AUTH_PASSWORD: '12345',
+    EMAIL_USER: 'emailUser',
+    ROLE_USER: 'roleUser', 
     apiKey: 'pk.eyJ1IjoiZGEtZ2NjIiwiYSI6ImNsa2gxcjZkZDAxeTMzbW1rdHAzaTN6dzcifQ.YWTQ2ULP8rLCiz-Wn7bm8g'
   };
   
