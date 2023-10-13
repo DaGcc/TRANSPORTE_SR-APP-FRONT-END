@@ -122,8 +122,8 @@
                                 <div class="example-spacer "></div>
 
                                 <!--* paginador -->
-                                <mat-paginator class="paginator" [pageSizeOptions]="[5, 10, 25, 100]"
-                                    aria-label="Select page of users"></mat-paginator>
+                                <mat-paginator class="paginator" [pageSizeOptions]="[1, 5, 10, 25, 100]"
+                                    aria-label="Select page of users" [length]="cantidad" (page)="nextPage($event)" ></mat-paginator>
                                 <!--* END - paginador -->
 
                             </div>

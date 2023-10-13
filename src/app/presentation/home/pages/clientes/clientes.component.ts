@@ -9,11 +9,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { EstructuraDialogoConfirmacion } from '@shared/components/dialog-confirmacion/estructura-dialogo-confirmacion';
 import { DialogConfirmacionComponent } from '@shared/components/dialog-confirmacion/dialog-confirmacion.component';
 import { Overlay } from '@angular/cdk/overlay';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MaterialModule } from 'src/app/_material/material.module';
 import { IEntityEditionDialog } from '@shared/interfaces/IEntityEditionDialog';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-clientes',
@@ -27,7 +28,7 @@ import { IEntityEditionDialog } from '@shared/interfaces/IEntityEditionDialog';
   templateUrl: './clientes.component.html',
   styleUrls: ['./clientes.component.scss']
 })
-export class ClientesComponent implements OnInit, OnDestroy{
+export class ClientesComponent implements OnInit, OnDestroy {
 
 
   //************ Inyecciones de dependencia **+********
@@ -37,12 +38,20 @@ export class ClientesComponent implements OnInit, OnDestroy{
 
   //************************************************ */
 
+  //!-----------------------------------------------------
 
-  //************ Subscriptores ***********************/
 
-
+  //***** para la aplicacion de servicio paginado *****
+  cantidad: number = 0;
+  pageSize: number = 1;
+  pageIndex: number = 0;
   //************************************************ */
 
+  //!-----------------------------------------------------
+
+  //***************** Subscriptores ******************/
+  subcriptorReadClientesByPage$! : Subscription;
+  //************************************************ */
 
   //!-----------------------------------------------------
 
@@ -53,43 +62,82 @@ export class ClientesComponent implements OnInit, OnDestroy{
   @ViewChild(MatSort) sort!: MatSort;
 
 
-  constructor(public clienteService :ClienteRepositoryImplService ) { }
-  
-  
+  //*inyeccion de dependencia via constructor
+  constructor(private clienteService: ClienteRepositoryImplService) { }
+
+
   ngOnInit(): void {
-    
+
+    /** 
+     ** Este solo se ejecutara si y solo si por algun lado le dan un .next al subject clientesCambio 
+    */
     this.clienteService.clientesCambio.subscribe({
-      next : (data :  PageSpringBoot<ClienteEntity>) => {
-        console.log(data)
+      next: (data: PageSpringBoot<ClienteEntity>) => {
+        // console.log(data)
         this.dataSource = new MatTableDataSource(data.content);
+        this.dataSource.sort = this.sort;
+        this.cantidad = data.totalElements;//* nos sirve para darle un tamaño al paginator.
+        //! ya no seteamos el "this.dataSource.paginator = this.paginator;", pues se resetearia sus valores de pagina
       }
     })
-
-    this.clienteService.readByPage(0, 5).subscribe({
+    
+    /** 1
+     ** Solicitara a al repositorio un llamado a lo establecido, con  el número pagina establecida y un tamaño
+     ** esto, es debido a que estamos consumiendo de manera paginada.
+     ** Por otro lado, dicha subcricion se la damos a una variable de tipo Subscription para que le haga referencia, pues es una buena practica 
+     ** para evitar perdidas o fugas de memoria.
+     */
+     this.subcriptorReadClientesByPage$ = this.clienteService.readByPage(this.pageIndex,this.pageSize).subscribe({
       next: (data: PageSpringBoot<ClienteEntity>) => {
+
+        //* seteamos la cantidad de elementos que tiene la respuesta, pero no el contenido, pues ese depende de el tamaño de la pagina.
+        //* nos sirve para darle un tamaño al paginator.
+        this.cantidad = data.totalElements; 
+
         this.dataSource = new MatTableDataSource(data.content);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
     })
-    
-  }
-  ngOnDestroy(): void {
 
+    if(this.subcriptorReadClientesByPage$){
+      console.log(true)
+    }else{
+      console.log(false)
+    }
+    console.log(this.subcriptorReadClientesByPage$);
+
+  }
+
+  /**
+   ** Funcion que se ejecuta cada vez que interactuemos con el paginator.
+   ** Nos sirve para hacer la siguiente peticion para la siguiente pagina, pues su parametro,
+   ** nos da la pagina actual(page index) y el tamaño para la pagina, entre otros.
+   * @param e 
+   */
+  nextPage( e : PageEvent){
+    // this.cantidad = e.length;
+    this.pageIndex = e.pageIndex;
+    this.pageSize = e.pageSize;
+    this.clienteService.readByPage(this.pageIndex,this.pageSize).subscribe({
+      next : (data: PageSpringBoot<ClienteEntity>)  => {
+        this.clienteService.clientesCambio.next(data)
+      }
+    });
   }
 
 
 
   fnCreateOrUpdate(obj?: ClienteEntity): void {
 
-    let data : IEntityEditionDialog<ClienteEntity>;
+    let data: IEntityEditionDialog<ClienteEntity>;
 
     if (obj != undefined || obj != null) {
       //*EDICION
-      data = {title : 'EDICION', subtitle: `ID DEL CLIENTE : ${obj.idCliente}`, body : obj }
+      data = { title: 'EDICION', subtitle: `ID DEL CLIENTE : ${obj.idCliente}`, body: obj }
     } else {
       //*CREACION
-      data = {title : 'CREACION', subtitle: 'Formulario para crear a un nuevo cliente' }
+      data = { title: 'CREACION', subtitle: 'Formulario para crear a un nuevo cliente' }
     }
 
     console.log(data)
@@ -102,23 +150,23 @@ export class ClientesComponent implements OnInit, OnDestroy{
   }
 
   fnDelete(obj: ClienteEntity, deep: boolean) {
-    let body : string; 
-    let isEnableBtnConfir : boolean;
-    if(obj.estado){
-       body = deep ?
-       `¿Desea eliminar de manera permanente al cliente con id ${obj.idCliente}?` : //eliminacion total de la bbdd   
-       `¿Desea eliminar al cliente con id ${obj.idCliente}, pero conservando su información?`; //eliminacion con solo el estado
-       isEnableBtnConfir = true;
-    }else {
+    let body: string;
+    let isEnableBtnConfir: boolean;
+    if (obj.estado) {
+      body = deep ?
+        `¿Desea eliminar de manera permanente al cliente con id ${obj.idCliente}?` : //eliminacion total de la bbdd   
+        `¿Desea eliminar al cliente con id ${obj.idCliente}, pero conservando su información?`; //eliminacion con solo el estado
+      isEnableBtnConfir = true;
+    } else {
       body = `No puede realizar dicha accion en este usuario debido a su estado del Cliente con id: ${obj.idCliente}.`;
       isEnableBtnConfir = false;
     }
-                                                         
+
 
     let data: EstructuraDialogoConfirmacion = {
       header: `Delete`,
       body,
-      isEnableBtnConfir 
+      isEnableBtnConfir
     }
 
 
@@ -131,7 +179,7 @@ export class ClientesComponent implements OnInit, OnDestroy{
       next: (confirmationResult: boolean) => {
         if (confirmationResult) {
           this.clienteService!.deleteById(obj.idCliente, deep).subscribe(console.log)
-        }else{
+        } else {
 
         }
       },
@@ -142,12 +190,10 @@ export class ClientesComponent implements OnInit, OnDestroy{
   }
 
 
-  fnReloadData(){
-    this.clienteService.readByPage(0,5).subscribe({
+  fnReloadData() {
+    this.clienteService.readByPage(this.pageIndex, this.pageSize).subscribe({
       next: (data: PageSpringBoot<ClienteEntity>) => {
-        this.dataSource = new MatTableDataSource(data.content);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.clienteService.clientesCambio.next(data);
       }
     })
   }
@@ -161,6 +207,20 @@ export class ClientesComponent implements OnInit, OnDestroy{
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+
+
+
+  ngOnDestroy(): void {
+
+    //* Validamos si el subcriptor tiene alguna subscripcion para poder darse de baja.
+    if(this.subcriptorReadClientesByPage$){
+      this.subcriptorReadClientesByPage$.unsubscribe();
+      console.log((this.subcriptorReadClientesByPage$))
+    }
+
+
   }
 
 }
