@@ -11,7 +11,7 @@ export interface ClienteEntity {
     email:          string;
     estado:         boolean;
     tipoCliente:    TipoClienteEntity;
-    detalleCliente: DetalleClienteEntity;
+    detalleCliente?: DetalleClienteEntity;
 }
 
 

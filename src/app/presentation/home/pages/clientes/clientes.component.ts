@@ -92,6 +92,7 @@ export class ClientesComponent implements OnInit, OnDestroy{
       data = {title : 'CREACION', subtitle: 'Formulario para crear a un nuevo cliente' }
     }
 
+    console.log(data)
     this.dialog.open(ClienteEdicionComponent, {
       scrollStrategy: this.overlay.scrollStrategies.noop(),
       disableClose: true,
@@ -153,6 +154,7 @@ export class ClientesComponent implements OnInit, OnDestroy{
 
 
   applyFilter(event: Event) {
+    console.log(event)
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 

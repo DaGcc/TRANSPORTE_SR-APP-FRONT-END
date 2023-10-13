@@ -11,7 +11,7 @@ export interface ClienteModel {
     email:          string;
     estado:         boolean;
     tipoCliente:    TipoClienteModel;
-    detalleCliente: DetalleClienteModel;
+    detalleCliente?: DetalleClienteModel;
 }
 
 

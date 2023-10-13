@@ -58,7 +58,7 @@
                     <div class="container-mff ">
                         <mat-form-field>
                             <mat-label>Nombres</mat-label>
-                            <input matInput placeholder="pat@example.com" formControlName="nombres" required
+                            <input matInput placeholder="Ej. Mia Mai" formControlName="nombres" required
                                 minlength="2">
                         </mat-form-field>
                     </div>
@@ -67,21 +67,21 @@
                         <div class="container-mff">
                             <mat-form-field>
                                 <mat-label>Apellido paterno</mat-label>
-                                <input matInput placeholder="pat@example.com" formControlName="apellidoPaterno"
+                                <input matInput placeholder="apellido paterno" formControlName="apellidoPaterno"
                                     required>
                             </mat-form-field>
                         </div>
                         <div class="container-mff">
                             <mat-form-field>
                                 <mat-label>Apellido materno</mat-label>
-                                <input matInput placeholder="pat@example.com" formControlName="apellidoMaterno"
+                                <input matInput placeholder="apellido materno" formControlName="apellidoMaterno"
                                     required>
                             </mat-form-field>
                         </div>
                         <div class="container-mff">
                             <mat-form-field>
                                 <mat-label>Edad</mat-label>
-                                <input matInput placeholder="pat@example.com" formControlName="edad" type="number"
+                                <input matInput placeholder="Ej. 18" formControlName="edad" type="number"
                                     required>
                             </mat-form-field>
                         </div>
@@ -89,8 +89,8 @@
                         <div class="container-mff">
                             <mat-form-field>
                                 <mat-label>Número de celular</mat-label>
-                                <input matInput #iptTelefono placeholder="pat@example.com" formControlName="telefono"
-                                    required minlength="9" maxlength="9" min="900000000" max="999999999" type="number">
+                                <input matInput #iptTelefono type="number" placeholder="pat@example.com" formControlName="telefono"
+                                    required min="900000000" max="999999999" (input)="limitarLongitud($event)">
                                 <mat-hint align="end">{{iptTelefono.value.length}}/9</mat-hint>
                             </mat-form-field>
                         </div>

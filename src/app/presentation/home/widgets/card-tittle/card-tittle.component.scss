@@ -18,6 +18,12 @@
     overflow: hidden;
     // cursor: pointer;
     user-select: none;
+    background-image: url(../../../../../assets/gifts/api.gif);
+    background-position:center;
+    background-size: 100%;
+    background-attachment: fixed;
+    background-position: center;
+    // background-size: 100%;
 }
 
 .card::before,
@@ -32,7 +38,7 @@
     font-size: 25px;
     font-weight: bold;
     // background-color: #ffffff;
-    background: radial-gradient(circle at 30% 107%, #969fff 0%, #b349ff 90%);
+    // background: radial-gradient(circle at 30% 107%, #969fff 0%, #b349ff 90%);
     // background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #ff53d4 60%, #62c2fe 90%);
     // background: radial-gradient(circle at 100% 107%, #ff89cc 0%, #9cb8ec 30%, #00ffee 60%, #62c2fe 100%);
 
