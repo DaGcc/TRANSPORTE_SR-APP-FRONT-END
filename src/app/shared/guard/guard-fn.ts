@@ -7,7 +7,9 @@ import { MenuRepositoryImplService } from "@infraestructure/repositories/menu/me
 import { UsuarioRepositoryImplService } from "@infraestructure/repositories/usuarios/usuario-repository-impl.service";
 import { MenuEntity } from '@dominio/entities/menu.entity';
 import { map } from "rxjs";
-import { ResponseUnauthorizedComponent } from "@shared/components/web/response-unauthorized/response-unauthorized.component";
+import { AppService } from "src/app/app.service";
+
+
 
 export const guardFn: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
 
@@ -15,7 +17,8 @@ export const guardFn: CanActivateFn = (route: ActivatedRouteSnapshot, state: Rou
     const usuarioService = inject(UsuarioRepositoryImplService)
     const menuService = inject(MenuRepositoryImplService)
     const snackBar = inject(MatSnackBar);
-    const router = inject(Router)
+    const router = inject(Router);
+    const appService = inject(AppService)
     //***********************************************************
 
     const helper = new JwtHelperService();
@@ -60,25 +63,46 @@ export const guardFn: CanActivateFn = (route: ActivatedRouteSnapshot, state: Rou
             }))
 
         } else {
-            usuarioService.signOut('unauthorized-401');
-            snackBar.openFromComponent(ResponseUnauthorizedComponent,{//?????????
-                data: "Hola",
-                duration: 5000
+
+            //!!!!!!!!!!!!!!!!! critico
+            const sb = snackBar.open('SU SESSION HA EXPIRADO', 'Uuuy..!', {
+                announcementMessage: 'Redirigiendo a ',
+                duration: 1000,
+                verticalPosition: "top",
             })
+
+            sb.afterDismissed().subscribe((_) => {
+                usuarioService.signOut('unauthorized-401');//* Metodo del repositorio/servicio usuario que borra el token del sessionStorage()
+            })
+           
         }
 
         return true;
     } else { //* si no esta logeado  => no existe un toke en el session storage
 
-        snackBar.open('NO SE ENCUENTRA AUTENTICADO', 'Uuuy..!', {
-            duration: 2000
+        //!!!!!!!!!!!!!!!!! critico
+        appService.isLoad.next(true);
+        const sb = snackBar.open('NO SE ENCUENTRA AUTENTICADO', 'Uuuy..!', {
+            duration: 1000,
+            verticalPosition: "top"
         })
 
-        setTimeout(() => {
-            router.navigate(['unauthorized-401']);//mandar a login o tener un template de 401 Unauthorized=>carecer de credenciales
-        }, 500)
+        sb.afterDismissed().subscribe((_) => {
+            appService.isLoad.next(false);
+            router.navigate(['unauthorized-401']);
+        })
+
+
+        // snackBar.open('NO SE ENCUENTRA AUTENTICADO', 'Uuuy..!', {
+        //     duration: 1000,
+        //     verticalPosition: "top",
+        // })
+        // router.navigate(['unauthorized-401']);
+        // setTimeout(() => {
+        //     router.navigate(['unauthorized-401']);
+        // }, 500)
 
         return false;
-    }
 
+    }
 }

@@ -1,5 +1,7 @@
 export interface IEntityEditionDialog<E>{
     title?: string
     subtitle?: string
-    body?: E 
+    body?: E
+    pageIndex? : number
+    pageSize? : number
 }

@@ -14,7 +14,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MaterialModule } from 'src/app/_material/material.module';
 import { IEntityEditionDialog } from '@shared/interfaces/IEntityEditionDialog';
-import { Subscription } from 'rxjs';
+import { Subscription, mergeMap } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-clientes',
@@ -63,7 +64,7 @@ export class ClientesComponent implements OnInit, OnDestroy {
 
 
   //*inyeccion de dependencia via constructor
-  constructor(private clienteService: ClienteRepositoryImplService) { }
+  constructor(private clienteService: ClienteRepositoryImplService, private _snackBar : MatSnackBar) { }
 
 
   ngOnInit(): void {
@@ -139,6 +140,8 @@ export class ClientesComponent implements OnInit, OnDestroy {
       //*CREACION
       data = { title: 'CREACION', subtitle: 'Formulario para crear a un nuevo cliente' }
     }
+    data.pageIndex = this.pageIndex;
+    data.pageSize = this.pageSize;
 
     console.log(data)
     this.dialog.open(ClienteEdicionComponent, {
@@ -152,12 +155,17 @@ export class ClientesComponent implements OnInit, OnDestroy {
   fnDelete(obj: ClienteEntity, deep: boolean) {
     let body: string;
     let isEnableBtnConfir: boolean;
+    //* si el estado es true, podemos cambiarlo(ocultarlo) 
     if (obj.estado) {
-      body = deep ?
-        `¿Desea eliminar de manera permanente al cliente con id ${obj.idCliente}?` : //eliminacion total de la bbdd   
-        `¿Desea eliminar al cliente con id ${obj.idCliente}, pero conservando su información?`; //eliminacion con solo el estado
+      //* habilitamos el boton de confirmación, pues su estado aun es true.
       isEnableBtnConfir = true;
-    } else {
+
+      //* Si deep es true, es una eliminacion profunda, es decir, una eliminacion total de la base de datos
+      body = deep ? 
+        `¿Desea eliminar de manera permanente al cliente con id ${obj.idCliente}?` : //* eliminacion total de la bbdd   
+        `¿Desea eliminar al cliente con id ${obj.idCliente}, pero conservando su información?`; //* eliminacion con solo el estado
+
+    } else {//* si estado es false, es decir que ya ha sido eliminado, pero no con deep, deshabilitaremos la funcion del boton confirmar
       body = `No puede realizar dicha accion en este usuario debido a su estado del Cliente con id: ${obj.idCliente}.`;
       isEnableBtnConfir = false;
     }
@@ -178,9 +186,17 @@ export class ClientesComponent implements OnInit, OnDestroy {
     result.afterClosed().subscribe({
       next: (confirmationResult: boolean) => {
         if (confirmationResult) {
-          this.clienteService!.deleteById(obj.idCliente, deep).subscribe(console.log)
+          this.clienteService!.deleteById(obj.idCliente, deep).pipe(mergeMap(()=>{
+            return this.clienteService.readByPage(this.pageIndex,this.pageSize);
+          })).subscribe({
+            next : (data : PageSpringBoot<ClienteEntity>) => {
+              this.clienteService.clientesCambio.next(data);
+            }
+          })
         } else {
-
+          this._snackBar.open('Ningun cambio por realizar','OK',{
+            duration: 2000
+          })
         }
       },
       error: () => {
@@ -211,7 +227,7 @@ export class ClientesComponent implements OnInit, OnDestroy {
 
 
 
-
+  //* BUENAS PRACTICAS
   ngOnDestroy(): void {
 
     //* Validamos si el subcriptor tiene alguna subscripcion para poder darse de baja.

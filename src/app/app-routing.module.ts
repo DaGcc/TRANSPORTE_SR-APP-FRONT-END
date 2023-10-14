@@ -1,6 +1,8 @@
 import { Routes, RouterModule } from '@angular/router';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { ResponseNotFoundComponent } from './shared/components/web/response-not-found/response-not-found.component';
+import { ResponseForbiddenComponent } from '@shared/components/web/response-forbidden/response-forbidden.component';
+import { ResponseUnauthorizedComponent } from '@shared/components/web/response-unauthorized/response-unauthorized.component';
 
 const routes: Routes = [
 
@@ -21,11 +23,13 @@ const routes: Routes = [
   },
   {
     path:'forbidden-403',
+    // component: ResponseForbiddenComponent,
     loadComponent : () => import('src/app/shared/components/web/response-forbidden/response-forbidden.component').then( m => m.ResponseForbiddenComponent ),
     data: { titulo:'Forbidden-403', url: ""  }
   },
   {
     path:'unauthorized-401',
+    // component: ResponseUnauthorizedComponent,
     loadComponent : () => import('src/app/shared/components/web/response-unauthorized/response-unauthorized.component').then( m => m.ResponseUnauthorizedComponent ),
     data: { titulo:'Unauthorized-401', url: ""  }
   },

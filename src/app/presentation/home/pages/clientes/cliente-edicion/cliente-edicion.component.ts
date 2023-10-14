@@ -56,7 +56,7 @@ export class ClienteEdicionComponent implements OnInit {
 
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: IEntityEditionDialog<ClienteEntity>, public clienteService: ClienteRepositoryImplService,
-  private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
 
@@ -69,7 +69,7 @@ export class ClienteEdicionComponent implements OnInit {
       'apellidoPaterno': new FormControl(undefined, Validators.required),
       'apellidoMaterno': new FormControl(undefined, Validators.required),
       'edad': new FormControl(undefined, Validators.required),
-      'telefono': new FormControl(undefined, [Validators.required, Validators.min(900000000), Validators.max(999999999),Validators.pattern("^[0-9]{9}$")]),
+      'telefono': new FormControl(undefined, [Validators.required, Validators.min(900000000), Validators.max(999999999), Validators.pattern("^[0-9]{9}$")]),
       'email': new FormControl(undefined, [Validators.required, Validators.email]),
       'dni': new FormControl(undefined, [Validators.required, Validators.minLength(8), Validators.maxLength(8)]),
       'estado': new FormControl(undefined, Validators.required),
@@ -204,7 +204,6 @@ export class ClienteEdicionComponent implements OnInit {
         idTipoCliente: this.frmGroupCliente.get('tipoCliente')?.value as number,//*debemos acceder asi al valor de ese campo(formControl | control) desabilitado de un formulario 
         tipo: ''
       },
-
       estado: this.frmGroupCliente.value['estado']
     }
 
@@ -225,42 +224,46 @@ export class ClienteEdicionComponent implements OnInit {
       }
     }
 
-
     if (formularioNumber == 1) {//*si se envia desde el formulario 1, quiere decir que es un update.
 
-      console.log(clienteBody)
-
-      const  o = this.snackBar.open('Editando','OK')
+      const o = this.snackBar.open('Editando...', 'OK')
 
       this.clienteService.update(clienteBody.idCliente, clienteBody).pipe(switchMap((_) => {
         // console.log(data)
-        return this.clienteService.readByPage(0, 5);
+        return this.clienteService.readByPage(this.data.pageIndex || 0, this.data.pageSize || 5);
       })).subscribe({
         next: (rsp: PageSpringBoot<ClienteEntity>) => {
           this.clienteService.clientesCambio.next(rsp);
-          setTimeout(()=> {
+          setTimeout(() => {
             o.dismiss()
             this.dialogRef.close()
-          },1000)
+          }, 1000)
         }
       })
 
-    } else if (formularioNumber == 2) { //*aqui es con credenciales, por ende, se completa los dos pasos del formulario, que equivale a la creacion del usuario.
+    } else if (formularioNumber == 2) {//*aqui es con credenciales, por ende, se completa los dos pasos del formulario, que equivale a la creacion del usuario.
 
-      console.log(clienteBody)
+      const o = this.snackBar.open('Creando...', 'OK')
 
       this.clienteService.create(clienteBody).pipe(switchMap(() => {
-        return this.clienteService.readByPage(0, 5);
+        return this.clienteService.readByPage(this.data.pageIndex || 0, this.data.pageSize || 5);;
       })).subscribe({
         next: (rsp: PageSpringBoot<ClienteEntity>) => {
           this.clienteService.clientesCambio.next(rsp);
-          this.dialogRef.close()
+          setTimeout(() => {
+            o.dismiss()
+            this.dialogRef.close()
+          }, 1000)
         }
       })
 
     }
   }
 
+
+  eliminacionDetalleCliente(){
+    
+  }
 
 
   limitarLongitud(event: any): void {
