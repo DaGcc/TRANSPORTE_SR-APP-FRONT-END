@@ -11,7 +11,7 @@ export class ClienteMapperImpl extends Mapper< ClienteModel, ClienteEntity > {
         return {
             idCliente:      param.idCliente,
             ruc:            param.ruc,
-            nombres:        param.nombres,
+            nombres:        param.nombre,
             telefono:       param.telefono,
             email:          param.email,
             estado:         param.estado,
@@ -25,7 +25,7 @@ export class ClienteMapperImpl extends Mapper< ClienteModel, ClienteEntity > {
         return {
             idCliente:      param.idCliente,
             ruc:            param.ruc,
-            nombres:        param.nombres,
+            nombre:        param.nombres,
             telefono:       param.telefono,
             email:          param.email,
             estado:         param.estado,

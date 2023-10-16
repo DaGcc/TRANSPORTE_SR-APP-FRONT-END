@@ -64,7 +64,7 @@ export class ClientesComponent implements OnInit, OnDestroy {
 
 
   //*inyeccion de dependencia via constructor
-  constructor(private clienteService: ClienteRepositoryImplService, private _snackBar : MatSnackBar) { }
+  constructor(private _clienteService: ClienteRepositoryImplService, private _snackBar : MatSnackBar) { }
 
 
   ngOnInit(): void {
@@ -72,7 +72,7 @@ export class ClientesComponent implements OnInit, OnDestroy {
     /** 
      ** Este solo se ejecutara si y solo si por algun lado le dan un .next al subject clientesCambio 
     */
-    this.clienteService.clientesCambio.subscribe({
+    this._clienteService.clientesCambio.subscribe({
       next: (data: PageSpringBoot<ClienteEntity>) => {
         // console.log(data)
         this.dataSource = new MatTableDataSource(data.content);
@@ -88,7 +88,7 @@ export class ClientesComponent implements OnInit, OnDestroy {
      ** Por otro lado, dicha subcricion se la damos a una variable de tipo Subscription para que le haga referencia, pues es una buena practica 
      ** para evitar perdidas o fugas de memoria.
      */
-     this.subcriptorReadClientesByPage$ = this.clienteService.readByPage(this.pageIndex,this.pageSize).subscribe({
+     this.subcriptorReadClientesByPage$ = this._clienteService.readByPage(this.pageIndex,this.pageSize).subscribe({
       next: (data: PageSpringBoot<ClienteEntity>) => {
 
         //* seteamos la cantidad de elementos que tiene la respuesta, pero no el contenido, pues ese depende de el tamaño de la pagina.
@@ -120,9 +120,9 @@ export class ClientesComponent implements OnInit, OnDestroy {
     // this.cantidad = e.length;
     this.pageIndex = e.pageIndex;
     this.pageSize = e.pageSize;
-    this.clienteService.readByPage(this.pageIndex,this.pageSize).subscribe({
+    this._clienteService.readByPage(this.pageIndex,this.pageSize).subscribe({
       next : (data: PageSpringBoot<ClienteEntity>)  => {
-        this.clienteService.clientesCambio.next(data)
+        this._clienteService.clientesCambio.next(data)
       }
     });
   }
@@ -170,13 +170,11 @@ export class ClientesComponent implements OnInit, OnDestroy {
       isEnableBtnConfir = false;
     }
 
-
     let data: EstructuraDialogoConfirmacion = {
       header: `Delete`,
       body,
       isEnableBtnConfir
     }
-
 
     const result = this.dialog.open(DialogConfirmacionComponent, {
       scrollStrategy: this.overlay.scrollStrategies.noop(),
@@ -186,11 +184,11 @@ export class ClientesComponent implements OnInit, OnDestroy {
     result.afterClosed().subscribe({
       next: (confirmationResult: boolean) => {
         if (confirmationResult) {
-          this.clienteService!.deleteById(obj.idCliente, deep).pipe(mergeMap(()=>{
-            return this.clienteService.readByPage(this.pageIndex,this.pageSize);
+          this._clienteService!.deleteById(obj.idCliente, deep).pipe(mergeMap(()=>{
+            return this._clienteService.readByPage(this.pageIndex,this.pageSize);
           })).subscribe({
             next : (data : PageSpringBoot<ClienteEntity>) => {
-              this.clienteService.clientesCambio.next(data);
+              this._clienteService.clientesCambio.next(data);
             }
           })
         } else {
@@ -207,9 +205,10 @@ export class ClientesComponent implements OnInit, OnDestroy {
 
 
   fnReloadData() {
-    this.clienteService.readByPage(this.pageIndex, this.pageSize).subscribe({
+    this._clienteService.readByPage(this.pageIndex, this.pageSize).subscribe({
       next: (data: PageSpringBoot<ClienteEntity>) => {
-        this.clienteService.clientesCambio.next(data);
+        this._enableFilterPaginator = false;
+        this._clienteService.clientesCambio.next(data);
       }
     })
   }
@@ -226,6 +225,41 @@ export class ClientesComponent implements OnInit, OnDestroy {
   }
 
 
+  private debounceFilter? : NodeJS.Timeout
+  private _enableFilterPaginator : boolean  = false
+  valorDeFiltro : string = '';
+  get isEnableFilterPaginator() : boolean{
+    return this._enableFilterPaginator;
+  }
+
+  filtroPorCampo( e : string){
+    this.debounceFilter ? clearTimeout(this.debounceFilter) : '';
+    
+    this.debounceFilter = setTimeout(()=> {
+      if(e.trim() == ''){
+        this._snackBar.open('No se filtrara espacios en blanco','AVISO',{
+          duration: 1300
+        })
+      }else{ 
+        this.valorDeFiltro = e;
+        this._enableFilterPaginator = true;
+        this._clienteService.filtroClientes(0,this.pageSize, this.valorDeFiltro).subscribe(d => {
+          this.cantidad = d.totalElements;
+          this.dataSource = new MatTableDataSource<ClienteEntity>(d.content);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        })
+      }
+    },600)
+  }
+  nextPageFiltro(e : PageEvent){
+    this._clienteService.filtroClientes(e.pageIndex, e.pageSize, this.valorDeFiltro).subscribe(d => {
+      // this.cantidad = d.totalElements;
+      this.dataSource = new MatTableDataSource<ClienteEntity>(d.content);
+      this.dataSource.sort = this.sort;
+    })
+  }
+
 
   //* BUENAS PRACTICAS
   ngOnDestroy(): void {
@@ -235,8 +269,6 @@ export class ClientesComponent implements OnInit, OnDestroy {
       this.subcriptorReadClientesByPage$.unsubscribe();
       console.log((this.subcriptorReadClientesByPage$))
     }
-
-
   }
 
 }

@@ -2,6 +2,7 @@ import { Observable } from "rxjs";
 import { ClienteEntity } from "../entities/cliente.entity";
 import { PageSpringBoot } from "src/base/utils/page-spring-boot";
 import { commonRepository } from "./_common.repository";
+import { PageFiltroDTO } from "@base/utils/page-dto";
 
 export abstract class ClienteRepository extends commonRepository<ClienteEntity>{
 
@@ -10,5 +11,6 @@ export abstract class ClienteRepository extends commonRepository<ClienteEntity>{
     // abstract readByPage(pageNumber: number, size: number): Observable<PageSpringBoot<ClienteEntity>>;
     // abstract update(id: number, cliente : ClienteEntity): Observable<ClienteEntity>;
     // abstract deleteById(id: number, deep?: boolean): Observable<void>;
-
+    
+    abstract filtroClientes(pageIndex : number,pageSize : number , value : string) : Observable<PageFiltroDTO<ClienteEntity>>
 }

@@ -61,7 +61,7 @@ export class MenuRepositoryImplService extends MenuRepository {
 
   override findAllUserMenuByRolWithEmail(email : string) : Observable<MenuEntity[]>{
     return this.http.get<MenuModel[]>(`${this.url}/usuario/${email}`).pipe(map( (response: MenuModel[]) => {
-      console.log(response)
+      // console.log(response)
       let e :  MenuEntity[] = response.map( m => {
         return this.menuMapper.mapFrom({...m});//... para que no haga referencia al mismo objeto del array
       })

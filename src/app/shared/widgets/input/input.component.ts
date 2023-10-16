@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -18,4 +18,16 @@ export class InputComponent {
 
   @Input()
   type : string| 'number' | 'text' = 'text'
+
+  @Output()
+  valor : EventEmitter<string> = new EventEmitter();
+
+
+
+  keyupFn( e : Event){
+    const element = e.target as HTMLInputElement;
+    this.valor.emit(element.value);
+  }
+
+
 }

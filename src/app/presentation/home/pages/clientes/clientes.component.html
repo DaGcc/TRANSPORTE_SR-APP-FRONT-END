@@ -5,13 +5,16 @@
 
             <div class="cont-ipts">
 
-                <widget-input [label]="'nombres'" [placeholder]="'nombres'" class="w-ipt"></widget-input>
-                <widget-input [label]="'apellido paterno'" [placeholder]="'apellido paterno'"
-                    class="w-ipt"></widget-input>
-                <widget-input [label]="'apellido materno'" [placeholder]="'apellido materno'"
-                    class="w-ipt"></widget-input>
-                <widget-input [label]="'dni'" [placeholder]="'DNI'" [type]="'number'" class="w-ipt"></widget-input>
-                <widget-input [label]="'RUC'" [placeholder]="'RUC'" [type]="'number'" class="w-ipt"></widget-input>
+                <widget-input [label]="'nombres'" [placeholder]="'nombres'" class="w-ipt"
+                    (valor)="filtroPorCampo($event)" />
+                <widget-input [label]="'apellido paterno'" [placeholder]="'apellido paterno'" class="w-ipt"
+                    (valor)="filtroPorCampo($event)" />
+                <widget-input [label]="'apellido materno'" [placeholder]="'apellido materno'" class="w-ipt"
+                    (valor)="filtroPorCampo($event)" />
+                <widget-input [label]="'dni'" [placeholder]="'DNI'" [type]="'number'" class="w-ipt"
+                    (valor)="filtroPorCampo($event)"></widget-input>
+                <widget-input [label]="'RUC'" [placeholder]="'RUC'" [type]="'number'" class="w-ipt"
+                    (valor)="filtroPorCampo($event)"></widget-input>
 
             </div>
 
@@ -45,7 +48,7 @@
                                 <table mat-table [dataSource]="dataSource" matSort>
 
                                     <!-- ['idCliente', 'nombres', 'telefono', 'email', 'estado', 'acciones']; -->
-                               
+
                                     <!-- ID Column -->
                                     <ng-container matColumnDef="idCliente">
                                         <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
@@ -70,8 +73,11 @@
                                     </ng-container>
                                     <!-- Estado Column -->
                                     <ng-container matColumnDef="estado">
-                                        <th mat-header-cell *matHeaderCellDef id="estadoTh" > Estado </th>
-                                        <td mat-cell *matCellDef="let row" id="estadoTd" > <mat-icon style="text-align: center;" [ngStyle]="{color: row.estado? '#0f0':'#f00'}" >radio_button_unchecked</mat-icon> </td>
+                                        <th mat-header-cell *matHeaderCellDef id="estadoTh"> Estado </th>
+                                        <td mat-cell *matCellDef="let row" id="estadoTd"> <mat-icon
+                                                style="text-align: center;"
+                                                [ngStyle]="{color: row.estado? '#0f0':'#f00'}">radio_button_unchecked</mat-icon>
+                                        </td>
                                     </ng-container>
 
                                     <ng-container matColumnDef="acciones">
@@ -121,10 +127,19 @@
 
                                 <div class="example-spacer "></div>
 
-                                <!--* paginador -->
-                                <mat-paginator class="paginator" [pageSizeOptions]="[1, 5, 10, 25, 100]"
-                                    aria-label="Select page of users" [length]="cantidad" (page)="nextPage($event)" ></mat-paginator>
-                                <!--* END - paginador -->
+                                <!--* paginador - MAIN -->
+                                <mat-paginator *ngIf="!isEnableFilterPaginator; else paginatorFilter" class="paginator"
+                                    [pageSizeOptions]="[1, 5, 10, 25, 100]" aria-label="Select page of users"
+                                    [length]="cantidad" (page)="nextPage($event)"></mat-paginator>
+                                <!--* END - paginador MAIN -->
+
+                                <ng-template #paginatorFilter>
+                                    <!--* paginador - FILTER -->
+                                    <mat-paginator class="paginator" [pageSizeOptions]="[1, 5, 10, 25, 100]"
+                                        aria-label="Select page of users" [length]="cantidad"
+                                        (page)="nextPageFiltro($event)"></mat-paginator>
+                                    <!--* END - paginador FILTER -->
+                                </ng-template>
 
                             </div>
                             <!--* END - cont - paginador -->

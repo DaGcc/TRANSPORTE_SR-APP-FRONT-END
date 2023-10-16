@@ -45,6 +45,8 @@ export class NavegationComponent implements OnInit {
   emailUser : string  | undefined;
   roles : string | string[] | undefined;
 
+  genero : 'M' | 'F' = 'M'
+
   // public ish$! : Observable<boolean>; 
 
 

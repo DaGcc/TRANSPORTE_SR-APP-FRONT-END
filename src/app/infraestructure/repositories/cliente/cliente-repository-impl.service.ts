@@ -7,11 +7,13 @@ import { environment } from 'src/app/environments/environments';
 import { ClienteMapperImpl } from './mappers/cliente.mapper';
 import { ClienteModel } from './models/cliente.model';
 import { PageSpringBoot } from 'src/base/utils/page-spring-boot';
+import { PageFiltroDTO } from '@base/utils/page-dto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClienteRepositoryImplService extends ClienteRepository {
+
 
 
   clienteMapper = new ClienteMapperImpl();
@@ -40,18 +42,22 @@ export class ClienteRepositoryImplService extends ClienteRepository {
   override readByPage(pageNumber: number, size: number): Observable<PageSpringBoot<ClienteEntity>> {
     return this.http.get<PageSpringBoot<ClienteModel>>(`${this.url}/paginado?page=${pageNumber}&size=${size}&sort=idCliente,desc`).pipe(map(d => {
 
-      let pe: PageSpringBoot<ClienteEntity> = d;
-      pe.content.map(m => {
-        return this.clienteMapper.mapFrom(m);
-      })//!! puede estar mal --- observacion
+      //??destructuracion AND "..." propagación 
+      let { content, ...otherProperties } = d;
 
+      let pe: PageSpringBoot<ClienteEntity> = { 
+        content : d.content.map(m => {
+          return this.clienteMapper.mapFrom(m);
+        }),
+        ...otherProperties
+      };
       return pe;
     }))
   }
 
-  override update(id: number, cliente : ClienteEntity): Observable<ClienteEntity> {
+  override update(id: number, cliente: ClienteEntity): Observable<ClienteEntity> {
     let clienteModel = this.clienteMapper.mapTo(cliente)
-    return this.http.put<ClienteModel>(`${this.url}/${id}`,clienteModel,{
+    return this.http.put<ClienteModel>(`${this.url}/${id}`, clienteModel, {
     }).pipe(map(c => {
       return this.clienteMapper.mapFrom(c)
     }))
@@ -59,6 +65,22 @@ export class ClienteRepositoryImplService extends ClienteRepository {
 
   override deleteById(id: number, deep?: boolean | undefined): Observable<void> {
     return this.http.delete<void>(`${this.url}/detach/${id}?deep=${deep}`);
+  }
+
+
+  override filtroClientes(pageIndex: number, pageSize: number, value: string): Observable<PageFiltroDTO<ClienteEntity>> {
+    return this.http.get<PageFiltroDTO<ClienteModel>>(`${this.url}/filtro?pageIndex=${pageIndex}&pageSize=${pageSize}&value=${value}`)
+      .pipe(map( d => {
+        const pe : PageFiltroDTO<ClienteEntity> = {
+          firstPage : d.firstPage,
+          lastPage : d.lastPage,
+          totalElements : d.totalElements,
+          content : d.content.map( m => {
+            return this.clienteMapper.mapFrom(m);
+          })
+        };
+        return pe;
+      }))
   }
 
 }

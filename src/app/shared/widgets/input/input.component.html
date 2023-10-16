@@ -1,5 +1,5 @@
 <div class="inputContainer ">
-    <input required="required" class="inputField"  [placeholder]="placeholder" [type]="type" >
+    <input required="required" class="inputField"  [placeholder]="placeholder" [type]="type" (keyup)="keyupFn($event)">
     <label class="usernameLabel font" >{{label | titlecase }}</label>
     <svg viewBox="0 0 448 512" class="userIcon">
         <path

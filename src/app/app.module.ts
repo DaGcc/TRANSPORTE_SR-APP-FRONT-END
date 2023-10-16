@@ -14,7 +14,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 
 export function tokenGetter() {
   let tk = sessionStorage.getItem(environment.TOKEN_NAME);
-  console.log(tk)
+  // console.log(tk)
   let token=tk!=null?tk : '';
   return token;
 }

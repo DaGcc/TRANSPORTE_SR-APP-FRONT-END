@@ -21,16 +21,16 @@ export const guardFn: CanActivateFn = (route: ActivatedRouteSnapshot, state: Rou
     const appService = inject(AppService)
     //***********************************************************
 
-    const helper = new JwtHelperService();
+    
     let rpta = usuarioService.isLogged();
 
     if (rpta) { //* si esta logeado => hay un token en el session storage
 
+        const helper = new JwtHelperService();
         let token: string = sessionStorage.getItem(environment.TOKEN_NAME)!;//se que si va a venir un token
-
         if (!helper.isTokenExpired(token)) {//* si el token aun no esta expirado
 
-            console.log(state.url)
+            // console.log(state.url)
             let url = state.url;//*estado de la url donde actual
 
             let decodedToken = helper.decodeToken(token);//*decodificamos el token jwt que esta en base64
