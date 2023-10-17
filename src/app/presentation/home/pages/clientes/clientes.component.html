@@ -47,7 +47,12 @@
                                     <!-- ID Column -->
                                     <ng-container matColumnDef="idCliente">
                                         <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-                                        <td mat-cell *matCellDef="let row"> {{row.idCliente}} </td>
+                                        <td mat-cell *matCellDef="let row"> 
+                                            <div>
+                                                {{row.idCliente}} <widget-tag [value]="row.tipoCliente.tipo"  
+                                                [colorFondo]="row.tipoCliente.idTipoCliente == 1? 'succes' : row.tipoCliente.idTipoCliente == 2 ? 'warning':'danger' " />
+                                            </div>
+                                        </td>
                                     </ng-container>
 
                                     <!-- Nombres Column -->

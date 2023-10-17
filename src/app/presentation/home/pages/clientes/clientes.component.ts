@@ -17,6 +17,7 @@ import { IEntityEditionDialog } from '@shared/interfaces/IEntityEditionDialog';
 import { Subscription, mergeMap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
+import { TagComponent } from '@shared/widgets/tag/tag.component';
 
 @Component({
   selector: 'app-clientes',
@@ -26,7 +27,8 @@ import { FormsModule } from '@angular/forms';
     NgStyle,
     MaterialModule,
     InputComponent,
-    FormsModule
+    FormsModule,
+    TagComponent
   ],
   templateUrl: './clientes.component.html',
   styleUrls: ['./clientes.component.scss']
@@ -212,7 +214,9 @@ export class ClientesComponent implements OnInit, OnDestroy {
 
 
   fnReloadData() {
-    this._clienteService.readByPage(this.pageIndex, this.pageSize).subscribe({
+    this._clienteService.readByPage(this.pageIndex, this.pageSize, {
+      estado : this.estadoClientes
+    }).subscribe({
       next: (data: PageSpringBoot<ClienteEntity>) => {
         this._enableFilterPaginator = false;
         this._clienteService.clientesCambio.next(data);

@@ -553,14 +553,22 @@ body {
         background-color: var(--dark-widget-02) !important;
         color: #fff;
 
+        &:nth-child(1){
+            & > * {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            // background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(249,0,0,1) 57%, rgba(255,0,0,1) 100%);
+            align-items: center !important;
+        }
+
         &:last-child {
             // background-color: red;
             text-align: center !important;
         }
 
-        // &:nth-child(1){
-        //     background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(249,0,0,1) 57%, rgba(255,0,0,1) 100%);
-        // }
+        
         // &:last-child{
         //     background: linear-gradient(270deg, rgba(0,0,0,0) 0%, rgba(249,0,0,1) 57%, rgba(255,0,0,1) 100%);
         // }
@@ -583,7 +591,17 @@ body {
 
         &:nth-child(1) {
             font-weight: 700;
+            padding-top: 5px;
+            padding-bottom: 5px;
             // border-color: red;
+            & > div{
+                display: flex;
+                // flex-direction: column;
+                gap: 5px;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+            }
         }
 
         //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
