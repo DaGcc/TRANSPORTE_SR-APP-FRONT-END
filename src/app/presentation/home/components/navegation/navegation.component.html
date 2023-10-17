@@ -12,8 +12,8 @@
       <section class="cont-perfil-info">
 
         <div class="cont-btn-menus ">
-          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" color="warn" style="color: var(--color-button-02);">
-            <mat-icon>more_vert</mat-icon>
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" color="warn" >
+            <img src="../../../../../assets/imgs/icons/widgets.svg" alt="">
           </button>
           <mat-menu #menu="matMenu">
             <button mat-menu-item  (click)="getScreenWidth<=pixelResponsive? drawer.close() : '' " routerLink="/page/perfil" >

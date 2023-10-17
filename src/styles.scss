@@ -480,17 +480,35 @@ body {
 
     }
 
+
+    
+
     & .cont-paginator {
         // background-color: rgb(213, 175, 255) !important;
         background-color: #fff;
         display: flex;
         align-items: center;
         padding: 5px;
+        
 
         & .cont-paginator-btns {
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 5px;
+            flex-wrap: wrap;
+
+            & > .cont-groups-radio-btn{
+                display: flex;
+                align-items: center;
+                & > .cont-radio-btns{
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 5px;
+                    padding: 0 10px ;
+                }
+            }
         }
 
         &>.paginator {

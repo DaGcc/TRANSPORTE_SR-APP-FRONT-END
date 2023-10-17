@@ -64,8 +64,15 @@
   position: absolute;
   top:0;
   left: 0;
-  
+  // background-color: #5800ff;
+  transform: scale(.7);
+  & button{
+    position: relative;
+    color: var(--color-button-02);
+  }
 }
+
+
 
 .cont-img {
   width: 95px;

@@ -5,20 +5,15 @@
 
             <div class="cont-ipts">
 
-                <widget-input [label]="'nombres'" [placeholder]="'nombres'" class="w-ipt"
+                <widget-input [label]="'Filtra por: Nombres, apellidos, ruc y dni'"
+                    [placeholder]="'Filtra por: Nombres, apellidos, ruc y dni'" class="w-ipt"
                     (valor)="filtroPorCampo($event)" />
-                <widget-input [label]="'apellido paterno'" [placeholder]="'apellido paterno'" class="w-ipt"
-                    (valor)="filtroPorCampo($event)" />
-                <widget-input [label]="'apellido materno'" [placeholder]="'apellido materno'" class="w-ipt"
-                    (valor)="filtroPorCampo($event)" />
-                <widget-input [label]="'dni'" [placeholder]="'DNI'" [type]="'number'" class="w-ipt"
-                    (valor)="filtroPorCampo($event)"></widget-input>
-                <widget-input [label]="'RUC'" [placeholder]="'RUC'" [type]="'number'" class="w-ipt"
-                    (valor)="filtroPorCampo($event)"></widget-input>
-
             </div>
 
         </section>
+
+
+        <!--* Tabla y filto local -->
         <section class="cont-datasource">
 
             <div class="datasource">
@@ -122,6 +117,21 @@
                                         (click)="fnCreateOrUpdate()"><mat-icon>add</mat-icon></button>
                                     <button mat-icon-button color="primary"
                                         (click)="fnReloadData()"><mat-icon>cloud_sync</mat-icon></button>
+                                    <section class="cont-groups-radio-btn">
+                                        <label class="example-margin">Solo clientes:</label>
+                                        <mat-radio-group [(ngModel)]="estadoClientes" (change)="loadDataByStatus()" class="cont-radio-btns">
+                                            <mat-radio-button  value="1">
+                                                <span class="font">Activos</span>
+                                            </mat-radio-button>
+                                            <mat-radio-button  value="0">
+                                                <span class="font">Desactivos</span> 
+                                            </mat-radio-button>
+                                            <mat-radio-button  value="2">
+                                          <span class="font">Ambos</span>      
+                                            </mat-radio-button>
+                                        </mat-radio-group>
+                                    </section>
+
                                 </div>
                                 <!--* END - cont de los botones  -->
 
@@ -152,6 +162,7 @@
                 </div>
             </div>
         </section>
+        <!--* END - Tabl y filtro local -->
     </div>
 
 

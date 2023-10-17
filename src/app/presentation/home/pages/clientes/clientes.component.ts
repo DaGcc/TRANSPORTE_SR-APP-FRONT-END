@@ -16,6 +16,7 @@ import { MaterialModule } from 'src/app/_material/material.module';
 import { IEntityEditionDialog } from '@shared/interfaces/IEntityEditionDialog';
 import { Subscription, mergeMap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-clientes',
@@ -24,7 +25,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     NgIf,
     NgStyle,
     MaterialModule,
-    InputComponent
+    InputComponent,
+    FormsModule
   ],
   templateUrl: './clientes.component.html',
   styleUrls: ['./clientes.component.scss']
@@ -43,6 +45,7 @@ export class ClientesComponent implements OnInit, OnDestroy {
 
 
   //***** para la aplicacion de servicio paginado *****
+  //?VALORES POR DEFECTO
   cantidad: number = 0;
   pageSize: number = 1;
   pageIndex: number = 0;
@@ -51,7 +54,8 @@ export class ClientesComponent implements OnInit, OnDestroy {
   //!-----------------------------------------------------
 
   //***************** Subscriptores ******************/
-  subcriptorReadClientesByPage$! : Subscription;
+  subscriptorReadClientesByPage$!: Subscription;
+  subscriptorClienteCambio$!: Subscription;
   //************************************************ */
 
   //!-----------------------------------------------------
@@ -63,8 +67,12 @@ export class ClientesComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort!: MatSort;
 
 
+
+  estadoClientes: '0' | '1' | '2' = '2';
+
+
   //*inyeccion de dependencia via constructor
-  constructor(private _clienteService: ClienteRepositoryImplService, private _snackBar : MatSnackBar) { }
+  constructor(private _clienteService: ClienteRepositoryImplService, private _snackBar: MatSnackBar) { }
 
 
   ngOnInit(): void {
@@ -72,7 +80,7 @@ export class ClientesComponent implements OnInit, OnDestroy {
     /** 
      ** Este solo se ejecutara si y solo si por algun lado le dan un .next al subject clientesCambio 
     */
-    this._clienteService.clientesCambio.subscribe({
+    this.subscriptorClienteCambio$ = this._clienteService.clientesCambio.subscribe({
       next: (data: PageSpringBoot<ClienteEntity>) => {
         // console.log(data)
         this.dataSource = new MatTableDataSource(data.content);
@@ -81,19 +89,19 @@ export class ClientesComponent implements OnInit, OnDestroy {
         //! ya no seteamos el "this.dataSource.paginator = this.paginator;", pues se resetearia sus valores de pagina
       }
     })
-    
+
     /** 1
      ** Solicitara a al repositorio un llamado a lo establecido, con  el número pagina establecida y un tamaño
      ** esto, es debido a que estamos consumiendo de manera paginada.
      ** Por otro lado, dicha subcricion se la damos a una variable de tipo Subscription para que le haga referencia, pues es una buena practica 
      ** para evitar perdidas o fugas de memoria.
      */
-     this.subcriptorReadClientesByPage$ = this._clienteService.readByPage(this.pageIndex,this.pageSize).subscribe({
+    this.subscriptorReadClientesByPage$ = this._clienteService.readByPage(this.pageIndex, this.pageSize).subscribe({
       next: (data: PageSpringBoot<ClienteEntity>) => {
 
         //* seteamos la cantidad de elementos que tiene la respuesta, pero no el contenido, pues ese depende de el tamaño de la pagina.
         //* nos sirve para darle un tamaño al paginator.
-        this.cantidad = data.totalElements; 
+        this.cantidad = data.totalElements;
 
         this.dataSource = new MatTableDataSource(data.content);
         this.dataSource.sort = this.sort;
@@ -101,12 +109,12 @@ export class ClientesComponent implements OnInit, OnDestroy {
       }
     })
 
-    if(this.subcriptorReadClientesByPage$){
-      console.log(true)
-    }else{
-      console.log(false)
-    }
-    console.log(this.subcriptorReadClientesByPage$);
+    // if(this.subcriptorReadClientesByPage$){
+    //   console.log(true)
+    // }else{
+    //   console.log(false)
+    // }
+    // console.log(this.subcriptorReadClientesByPage$);
 
   }
 
@@ -116,18 +124,17 @@ export class ClientesComponent implements OnInit, OnDestroy {
    ** nos da la pagina actual(page index) y el tamaño para la pagina, entre otros.
    * @param e 
    */
-  nextPage( e : PageEvent){
+  nextPage(e: PageEvent) {
     // this.cantidad = e.length;
     this.pageIndex = e.pageIndex;
     this.pageSize = e.pageSize;
-    this._clienteService.readByPage(this.pageIndex,this.pageSize).subscribe({
-      next : (data: PageSpringBoot<ClienteEntity>)  => {
-        this._clienteService.clientesCambio.next(data)
-      }
-    });
+    this._clienteService.readByPage(this.pageIndex, this.pageSize, { estado: this.estadoClientes })
+      .subscribe({
+        next: (data: PageSpringBoot<ClienteEntity>) => {
+          this._clienteService.clientesCambio.next(data)
+        }
+      });
   }
-
-
 
   fnCreateOrUpdate(obj?: ClienteEntity): void {
 
@@ -161,7 +168,7 @@ export class ClientesComponent implements OnInit, OnDestroy {
       isEnableBtnConfir = true;
 
       //* Si deep es true, es una eliminacion profunda, es decir, una eliminacion total de la base de datos
-      body = deep ? 
+      body = deep ?
         `¿Desea eliminar de manera permanente al cliente con id ${obj.idCliente}?` : //* eliminacion total de la bbdd   
         `¿Desea eliminar al cliente con id ${obj.idCliente}, pero conservando su información?`; //* eliminacion con solo el estado
 
@@ -184,15 +191,15 @@ export class ClientesComponent implements OnInit, OnDestroy {
     result.afterClosed().subscribe({
       next: (confirmationResult: boolean) => {
         if (confirmationResult) {
-          this._clienteService!.deleteById(obj.idCliente, deep).pipe(mergeMap(()=>{
-            return this._clienteService.readByPage(this.pageIndex,this.pageSize);
+          this._clienteService!.deleteById(obj.idCliente, deep).pipe(mergeMap(() => {
+            return this._clienteService.readByPage(this.pageIndex, this.pageSize);
           })).subscribe({
-            next : (data : PageSpringBoot<ClienteEntity>) => {
+            next: (data: PageSpringBoot<ClienteEntity>) => {
               this._clienteService.clientesCambio.next(data);
             }
           })
         } else {
-          this._snackBar.open('Ningun cambio por realizar','OK',{
+          this._snackBar.open('Ningun cambio por realizar', 'OK', {
             duration: 2000
           })
         }
@@ -213,7 +220,6 @@ export class ClientesComponent implements OnInit, OnDestroy {
     })
   }
 
-
   applyFilter(event: Event) {
     console.log(event)
     const filterValue = (event.target as HTMLInputElement).value;
@@ -225,34 +231,34 @@ export class ClientesComponent implements OnInit, OnDestroy {
   }
 
 
-  private debounceFilter? : NodeJS.Timeout
-  private _enableFilterPaginator : boolean  = false
-  valorDeFiltro : string = '';
-  get isEnableFilterPaginator() : boolean{
+  private debounceFilter?: NodeJS.Timeout
+  private _enableFilterPaginator: boolean = false
+  valorDeFiltro: string = '';
+  get isEnableFilterPaginator(): boolean {
     return this._enableFilterPaginator;
   }
 
-  filtroPorCampo( e : string){
+  filtroPorCampo(e: string) {
     this.debounceFilter ? clearTimeout(this.debounceFilter) : '';
-    
-    this.debounceFilter = setTimeout(()=> {
-      if(e.trim() == ''){
-        this._snackBar.open('No se filtrara espacios en blanco','AVISO',{
+
+    this.debounceFilter = setTimeout(() => {
+      if (e.trim() == '') {
+        this._snackBar.open('No se filtrara espacios en blanco', 'AVISO', {
           duration: 1300
         })
-      }else{ 
+      } else {
         this.valorDeFiltro = e;
         this._enableFilterPaginator = true;
-        this._clienteService.filtroClientes(0,this.pageSize, this.valorDeFiltro).subscribe(d => {
+        this._clienteService.filtroClientes(0, this.pageSize, this.valorDeFiltro).subscribe(d => {
           this.cantidad = d.totalElements;
           this.dataSource = new MatTableDataSource<ClienteEntity>(d.content);
           this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
+          this.dataSource.paginator = this.paginator;//* le damos el pginador por ser un nuevo elemento html paginador
         })
       }
-    },600)
+    }, 600)
   }
-  nextPageFiltro(e : PageEvent){
+  nextPageFiltro(e: PageEvent) {
     this._clienteService.filtroClientes(e.pageIndex, e.pageSize, this.valorDeFiltro).subscribe(d => {
       // this.cantidad = d.totalElements;
       this.dataSource = new MatTableDataSource<ClienteEntity>(d.content);
@@ -261,13 +267,29 @@ export class ClientesComponent implements OnInit, OnDestroy {
   }
 
 
+
+  loadDataByStatus() {
+    this._clienteService.readByPage(this.pageIndex, this.pageSize, {
+      estado: this.estadoClientes
+    }).subscribe({
+      next: (data: PageSpringBoot<ClienteEntity>) => {
+        this._clienteService.clientesCambio.next(data);
+      }
+    })
+  }
+
   //* BUENAS PRACTICAS
   ngOnDestroy(): void {
 
-    //* Validamos si el subcriptor tiene alguna subscripcion para poder darse de baja.
-    if(this.subcriptorReadClientesByPage$){
-      this.subcriptorReadClientesByPage$.unsubscribe();
-      console.log((this.subcriptorReadClientesByPage$))
+    //* DATO: para desubscribir a un subscriptor primero tenemos que validar tiene alguna subscripción para poder darse de baja.
+
+    if (this.subscriptorReadClientesByPage$) {
+      this.subscriptorReadClientesByPage$.unsubscribe();
+      // console.log((this.subscriptorReadClientesByPage$))
+    }
+
+    if (this.subscriptorClienteCambio$) {
+      this.subscriptorClienteCambio$.unsubscribe();
     }
   }
 
