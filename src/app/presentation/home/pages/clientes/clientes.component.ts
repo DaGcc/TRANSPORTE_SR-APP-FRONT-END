@@ -63,6 +63,7 @@ export class ClientesComponent implements OnInit, OnDestroy {
   //!-----------------------------------------------------
 
 
+
   displayedColumns: string[] = ['idCliente', 'nombres', 'telefono', 'email', 'estado', 'acciones'];
   dataSource!: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;

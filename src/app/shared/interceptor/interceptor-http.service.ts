@@ -92,8 +92,8 @@ export class InterceptorHttpService implements HttpInterceptor {
                 else if (err.status === 401) {//? error de falta de credenciales 
                     // console.log(err);
                     this.snackBar.open(err.error.error_description, 'ERROR 401', { duration: 5000 });
-                    sessionStorage.getItem(environment.TOKEN_NAME) ?  sessionStorage.removeItem(environment.TOKEN_NAME): '';
-                    this.router.navigate(['/auth/login']);
+                    //??sessionStorage.getItem(environment.TOKEN_NAME) ?  sessionStorage.removeItem(environment.TOKEN_NAME): '';
+                    //??this.router.navigate(['/auth/login']);
                 }
                 else if (err.status === 403) {//? error de permisos para manipular el recurso
                     this.router.navigate(['/forbidden-403'])

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
 import { guardFn } from '@shared/guard/guard-fn';
+import { FacturasComponent } from './pages/facturas/facturas.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,12 @@ const routes: Routes = [
         loadComponent : () => import('./pages/inicio/inicio.component').then( m => m.InicioComponent ),
         data: { titulo:'Inicio', url: "/page/inicio",icon: 'home_app_logo'  },
         canActivate : [guardFn]
+      },
+      {
+        path: 'facturas',
+        loadComponent : () => import('./pages/facturas/facturas.component').then( m => m.FacturasComponent ),
+        data: { titulo: 'Gestion de Facturas y Orden de servicio', url : '/page/factura' },
+        canActivate: [guardFn]
       },
       {
         path: 'geolocalizacion',
