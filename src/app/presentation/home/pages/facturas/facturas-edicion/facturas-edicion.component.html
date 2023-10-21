@@ -1,0 +1,153 @@
+<section class="cont-edicion font">
+
+    <section class="cont-header-edicion font">
+        <span>{{data.title || ''}}</span>
+        <span>{{data.subtitle || '' }}</span>
+    </section>
+
+
+    <section class="cont-body-edicion">
+
+        <!--* CONTENEDOR DE PASOS -->
+        <mat-stepper linear #stepper class="cont-pasos ">
+
+            <!--* PASO 1 -->
+            <mat-step [stepControl]="frmFactura" [editable]="true">
+
+
+                <form #frmTrabajador [formGroup]="frmFactura" class="form-edicion">
+                    <ng-template matStepLabel>Datos de la factura</ng-template>
+
+                    <div class="container-mff " style="display: none;">
+                        <mat-form-field>
+                            <mat-label>ID</mat-label>
+                            <input matInput formControlName="idFactura" required>
+                        </mat-form-field>
+                    </div>
+
+
+
+                    <div class="row-ipt">
+
+                        <div class="container-mff">
+                            <mat-form-field>
+                                <!-- <mat-label for="sltEstatus">Estado</mat-label> -->
+                                <mat-select placeholder="Estado*" formControlName="estado" id="sltEstatus">
+                                    <mat-option *ngFor="let estado of estados" [value]="estado">
+                                        {{estado}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="container-mff">
+                            <mat-form-field>
+                                <mat-label>Cod. Factura</mat-label>
+                                <input matInput #iptTelefono type="number" placeholder="Ej. 44444"
+                                    formControlName="codigoFactura" required min="" max=""
+                                    (input)="limitarLongitud($event)">
+                                <mat-hint align="end">{{iptTelefono.value.length}}/9</mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row-ipt">
+                        <div class="container-mff">
+                            <button mat-flat-button color="primary" onclick="document.getElementById('iptFileFactura').click()" >cargar archivo de factura</button>
+                            <input type="file" id="iptFileFactura" style="display: none;">
+                        </div>
+                    </div>
+                    
+
+                </form>
+
+                <div class="cont-accion-edicion ">
+                    <button mat-stroked-button color="warn" type="button"
+                        (click)="dialogRef.close()"><mat-icon>close</mat-icon>
+                        CANCELAR </button>
+                    <button mat-stroked-button type="button" color="primary" matStepperNext
+                        ><mat-icon>chevron_right</mat-icon> SIGUIENTE </button>
+                    <!-- <ng-template #btnListo>
+                        <button mat-stroked-button type="button" color="primary" [disabled]="frmGroupCliente.invalid"
+                            (click)="operar(1)">
+                            <mat-icon>check</mat-icon>LISTO
+                        </button>
+                    </ng-template> -->
+                </div>
+
+            </mat-step>
+            <!--* END - PASO 1 -->
+
+            <!--* PASO 2 -->
+            <mat-step [stepControl]="frmOrdenServicio" [editable]="true" >
+                <form [formGroup]="frmOrdenServicio" >
+                    <ng-template matStepLabel>Datos del Orden de Servicio</ng-template>
+
+
+
+                    <div class="container-mff " style="display: none;">
+                        <mat-form-field>
+                            <mat-label>ID</mat-label>
+                            <input matInput formControlName="idOrdenServicio" required>
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="row-ipt">
+
+                        <div class="container-mff">
+                            <mat-form-field>
+                                <!-- <mat-label for="sltEstatus">Estado</mat-label> -->
+                                <mat-select placeholder="Estado*" formControlName="estado" id="sltEstatus">
+                                    <mat-option *ngFor="let estado of estados" [value]="estado">
+                                        {{estado}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="container-mff">
+                            <mat-form-field>
+                                <mat-label>Cod. Factura</mat-label>
+                                <input matInput #iptTelefono type="number" placeholder="Ej. 44444"
+                                    formControlName="codigoOrdenServico" required min="" max=""
+                                    (input)="limitarLongitud($event)">
+                                <mat-hint align="end">{{iptTelefono.value.length}}/9</mat-hint>
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+
+                    <div class="row-ipt">
+                        <div class="container-mff">
+                            <button mat-flat-button color="accent" onclick="document.getElementById('iptFileFactura').click()" >cargar archivo de ord. servicio</button>
+                            <input type="file" id="iptFileFactura" style="display: none;">
+                        </div>
+                    </div>
+
+
+                    <div class="cont-accion-edicion">
+                        <button mat-stroked-button color="warn" type="button" matStepperPrevious>
+                            <mat-icon>chevron_left</mat-icon> ATRAS </button>
+                        <button mat-stroked-button type="submit" color="primary">
+                            <mat-icon>check</mat-icon>CREAR
+                        </button>
+                    </div>
+                </form>
+            </mat-step>
+            <!--* END - PASO 2 -->
+
+        </mat-stepper>
+        <!--* END -CONTENEDOR DE PASOS -->
+    </section>
+
+
+
+</section>
+
+<!-- 
+    * Las clases no aplican en el dentro del mat-stepper, pues le modifica la estructura de tu html original cuando lo compila 
+    *
+-->

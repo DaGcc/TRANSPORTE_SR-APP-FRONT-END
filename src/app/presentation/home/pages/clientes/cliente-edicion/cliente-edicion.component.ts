@@ -82,8 +82,8 @@ export class ClienteEdicionComponent implements OnInit {
       'passwordConfir': new FormControl(undefined, Validators.required)
     })
 
-
-    if (this.data.title === 'EDICION') {
+    //** Condicional para la edicion
+    if (this.data.body?.idCliente != undefined && this.data.body != undefined) {
 
       /**
        ** Desabilitamos el formulario 2 de credenciales, para que no se manipulen sus username o password
