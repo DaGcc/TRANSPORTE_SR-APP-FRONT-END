@@ -8,139 +8,130 @@
 
     <section class="cont-body-edicion">
 
-        <!--* CONTENEDOR DE PASOS -->
-        <mat-stepper linear #stepper class="cont-pasos ">
-
-            <!--* PASO 1 -->
-            <mat-step [stepControl]="frmFactura" [editable]="true">
 
 
-                <form #frmTrabajador [formGroup]="frmFactura" class="form-edicion">
-                    <ng-template matStepLabel>Datos de la factura</ng-template>
+        <form #frmTrabajador [formGroup]="frmFactura" class="form-edicion" (submit)="operar()">
 
-                    <div class="container-mff " style="display: none;">
-                        <mat-form-field>
-                            <mat-label>ID</mat-label>
-                            <input matInput formControlName="idFactura" required>
-                        </mat-form-field>
-                    </div>
+            <div class="container-mff " style="display: none;">
+                <mat-form-field>
+                    <mat-label>ID</mat-label>
+                    <input matInput formControlName="idFactura" required>
+                </mat-form-field>
+            </div>
 
+            <div class="row-ipt">
 
-
-                    <div class="row-ipt">
-
-                        <div class="container-mff">
-                            <mat-form-field>
-                                <!-- <mat-label for="sltEstatus">Estado</mat-label> -->
-                                <mat-select placeholder="Estado*" formControlName="estado" id="sltEstatus">
-                                    <mat-option *ngFor="let estado of estados" [value]="estado">
-                                        {{estado}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-
-                        <div class="container-mff">
-                            <mat-form-field>
-                                <mat-label>Cod. Factura</mat-label>
-                                <input matInput #iptTelefono type="number" placeholder="Ej. 44444"
-                                    formControlName="codigoFactura" required min="" max=""
-                                    (input)="limitarLongitud($event)">
-                                <mat-hint align="end">{{iptTelefono.value.length}}/9</mat-hint>
-                            </mat-form-field>
-                        </div>
-
-                    </div>
-
-
-                    <div class="row-ipt">
-                        <div class="container-mff">
-                            <button mat-flat-button color="primary" onclick="document.getElementById('iptFileFactura').click()" >cargar archivo de factura</button>
-                            <input type="file" id="iptFileFactura" style="display: none;">
-                        </div>
-                    </div>
-                    
-
-                </form>
-
-                <div class="cont-accion-edicion ">
-                    <button mat-stroked-button color="warn" type="button"
-                        (click)="dialogRef.close()"><mat-icon>close</mat-icon>
-                        CANCELAR </button>
-                    <button mat-stroked-button type="button" color="primary" matStepperNext
-                        ><mat-icon>chevron_right</mat-icon> SIGUIENTE </button>
-                    <!-- <ng-template #btnListo>
-                        <button mat-stroked-button type="button" color="primary" [disabled]="frmGroupCliente.invalid"
-                            (click)="operar(1)">
-                            <mat-icon>check</mat-icon>LISTO
-                        </button>
-                    </ng-template> -->
+                <div class="container-mff">
+                    <mat-form-field>
+                        <!-- <mat-label for="sltEstatus">Estado</mat-label> -->
+                        <mat-select placeholder="Estado*" formControlName="estadoFactura" id="sltEstatus">
+                            <mat-option *ngFor="let estado of estados" [value]="estado">
+                                {{estado}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </div>
 
-            </mat-step>
-            <!--* END - PASO 1 -->
+                <div class="container-mff">
+                    <mat-form-field>
+                        <mat-label>Cod. Factura</mat-label>
+                        <input matInput #iptTelefono type="number" placeholder="Ej. 44444"
+                            formControlName="codigoFactura" required min="" max="" (input)="limitarLongitud($event)">
+                        <mat-hint align="end">{{iptTelefono.value.length}}/9</mat-hint>
+                    </mat-form-field>
+                </div>
 
-            <!--* PASO 2 -->
-            <mat-step [stepControl]="frmOrdenServicio" [editable]="true" >
-                <form [formGroup]="frmOrdenServicio" >
-                    <ng-template matStepLabel>Datos del Orden de Servicio</ng-template>
+                <!--* logica para la seleccion de archivos de la factura  -->
+                <div *ngIf="isCreation" class="container-mff" style="display:flex;align-items: center;">
+                    <div style="display: flex; gap: 3px; align-items: center;">
+                        <ng-container *ngIf="!this.fileFactura; else fileSelectFactura">
+                            <button mat-raised-button type="button" color="primary" style="flex: 1 1 auto;"
+                                onclick="document.getElementById('iptFileFactura').click()">CARGAR ARCHIVO
+                                FC</button>
+                            <input type="file" style="display: none;" id="iptFileFactura"
+                                (change)="cargarFileFactura($event)">
 
-
-
-                    <div class="container-mff " style="display: none;">
-                        <mat-form-field>
-                            <mat-label>ID</mat-label>
-                            <input matInput formControlName="idOrdenServicio" required>
-                        </mat-form-field>
+                        </ng-container>
+                        <ng-template #fileSelectFactura>
+                            <div style="display: flex; align-items: center; flex: 2 1 auto;">
+                                <span>{{this.fileFactura?.name || 'not found file name'}}</span>
+                                <button mat-icon-button type="button"(click)="this.fileFactura = null"><mat-icon>close</mat-icon></button>
+                            </div>
+                        </ng-template>
                     </div>
+                </div>
+
+            </div>
 
 
-                    <div class="row-ipt">
+            <div class="container-mff " style="display: none;">
+                <mat-form-field>
+                    <mat-label>ID</mat-label>
+                    <input matInput formControlName="idOrdenServicio" required>
+                </mat-form-field>
+            </div>
 
-                        <div class="container-mff">
-                            <mat-form-field>
-                                <!-- <mat-label for="sltEstatus">Estado</mat-label> -->
-                                <mat-select placeholder="Estado*" formControlName="estado" id="sltEstatus">
-                                    <mat-option *ngFor="let estado of estados" [value]="estado">
-                                        {{estado}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
 
-                        <div class="container-mff">
-                            <mat-form-field>
-                                <mat-label>Cod. Factura</mat-label>
-                                <input matInput #iptTelefono type="number" placeholder="Ej. 44444"
-                                    formControlName="codigoOrdenServico" required min="" max=""
-                                    (input)="limitarLongitud($event)">
-                                <mat-hint align="end">{{iptTelefono.value.length}}/9</mat-hint>
-                            </mat-form-field>
-                        </div>
+            <div class="row-ipt">
 
+                <div class="container-mff">
+                    <mat-form-field>
+                        <!-- <mat-label for="sltEstatus">Estado</mat-label> -->
+                        <mat-select placeholder="Estado*" formControlName="estadoOrdenServicio" id="sltEstatus">
+                            <mat-option *ngFor="let estado of estados" [value]="estado">
+                                {{estado}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="container-mff">
+                    <mat-form-field>
+                        <mat-label>Cod. Orden servicio</mat-label>
+                        <input matInput #iptTelefono type="number" placeholder="Ej. 44444"
+                            formControlName="codigoOrdenServico" required min="" max=""
+                            (input)="limitarLongitud($event)">
+                        <mat-hint align="end">{{iptTelefono.value.length}}/9</mat-hint>
+                    </mat-form-field>
+                </div>
+                
+                <!--* logica para la seleccion de archivos de el orden de servicio  -->
+                <div *ngIf="isCreation" class="container-mff" style="display:flex;align-items: center;">
+                    <div style="display: flex; gap: 3px; align-items: center;">
+                        <ng-container *ngIf="!this.fileOs; else fileSelectOS">
+                            <button mat-raised-button type="button" color="primary" style="flex: 1 1 auto;"
+                                onclick="document.getElementById('iptFileOrdenServicio').click()">CARGAR ARCHIVO
+                                OS</button>
+                            <input type="file" style="display: none;" id="iptFileOrdenServicio"
+                                (change)="cargarFileOrdenServicio($event)">
+
+                        </ng-container>
+                        <ng-template #fileSelectOS>
+                            <div style="display: flex; align-items: center; flex: 2 1 auto;">
+                                <span>{{this.fileOs?.name || 'not found file name'}}</span>
+                                <button mat-icon-button type="button"(click)="this.fileOs = null"><mat-icon>close</mat-icon></button>
+                            </div>
+                        </ng-template>
                     </div>
+                </div>
 
-                    <div class="row-ipt">
-                        <div class="container-mff">
-                            <button mat-flat-button color="accent" onclick="document.getElementById('iptFileFactura').click()" >cargar archivo de ord. servicio</button>
-                            <input type="file" id="iptFileFactura" style="display: none;">
-                        </div>
-                    </div>
+            </div>
 
 
-                    <div class="cont-accion-edicion">
-                        <button mat-stroked-button color="warn" type="button" matStepperPrevious>
-                            <mat-icon>chevron_left</mat-icon> ATRAS </button>
-                        <button mat-stroked-button type="submit" color="primary">
-                            <mat-icon>check</mat-icon>CREAR
-                        </button>
-                    </div>
-                </form>
-            </mat-step>
-            <!--* END - PASO 2 -->
+            <!--* seccion de botones - acciones  -->
+            <div class="cont-accion-edicion ">
+                <button mat-stroked-button type="submit" color="primary"
+                    [disabled]="!frmFactura.valid || !fileOs || !fileFactura"
+                ><mat-icon>check</mat-icon>
+                    LISTO </button>
+                <button mat-stroked-button color="warn" type="button"
+                    (click)="dialogRef.close()"><mat-icon>close</mat-icon>
+                    CANCELAR </button>
+            </div>
 
-        </mat-stepper>
-        <!--* END -CONTENEDOR DE PASOS -->
+        </form>
+
+
     </section>
 
 
@@ -151,3 +142,46 @@
     * Las clases no aplican en el dentro del mat-stepper, pues le modifica la estructura de tu html original cuando lo compila 
     *
 -->
+
+
+
+<!-- <div class="row-ipt">
+                <div class="container-mff">
+                    <button mat-flat-button color="primary"
+                        onclick="document.getElementById('iptFileFactura').click()">cargar archivo de factura</button>
+                    <input type="file" id="iptFileFactura" style="display: none;">
+                </div>
+            </div> -->
+
+
+
+<!-- <div class="cont-accion-edicion ">
+            <button mat-stroked-button color="warn" type="button" (click)="dialogRef.close()"><mat-icon>close</mat-icon>
+                CANCELAR </button>
+            <button mat-stroked-button type="button" color="primary" matStepperNext><mat-icon>chevron_right</mat-icon>
+                SIGUIENTE </button>
+            <ng-template #btnListo>
+                    <button mat-stroked-button type="button" color="primary" [disabled]="frmGroupCliente.invalid"
+                        (click)="operar(1)">
+                        <mat-icon>check</mat-icon>LISTO
+                    </button>
+                </ng-template>
+        </div>
+ -->
+
+<!-- <div class="row-ipt">
+            <div class="container-mff">
+                <button mat-flat-button color="accent"
+                    onclick="document.getElementById('iptFileFactura').click()">cargar archivo de ord. servicio</button>
+                <input type="file" id="iptFileFactura" style="display: none;">
+            </div>
+        </div> -->
+
+<!-- 
+        <div class="cont-accion-edicion">
+            <button mat-stroked-button color="warn" type="button" matStepperPrevious>
+                <mat-icon>chevron_left</mat-icon> ATRAS </button>
+            <button mat-stroked-button type="submit" color="primary">
+                <mat-icon>check</mat-icon>CREAR
+            </button>
+        </div> -->

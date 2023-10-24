@@ -12,6 +12,8 @@ import { FacturaEntity } from '@dominio/entities/factura.entity';
 import { MatDialog } from '@angular/material/dialog';
 import { Overlay } from '@angular/cdk/overlay';
 import { FacturasEdicionComponent } from './facturas-edicion/facturas-edicion.component';
+import { OrdenServicioEntity } from '@dominio/entities/ordenServicio.entity';
+import { FacturaPdfViewerComponent } from './factura-pdf-viewer/factura-pdf-viewer.component';
 
 @Component({
   selector: 'app-facturas',
@@ -81,15 +83,14 @@ export class FacturasComponent implements OnInit {
 
 
 
-  fnCreateOrUpdate(obj?: FacturaEntity): void {
+  fnCreateOrUpdate(obj?: FacturaEntity ): void {
+    // let data: IEntityEditionDialog<FacturaEntity | OrdenServicioEntity>;
     let data: IEntityEditionDialog<FacturaEntity>;
 
-    if (obj != undefined || obj != null) {
-      //*EDICION
-      data = { title: 'EDICION', subtitle: `ID DE LA FACTURA : ${obj.idFactura} & ID DEL ORDEN DE SERVICIO : ${obj.ordenServicio.idOrdenServicio}`, body: obj }
-    } else {
-      //*CREACION
-      data = { title: 'CREACION', subtitle: 'Formulario para crear la factura' }
+    if (obj != undefined || obj != null) { //*EDICION
+      data = { title: 'EDICION', subtitle :  `ID DE LA FACTURA : ${obj.idFactura} ID DEL ORDEN DE SERVICIO : ${obj.ordenServicio.idOrdenServicio}`, body: obj }
+    } else { //*CREACION
+      data = { title: 'CREACION', subtitle: 'Formulario para crear la factura con su orden de servicio' }
     }
     data.pageIndex = this.pageIndex;
     data.pageSize = this.pageSize;
@@ -131,6 +132,14 @@ export class FacturasComponent implements OnInit {
 
   }
 
+  viewPdf(obj : FacturaEntity){
+    this.facturaService.buscarArchivoPorIdFactura(obj.idFactura).subscribe(data => {
+      this.dialog.open(FacturaPdfViewerComponent,{
+        scrollStrategy : this.overlay.scrollStrategies.noop(),
+        data
+      })
+    })
+  }
 
   applyFilter(event: Event) {
     console.log(event)

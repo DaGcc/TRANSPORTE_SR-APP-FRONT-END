@@ -6,5 +6,5 @@ import { FacturaOrdenServicioDTO } from "@base/utils/factura_orden_servicio-dto"
 export abstract class FacturaRepository extends commonRepository<FacturaEntity> {
 
     public abstract createEspecial(fileFactura : File, fileOrdenServicio: File,dto :  FacturaOrdenServicioDTO) : Observable<void>
-
+    public abstract buscarArchivoPorIdFactura(idFactura : number) : Observable<any>;
 }

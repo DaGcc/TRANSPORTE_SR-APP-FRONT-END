@@ -139,7 +139,8 @@ export class ClienteEdicionComponent implements OnInit {
 
   }
 
-  //* Metodo par deshabilitar y habilitar algunos campo en base al tipo de cliente  
+  //* Metodo par deshabilitar y habilitar algunos campo en base al tipo de cliente.
+  //* Ademas, se ejecuta cadda vez que el mat-select hace un cambio.
   evaluarFormulario(tp?: number) {
 
     switch (tp) {
@@ -246,7 +247,7 @@ export class ClienteEdicionComponent implements OnInit {
       const o = this.snackBar.open('Creando...', 'OK')
 
       this.clienteService.create(clienteBody).pipe(switchMap(() => {
-        return this.clienteService.readByPage(this.data.pageIndex || 0, this.data.pageSize || 5);;
+        return this.clienteService.readByPage(this.data.pageIndex || 0, this.data.pageSize || 5);
       })).subscribe({
         next: (rsp: PageSpringBoot<ClienteEntity>) => {
           this.clienteService.clientesCambio.next(rsp);
@@ -274,8 +275,6 @@ export class ClienteEdicionComponent implements OnInit {
     }
   }
 }
-
-
 
 
 /**

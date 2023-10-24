@@ -1,0 +1,14 @@
+.cont-pdf{
+    padding: 10px;
+}
+.pdf-view{
+    // padding: 5px;
+    width: 70vw;
+    height: 90vh;
+}
+
+@media screen and (max-width:800px) {
+    .pdf-view{
+        width: 80vw;
+    }
+}

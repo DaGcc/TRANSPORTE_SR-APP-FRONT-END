@@ -2,6 +2,8 @@
 import { Mapper } from 'src/base/utils/mapper';
 import { ClienteModel } from '../models/cliente.model';
 import { ClienteEntity } from 'src/app/dominio/entities/cliente.entity';
+import { DetalleClienteEntity } from '@dominio/entities/detalleCliente.entity';
+import { DetalleClienteModel } from '../models/detalleCliente.model';
 
                                                               //entrada-api     //negocio
 export class ClienteMapperImpl extends Mapper< ClienteModel, ClienteEntity > {
@@ -16,7 +18,7 @@ export class ClienteMapperImpl extends Mapper< ClienteModel, ClienteEntity > {
             email:          param.email,
             estado:         param.estado,
             tipoCliente:    param.tipoCliente,
-            detalleCliente: param.detalleCliente
+            detalleCliente: param.detalleCliente as DetalleClienteEntity
         };
     }
 
@@ -30,7 +32,7 @@ export class ClienteMapperImpl extends Mapper< ClienteModel, ClienteEntity > {
             email:          param.email,
             estado:         param.estado,
             tipoCliente:    param.tipoCliente,
-            detalleCliente: param.detalleCliente
+            detalleCliente: param.detalleCliente as DetalleClienteModel
         }
     }
 }

@@ -26,28 +26,15 @@
         color: #fff;
     }
 }
-
-
-
-.cont-pasos{
-    
-    & ::ng-deep .mat-horizontal-stepper-wrapper{
-        display: flex;
-        flex-direction: column;
-        gap: 5px !important;
-    }
-
-    & *:not(mat-icon){
-        font-family: 'Ubuntu', sans-serif !important;
-    }
+.cont-body-edicion{
+    overflow: auto;
+    padding: 0 15px 15px 15px;
 }
-
-
 .form-edicion{
     display: flex;
     flex-direction: column;
     max-height: 900px;
-    overflow: auto;
+    // overflow: auto;
 }
 
 
@@ -76,9 +63,12 @@
 
 .cont-accion-edicion{
     display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     & > * {
+        width: 100%;
         flex: 1 1 auto;
     }
 }

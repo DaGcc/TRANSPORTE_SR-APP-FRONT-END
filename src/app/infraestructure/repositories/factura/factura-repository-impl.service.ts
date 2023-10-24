@@ -25,7 +25,7 @@ export class FacturaRepositoryImplService extends FacturaRepository {
   }
 
 
-  override create(cliente: FacturaEntity): Observable<FacturaEntity> {
+  override create(factura: FacturaEntity): Observable<FacturaEntity> {
     throw new Error('Method not implemented.');
   }
   override readById(id: number): Observable<FacturaEntity> {
@@ -99,6 +99,19 @@ export class FacturaRepositoryImplService extends FacturaRepository {
     formdata.append("estadoOrden", `${dto.estadoOrden}`);
 
     return this.http.post<void>(`${this.url}/detach`, formdata);
+  }
+
+
+
+  /**
+   * 
+   * @param idFactura 
+   * @returns un blob o arreglo de bytes
+   */
+  public override buscarArchivoPorIdFactura(idFactura: number): Observable<any> {
+    return this.http.get(`${this.url}/archivo-factura/${idFactura}`,{
+      responseType: 'blob'
+    })
   }
 
 
