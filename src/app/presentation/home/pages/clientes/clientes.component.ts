@@ -162,6 +162,12 @@ export class ClientesComponent implements OnInit, OnDestroy {
 
   }
 
+  /**
+   * Metodo para eliminar de dos manera en base a los argumentos enviados.
+   * 
+   * @param obj se recogera su id
+   * @param deep para eliminar de manera profunda o solo por estado 
+   */
   fnDelete(obj: ClienteEntity, deep: boolean) {
     let body: string;
     let isEnableBtnConfir: boolean;
@@ -194,7 +200,7 @@ export class ClientesComponent implements OnInit, OnDestroy {
     result.afterClosed().subscribe({
       next: (confirmationResult: boolean) => {
         if (confirmationResult) {
-          this._clienteService!.deleteById(obj.idCliente, deep).pipe(mergeMap(() => {
+          this._clienteService!.deleteById(obj.idCliente, deep).pipe(mergeMap((_) => {
             return this._clienteService.readByPage(this.pageIndex, this.pageSize);
           })).subscribe({
             next: (data: PageSpringBoot<ClienteEntity>) => {
@@ -208,7 +214,7 @@ export class ClientesComponent implements OnInit, OnDestroy {
         }
       },
       error: () => {
-        console.log('Ocurrio un error en el dialo de comfirmación.')
+        console.log('Ocurrio un error en el dialogo de comfirmación.')
       }
     })
   }

@@ -48,7 +48,7 @@
                             <button mat-raised-button type="button" color="primary" style="flex: 1 1 auto;"
                                 onclick="document.getElementById('iptFileFactura').click()">CARGAR ARCHIVO
                                 FC</button>
-                            <input type="file" style="display: none;" id="iptFileFactura"
+                            <input type="file" accept=".pdf" style="display: none;" id="iptFileFactura"
                                 (change)="cargarFileFactura($event)">
 
                         </ng-container>
@@ -102,7 +102,7 @@
                             <button mat-raised-button type="button" color="primary" style="flex: 1 1 auto;"
                                 onclick="document.getElementById('iptFileOrdenServicio').click()">CARGAR ARCHIVO
                                 OS</button>
-                            <input type="file" style="display: none;" id="iptFileOrdenServicio"
+                            <input type="file" accept=".pdf" style="display: none;" id="iptFileOrdenServicio"
                                 (change)="cargarFileOrdenServicio($event)">
 
                         </ng-container>

@@ -67,9 +67,14 @@ export class FacturaRepositoryImplService extends FacturaRepository {
     }))
   }
 
-  
+  /**
+   ** Metodo para la eliminacion por estado o eliminacion profunda. 
+   * @param id 
+   * @param deep 
+   * @returns "void", pues solo se esperara que el servidor responda un estado http_204.
+   */
   override deleteById(id: number, deep?: boolean | undefined): Observable<void> {
-    throw new Error('Method not implemented.');
+    return this.http.delete<void>(`${this.url}/detach/${id}?deep=${deep}`);
   }
 
   /**
@@ -87,8 +92,8 @@ export class FacturaRepositoryImplService extends FacturaRepository {
     //* Creamos el `FormData` para el body de tipo `multipart/form-data`
     let formdata: FormData = new FormData();
 
-    formdata.append("fileFactura", fileFactura); //* Tipo file => pdf, excel, mp4, jpg, png, etc.
-    formdata.append("fileOrdenServicio", fileOrdenServicio);  //* Tipo file => pdf, excel, mp4, jpg, png, etc.
+    formdata.append("fileFactura", fileFactura); //* Tipo file => pdf, excel, mp4, jpg, png, etc. => trabajaremos solo con .pdf
+    formdata.append("fileOrdenServicio", fileOrdenServicio);  //* Tipo file => pdf, excel, mp4, jpg, png, etc. => trabajaremos solo con .pdf
 
     //* el Backend manejara esta logica
     formdata.append("codigoFactura", `${dto.codigoFactura}`);
@@ -101,8 +106,6 @@ export class FacturaRepositoryImplService extends FacturaRepository {
     return this.http.post<void>(`${this.url}/detach`, formdata);
   }
 
-
-
   /**
    * 
    * @param idFactura 
@@ -110,6 +113,17 @@ export class FacturaRepositoryImplService extends FacturaRepository {
    */
   public override buscarArchivoPorIdFactura(idFactura: number): Observable<any> {
     return this.http.get(`${this.url}/archivo-factura/${idFactura}`,{
+      responseType: 'blob'
+    })
+  }
+
+  /**
+   * 
+   * @param idOrdenServicio 
+   * @returns un blob o arreglo de bytes
+   */
+  public buscarArchivoPorIdOrdenServicio(idOrdenServicio : number) : Observable<Blob>{
+    return this.http.get(`${environment.host}/orden-servicios/archivo-orden/${idOrdenServicio}`,{
       responseType: 'blob'
     })
   }
