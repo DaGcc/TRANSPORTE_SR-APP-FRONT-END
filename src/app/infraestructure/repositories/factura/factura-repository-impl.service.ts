@@ -112,7 +112,7 @@ export class FacturaRepositoryImplService extends FacturaRepository {
    * @returns un blob o arreglo de bytes
    */
   public override buscarArchivoPorIdFactura(idFactura: number): Observable<any> {
-    return this.http.get(`${this.url}/archivo-factura/${idFactura}`,{
+    return this.http.get(`${this.url}/archivo-factura/${idFactura}`, {
       responseType: 'blob'
     })
   }
@@ -122,11 +122,50 @@ export class FacturaRepositoryImplService extends FacturaRepository {
    * @param idOrdenServicio 
    * @returns un blob o arreglo de bytes
    */
-  public buscarArchivoPorIdOrdenServicio(idOrdenServicio : number) : Observable<Blob>{
-    return this.http.get(`${environment.host}/orden-servicios/archivo-orden/${idOrdenServicio}`,{
+  public buscarArchivoPorIdOrdenServicio(idOrdenServicio: number): Observable<Blob> {
+    return this.http.get(`${environment.host}/orden-servicios/archivo-orden/${idOrdenServicio}`, {
       responseType: 'blob'
     })
   }
+
+
+
+  /**
+   ** Se actulizara en base la factura y el orden de servicio, ademas sus archivos asociados a estos.
+   ** El back-end manejara la logia de editado para los archivos asociados tanto a la factura como el OS.
+   ** Ejemplo:
+   ** si `fileFactura` => isEmpty => la factura se quedara con el archivo de factura anterior.
+   ** si `fileFactura` => !isEmpty => el archivo de factura sera modificado si es que la factura tiene un archivo asociado, si no, sera creado.
+   *
+   * @param fileFactura 
+   * @param fileOrdenServicio 
+   * @param dto 
+   * @returns an `Observable` type of `FacturaEntity`
+   */
+  public override updateEspecial(fileFactura: File , fileOrdenServicio: File, dto: FacturaOrdenServicioDTO): Observable<FacturaEntity> {
+
+    //* Creamos el `FormData` para el body de tipo `multipart/form-data`
+    let formdata: FormData = new FormData();
+
+    formdata.append("fileFactura", fileFactura || new Blob()); //* Tipo file => pdf, excel, mp4, jpg, png, etc. => trabajaremos solo con .pdf
+    formdata.append("fileOrdenServicio", fileOrdenServicio || new Blob());  //* Tipo file => pdf, excel, mp4, jpg, png, etc. => trabajaremos solo con .pdf
+
+    //* el Backend manejara esta logica
+    formdata.append("idFactura", `${dto.idFactura}`);
+    formdata.append("codigoFactura", `${dto.codigoFactura}`);
+    formdata.append("fechaFactura", `${dto.fechaFactura}`);
+    formdata.append("estadoFactura", `${dto.estadoFactura}`);
+    formdata.append("idOrdenServicio", `${dto.idOrdenServicio}`);
+    formdata.append("codigoOrden", `${dto.codigoOrden}`);
+    formdata.append("fechaOrden", `${dto.fechaOrden}`);
+    formdata.append("estadoOrden", `${dto.estadoOrden}`);
+
+    return this.http.put<FacturaModel>(`${this.url}/detach`, formdata).pipe(map((data) => {
+      return this.facturaMapper.mapFrom(data);
+    }));
+
+  }
+
 
 
 

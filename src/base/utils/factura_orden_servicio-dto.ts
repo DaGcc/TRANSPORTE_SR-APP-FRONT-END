@@ -3,7 +3,7 @@ export interface FacturaOrdenServicioDTO {
     /**
     * Atributos de factura
     */
-    idFactura: number;
+    idFactura?: number;
     codigoFactura: string;
     fechaFactura: string;
     estadoFactura: boolean;
@@ -12,7 +12,7 @@ export interface FacturaOrdenServicioDTO {
     /**
      * Atributos de la clase OrdenServicio
      */
-    idOrdenServicio: number;
+    idOrdenServicio?: number;
     codigoOrden: string;
     fechaOrden: string;
     estadoOrden: boolean;

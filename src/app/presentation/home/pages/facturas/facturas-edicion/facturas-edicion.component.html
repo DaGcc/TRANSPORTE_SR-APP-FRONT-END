@@ -15,7 +15,7 @@
             <div class="container-mff " style="display: none;">
                 <mat-form-field>
                     <mat-label>ID</mat-label>
-                    <input matInput formControlName="idFactura" required>
+                    <input matInput formControlName="idFactura">
                 </mat-form-field>
             </div>
 
@@ -42,7 +42,7 @@
                 </div>
 
                 <!--* logica para la seleccion de archivos de la factura  -->
-                <div *ngIf="isCreation" class="container-mff" style="display:flex;align-items: center;">
+                <div class="container-mff" style="display:flex;align-items: center;">
                     <div style="display: flex; gap: 3px; align-items: center;">
                         <ng-container *ngIf="!this.fileFactura; else fileSelectFactura">
                             <button mat-raised-button type="button" color="primary" style="flex: 1 1 auto;"
@@ -55,7 +55,8 @@
                         <ng-template #fileSelectFactura>
                             <div style="display: flex; align-items: center; flex: 2 1 auto;">
                                 <span>{{this.fileFactura?.name || 'not found file name'}}</span>
-                                <button mat-icon-button type="button"(click)="this.fileFactura = null"><mat-icon>close</mat-icon></button>
+                                <button mat-icon-button type="button"
+                                    (click)="this.fileFactura = null"><mat-icon>close</mat-icon></button>
                             </div>
                         </ng-template>
                     </div>
@@ -67,7 +68,7 @@
             <div class="container-mff " style="display: none;">
                 <mat-form-field>
                     <mat-label>ID</mat-label>
-                    <input matInput formControlName="idOrdenServicio" required>
+                    <input matInput formControlName="idOrdenServicio">
                 </mat-form-field>
             </div>
 
@@ -94,9 +95,9 @@
                         <mat-hint align="end">{{iptTelefono.value.length}}/9</mat-hint>
                     </mat-form-field>
                 </div>
-                
+
                 <!--* logica para la seleccion de archivos de el orden de servicio  -->
-                <div *ngIf="isCreation" class="container-mff" style="display:flex;align-items: center;">
+                <div class="container-mff" style="display:flex;align-items: center;">
                     <div style="display: flex; gap: 3px; align-items: center;">
                         <ng-container *ngIf="!this.fileOs; else fileSelectOS">
                             <button mat-raised-button type="button" color="primary" style="flex: 1 1 auto;"
@@ -109,7 +110,8 @@
                         <ng-template #fileSelectOS>
                             <div style="display: flex; align-items: center; flex: 2 1 auto;">
                                 <span>{{this.fileOs?.name || 'not found file name'}}</span>
-                                <button mat-icon-button type="button"(click)="this.fileOs = null"><mat-icon>close</mat-icon></button>
+                                <button mat-icon-button type="button"
+                                    (click)="this.fileOs = null"><mat-icon>close</mat-icon></button>
                             </div>
                         </ng-template>
                     </div>
@@ -120,10 +122,18 @@
 
             <!--* seccion de botones - acciones  -->
             <div class="cont-accion-edicion ">
-                <button mat-stroked-button type="submit" color="primary"
-                    [disabled]="!frmFactura.valid || !fileOs || !fileFactura"
-                ><mat-icon>check</mat-icon>
-                    LISTO </button>
+                <ng-container *ngIf="isCreation; else btnEdicionOperation">
+                    <button mat-stroked-button type="submit" color="primary"
+                        [disabled]="!frmFactura.valid || !fileOs || !fileFactura"><mat-icon>check</mat-icon>
+                        LISTO </button>
+                </ng-container>
+
+                <ng-template #btnEdicionOperation>
+                    <button mat-stroked-button type="submit" color="primary"
+                        [disabled]="!frmFactura.valid"><mat-icon>check</mat-icon>
+                        LISTO </button>
+                </ng-template>
+
                 <button mat-stroked-button color="warn" type="button"
                     (click)="dialogRef.close()"><mat-icon>close</mat-icon>
                     CANCELAR </button>

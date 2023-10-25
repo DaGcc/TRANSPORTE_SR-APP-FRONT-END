@@ -87,7 +87,7 @@ export class InterceptorHttpService implements HttpInterceptor {
 
                 //https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
                 if (err.status === 400) {//? error de fallo de parte del usuario
-                    this.snackBar.open(err.mensaje || err.error.error_description, 'ERROR 400', { duration: 5000 });
+                    this.snackBar.open(err.error.mensaje || err.error.error_description, 'ERROR 400', { duration: 5000 });
                 }
                 else if (err.status === 401) {//? error de falta de credenciales 
                     // console.log(err);
