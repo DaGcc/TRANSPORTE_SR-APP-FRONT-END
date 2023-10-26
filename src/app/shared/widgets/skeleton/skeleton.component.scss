@@ -1,0 +1,26 @@
+.cont-skeleton {
+    width: 100%;
+    height: 100%;
+    // color: rgb(148, 163, 184);
+}
+
+.card__skeleton {
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(90deg,
+            rgba(148, 163, 184, 0.094) 0px,
+            rgba(196 207 212/50%) 40px,
+            rgba(148, 163, 184, .094) 80px);
+    background-size: 300%;
+    background-position: 100% 0;
+    border-radius: inherit;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    to {
+        background-position: -50% 0;
+    }
+}
+
+//94a3b8

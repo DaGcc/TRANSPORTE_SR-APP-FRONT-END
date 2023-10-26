@@ -19,6 +19,8 @@ import { PageSpringBoot } from '@base/utils/page-spring-boot';
 import { ClienteEntity } from '@dominio/entities/cliente.entity';
 import { IEntityEditionDialog } from '@shared/interfaces/IEntityEditionDialog';
 import { ClienteEdicionComponent } from '../clientes/cliente-edicion/cliente-edicion.component';
+import { ConductorRepositoryImplService } from '@infraestructure/repositories/conductor/conductor-repository-impl.service';
+import { ConductorEntity } from '@dominio/entities/conductor.entity';
 
 @Component({
   selector: 'app-trabajadores',
@@ -55,7 +57,7 @@ export class TrabajadoresComponent  implements OnInit, OnDestroy {
   //!-----------------------------------------------------
 
   //***************** Subscriptores ******************/
-  subscriptorReadClientesByPage$!: Subscription;
+  subscriptorReadConductorByPage$!: Subscription;
   subscriptorClienteCambio$!: Subscription;
   //************************************************ */
 
@@ -69,11 +71,11 @@ export class TrabajadoresComponent  implements OnInit, OnDestroy {
 
 
 
-  estadoClientes: '0' | '1' | '2' = '2';
+  estadoConductores: '0' | '1' | '2' = '2';
 
 
   //*inyeccion de dependencia via constructor
-  constructor(private _clienteService: ClienteRepositoryImplService, private _snackBar: MatSnackBar) { }
+  constructor(private _conductorService: ConductorRepositoryImplService, private _snackBar: MatSnackBar) { }
 
 
   ngOnInit(): void {
@@ -81,8 +83,8 @@ export class TrabajadoresComponent  implements OnInit, OnDestroy {
     /** 
      ** Este solo se ejecutara si y solo si por algun lado le dan un .next al subject clientesCambio 
     */
-    this.subscriptorClienteCambio$ = this._clienteService.clientesCambio.subscribe({
-      next: (data: PageSpringBoot<ClienteEntity>) => {
+    this.subscriptorClienteCambio$ = this._conductorService.conductorCambio$.subscribe({
+      next: (data: PageSpringBoot<ConductorEntity>) => {
         // console.log(data)
         this.dataSource = new MatTableDataSource(data.content);
         this.dataSource.sort = this.sort;
@@ -97,8 +99,8 @@ export class TrabajadoresComponent  implements OnInit, OnDestroy {
      ** Por otro lado, dicha subcricion se la damos a una variable de tipo Subscription para que le haga referencia, pues es una buena practica 
      ** para evitar perdidas o fugas de memoria.
      */
-    this.subscriptorReadClientesByPage$ = this._clienteService.readByPage(this.pageIndex, this.pageSize).subscribe({
-      next: (data: PageSpringBoot<ClienteEntity>) => {
+    this.subscriptorReadConductorByPage$ = this._conductorService.readByPage(this.pageIndex, this.pageSize).subscribe({
+      next: (data: PageSpringBoot<ConductorEntity>) => {
 
         //* seteamos la cantidad de elementos que tiene la respuesta, pero no el contenido, pues ese depende de el tamaño de la pagina.
         //* nos sirve para darle un tamaño al paginator.
@@ -122,30 +124,31 @@ export class TrabajadoresComponent  implements OnInit, OnDestroy {
     // this.cantidad = e.length;
     this.pageIndex = e.pageIndex;
     this.pageSize = e.pageSize;
-    this._clienteService.readByPage(this.pageIndex, this.pageSize, { estado: this.estadoClientes })
+    this._conductorService.readByPage(this.pageIndex, this.pageSize, { estado: this.estadoConductores })
       .subscribe({
-        next: (data: PageSpringBoot<ClienteEntity>) => {
-          this._clienteService.clientesCambio.next(data)
+        next: (data: PageSpringBoot<ConductorEntity>) => {
+          this._conductorService.conductorCambio$.next(data)
         }
       });
   }
 
-  fnCreateOrUpdate(obj?: ClienteEntity): void {
 
-    let data: IEntityEditionDialog<ClienteEntity>;
+  fnCreateOrUpdate(obj?: ConductorEntity): void {
+
+    let data: IEntityEditionDialog<ConductorEntity>;
 
     if (obj != undefined || obj != null) {
       //*EDICION
-      data = { title: 'EDICION', subtitle: `ID DEL CLIENTE : ${obj.idCliente}`, body: obj }
+      data = { title: 'EDICION', subtitle: `ID DEL CONDUCTOR : ${obj.idConductor}`, body: obj }
     } else {
       //*CREACION
-      data = { title: 'CREACION', subtitle: 'Formulario para crear a un nuevo cliente' }
+      data = { title: 'CREACION', subtitle: 'Formulario para crear a un nuevo conductor' }
     }
     data.pageIndex = this.pageIndex;
     data.pageSize = this.pageSize;
 
     console.log(data)
-    this.dialog.open(ClienteEdicionComponent, {
+    this.dialog.open(TrabajadoresEdicionComponent, {
       scrollStrategy: this.overlay.scrollStrategies.noop(),
       disableClose: true,
       data
@@ -185,11 +188,11 @@ export class TrabajadoresComponent  implements OnInit, OnDestroy {
     result.afterClosed().subscribe({
       next: (confirmationResult: boolean) => {
         if (confirmationResult) {
-          this._clienteService!.deleteById(obj.idCliente, deep).pipe(mergeMap(() => {
-            return this._clienteService.readByPage(this.pageIndex, this.pageSize);
+          this._conductorService!.deleteById(obj.idCliente, deep).pipe(mergeMap(() => {
+            return this._conductorService.readByPage(this.pageIndex, this.pageSize);
           })).subscribe({
-            next: (data: PageSpringBoot<ClienteEntity>) => {
-              this._clienteService.clientesCambio.next(data);
+            next: (data: PageSpringBoot<ConductorEntity>) => {
+              this._conductorService.conductorCambio$.next(data);
             }
           })
         } else {
@@ -206,10 +209,10 @@ export class TrabajadoresComponent  implements OnInit, OnDestroy {
 
 
   fnReloadData() {
-    this._clienteService.readByPage(this.pageIndex, this.pageSize).subscribe({
-      next: (data: PageSpringBoot<ClienteEntity>) => {
+    this._conductorService.readByPage(this.pageIndex, this.pageSize).subscribe({
+      next: (data: PageSpringBoot<ConductorEntity>) => {
         this._enableFilterPaginator = false;
-        this._clienteService.clientesCambio.next(data);
+        this._conductorService.conductorCambio$.next(data);
       }
     })
   }
@@ -243,9 +246,9 @@ export class TrabajadoresComponent  implements OnInit, OnDestroy {
       } else {
         this.valorDeFiltro = e;
         this._enableFilterPaginator = true;
-        this._clienteService.filtroClientes(0, this.pageSize, this.valorDeFiltro).subscribe(d => {
+        this._conductorService.filtroConductores(0, this.pageSize, this.valorDeFiltro).subscribe(d => {
           this.cantidad = d.totalElements;
-          this.dataSource = new MatTableDataSource<ClienteEntity>(d.content);
+          this.dataSource = new MatTableDataSource<ConductorEntity>(d.content);
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;//* le damos el pginador por ser un nuevo elemento html paginador
         })
@@ -253,9 +256,9 @@ export class TrabajadoresComponent  implements OnInit, OnDestroy {
     }, 600)
   }
   nextPageFiltro(e: PageEvent) {
-    this._clienteService.filtroClientes(e.pageIndex, e.pageSize, this.valorDeFiltro).subscribe(d => {
+    this._conductorService.filtroConductores(e.pageIndex, e.pageSize, this.valorDeFiltro).subscribe(d => {
       // this.cantidad = d.totalElements;
-      this.dataSource = new MatTableDataSource<ClienteEntity>(d.content);
+      this.dataSource = new MatTableDataSource<ConductorEntity>(d.content);
       this.dataSource.sort = this.sort;
     })
   }
@@ -263,11 +266,11 @@ export class TrabajadoresComponent  implements OnInit, OnDestroy {
 
 
   loadDataByStatus() {
-    this._clienteService.readByPage(this.pageIndex, this.pageSize, {
-      estado: this.estadoClientes
+    this._conductorService.readByPage(this.pageIndex, this.pageSize, {
+      estado: this.estadoConductores
     }).subscribe({
-      next: (data: PageSpringBoot<ClienteEntity>) => {
-        this._clienteService.clientesCambio.next(data);
+      next: (data: PageSpringBoot<ConductorEntity>) => {
+        this._conductorService.conductorCambio$.next(data);
       }
     })
   }
@@ -277,8 +280,8 @@ export class TrabajadoresComponent  implements OnInit, OnDestroy {
 
     //* DATO: para desubscribir a un subscriptor primero tenemos que validar tiene alguna subscripción para poder darse de baja.
 
-    if (this.subscriptorReadClientesByPage$) {
-      this.subscriptorReadClientesByPage$.unsubscribe();
+    if (this.subscriptorReadConductorByPage$) {
+      this.subscriptorReadConductorByPage$.unsubscribe();
       // console.log((this.subscriptorReadClientesByPage$))
     }
 

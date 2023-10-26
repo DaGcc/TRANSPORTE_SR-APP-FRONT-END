@@ -5,7 +5,7 @@ import { MapViewComponent } from '@home/pages/geolocalizacion/components/map-vie
 import { ButtonMyLocationComponent } from '@home/pages/geolocalizacion/widgets/button-my-location/button-my-location.component';
 import { PlacesService } from './services/places.service';
 import { BuscadorBarComponent } from './components/buscador-bar/buscador-bar.component';
-import { LoaderComponent } from '@shared/components/loader/loader.component';
+import { LoaderComponent } from '@shared/widgets/loader/loader.component';
 
 @Component({
   selector: 'app-geolocalizacion',

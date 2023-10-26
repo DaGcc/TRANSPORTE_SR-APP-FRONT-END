@@ -1,4 +1,4 @@
-<section class="cont-page font">
+<section class="cont-page font animate__animated animate__fadeIn">
 
     <div class="cont-representacion">
         <section class="cont-action">
@@ -119,7 +119,7 @@
                                         (click)="fnReloadData()"><mat-icon>cloud_sync</mat-icon></button>
                                     <section class="cont-groups-radio-btn">
                                         <label class="example-margin">Solo clientes:</label>
-                                        <mat-radio-group [(ngModel)]="estadoClientes" (change)="loadDataByStatus()" class="cont-radio-btns">
+                                        <mat-radio-group [(ngModel)]="estadoConductores" (change)="loadDataByStatus()" class="cont-radio-btns">
                                             <mat-radio-button  value="1">
                                                 <span class="font">Activos</span>
                                             </mat-radio-button>

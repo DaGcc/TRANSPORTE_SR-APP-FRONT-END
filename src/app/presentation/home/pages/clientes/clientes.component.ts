@@ -18,6 +18,7 @@ import { Subscription, mergeMap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
 import { TagComponent } from '@shared/widgets/tag/tag.component';
+import { SkeletonComponent } from '@shared/widgets/skeleton/skeleton.component';
 
 @Component({
   selector: 'app-clientes',
@@ -28,7 +29,8 @@ import { TagComponent } from '@shared/widgets/tag/tag.component';
     MaterialModule,
     InputComponent,
     FormsModule,
-    TagComponent
+    TagComponent,
+    SkeletonComponent
   ],
   templateUrl: './clientes.component.html',
   styleUrls: ['./clientes.component.scss']
@@ -74,6 +76,10 @@ export class ClientesComponent implements OnInit, OnDestroy {
   estadoClientes: '0' | '1' | '2' = '2';
 
 
+
+  isLoadedDate : boolean = false
+
+
   //*inyeccion de dependencia via constructor
   constructor(private _clienteService: ClienteRepositoryImplService, private _snackBar: MatSnackBar) { }
 
@@ -86,6 +92,7 @@ export class ClientesComponent implements OnInit, OnDestroy {
     this.subscriptorClienteCambio$ = this._clienteService.clientesCambio.subscribe({
       next: (data: PageSpringBoot<ClienteEntity>) => {
         // console.log(data)
+        this.isLoadedDate = true;
         this.dataSource = new MatTableDataSource(data.content);
         this.dataSource.sort = this.sort;
         this.cantidad = data.totalElements;//* nos sirve para darle un tamaño al paginator.
@@ -101,11 +108,10 @@ export class ClientesComponent implements OnInit, OnDestroy {
      */
     this.subscriptorReadClientesByPage$ = this._clienteService.readByPage(this.pageIndex, this.pageSize).subscribe({
       next: (data: PageSpringBoot<ClienteEntity>) => {
-
+        this.isLoadedDate = true;
         //* seteamos la cantidad de elementos que tiene la respuesta, pero no el contenido, pues ese depende de el tamaño de la pagina.
         //* nos sirve para darle un tamaño al paginator.
         this.cantidad = data.totalElements;
-
         this.dataSource = new MatTableDataSource(data.content);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -129,6 +135,7 @@ export class ClientesComponent implements OnInit, OnDestroy {
    */
   nextPage(e: PageEvent) {
     // this.cantidad = e.length;
+    this.isLoadedDate = false;
     this.pageIndex = e.pageIndex;
     this.pageSize = e.pageSize;
     this._clienteService.readByPage(this.pageIndex, this.pageSize, { estado: this.estadoClientes })
@@ -200,6 +207,7 @@ export class ClientesComponent implements OnInit, OnDestroy {
     result.afterClosed().subscribe({
       next: (confirmationResult: boolean) => {
         if (confirmationResult) {
+          this.isLoadedDate = false;
           this._clienteService!.deleteById(obj.idCliente, deep).pipe(mergeMap((_) => {
             return this._clienteService.readByPage(this.pageIndex, this.pageSize);
           })).subscribe({
@@ -221,10 +229,12 @@ export class ClientesComponent implements OnInit, OnDestroy {
 
 
   fnReloadData() {
+    this.isLoadedDate = false;
     this._clienteService.readByPage(this.pageIndex, this.pageSize, {
       estado : this.estadoClientes
     }).subscribe({
       next: (data: PageSpringBoot<ClienteEntity>) => {
+        // this.isLoadedDate = true;
         this._enableFilterPaginator = false;
         this._clienteService.clientesCambio.next(data);
       }
@@ -258,11 +268,13 @@ export class ClientesComponent implements OnInit, OnDestroy {
           duration: 1300
         })
       } else {
+        this.isLoadedDate = false;
         this.valorDeFiltro = e;
         this._enableFilterPaginator = true;
         this._clienteService.filtroClientes(0, this.pageSize, this.valorDeFiltro).subscribe(d => {
           this.cantidad = d.totalElements;
           this.dataSource = new MatTableDataSource<ClienteEntity>(d.content);
+          this.isLoadedDate = true;
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;//* le damos el pginador por ser un nuevo elemento html paginador
         })
@@ -270,9 +282,11 @@ export class ClientesComponent implements OnInit, OnDestroy {
     }, 600)
   }
   nextPageFiltro(e: PageEvent) {
+    this.isLoadedDate = false;
     this._clienteService.filtroClientes(e.pageIndex, e.pageSize, this.valorDeFiltro).subscribe(d => {
       // this.cantidad = d.totalElements;
       this.dataSource = new MatTableDataSource<ClienteEntity>(d.content);
+      this.isLoadedDate = true;
       this.dataSource.sort = this.sort;
     })
   }
@@ -280,6 +294,7 @@ export class ClientesComponent implements OnInit, OnDestroy {
 
 
   loadDataByStatus() {
+    this.isLoadedDate = false;
     this._clienteService.readByPage(this.pageIndex, this.pageSize, {
       estado: this.estadoClientes
     }).subscribe({

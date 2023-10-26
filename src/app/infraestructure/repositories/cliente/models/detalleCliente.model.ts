@@ -1,5 +1,5 @@
 import { ClienteModel } from "./cliente.model";
-import { GeneroModel } from "./genero.model";
+import { GeneroModel } from "../../../shared/models/genero.model";
 
 export interface DetalleClienteModel {
     idDetalleCliente: number;
