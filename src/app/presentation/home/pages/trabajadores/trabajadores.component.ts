@@ -64,7 +64,7 @@ export class TrabajadoresComponent  implements OnInit, OnDestroy {
   //!-----------------------------------------------------
 
 
-  displayedColumns: string[] = ['idCliente', 'nombres', 'telefono', 'email', 'estado', 'acciones'];
+  displayedColumns: string[] = ['idConductor', 'nombres', 'telefono', 'email', 'estado', 'acciones'];
   dataSource!: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

@@ -20,7 +20,7 @@
                     <div class="container-mff " style="display: none;">
                         <mat-form-field>
                             <mat-label>ID</mat-label>
-                            <input matInput formControlName="id" required>
+                            <input matInput formControlName="id">
                         </mat-form-field>
                     </div>
 
@@ -104,8 +104,6 @@
                             </mat-form-field>
                         </div>
 
-
-
                     </div>
 
                     <div class="container-mff">
@@ -122,16 +120,22 @@
                     <button mat-stroked-button color="warn" type="button"
                         (click)="dialogRef.close()"><mat-icon>close</mat-icon>
                         CANCELAR </button>
-                    <button mat-stroked-button type="button" color="primary" matStepperNext
+                    <button mat-stroked-button type="button" color="primary" matStepperNext *ngIf="isCreation; else btnEdition "
                         [disabled]="frmGroupTrabajador.invalid"><mat-icon>chevron_right</mat-icon> SIGUIENTE </button>
-
+                    <ng-template #btnEdition>
+                        <button mat-stroked-button type="button" color="primary" (click)="operar()"
+                            [disabled]="frmGroupTrabajador.invalid">
+                            <mat-icon>check</mat-icon>EDITAR
+                        </button>
+                    </ng-template>
+                    
                 </div>
 
             </mat-step>
             <!--* END - PASO 1 -->
 
             <!--* PASO 2 -->
-            <mat-step [stepControl]="frmGruopCredencials" [editable]="true" *ngIf="!isCreation" >
+            <mat-step [stepControl]="frmGruopCredencials" [editable]="true" *ngIf="isCreation" >
                 <form [formGroup]="frmGruopCredencials">
                     <ng-template matStepLabel>Datos de la cuenta</ng-template>
 
@@ -172,11 +176,10 @@
                     <div class="cont-accion-edicion">
                         <button mat-stroked-button color="warn" type="button" matStepperPrevious>
                             <mat-icon>chevron_left</mat-icon> ATRAS </button>
-                        <button mat-stroked-button type="button" color="primary"
+                        <button mat-stroked-button type="button" color="primary" (click)="operar()"
                             [disabled]="frmGroupTrabajador.invalid || frmGruopCredencials.invalid">
                             <mat-icon>check</mat-icon>CREAR
                         </button>
-
                     </div>
                 </form>
             </mat-step>
