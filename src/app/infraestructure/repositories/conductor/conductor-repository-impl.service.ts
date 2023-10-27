@@ -4,7 +4,7 @@ import { PageSpringBoot } from '@base/utils/page-spring-boot';
 import { ConductorEntity } from '@dominio/entities/conductor.entity';
 import { ConductorRepository } from '@dominio/repositories/conductor.repositoty';
 import { environment } from '@environments/environments';
-import { Observable, Subject, map } from 'rxjs';
+import { Observable, Subject, map, switchMap } from 'rxjs';
 import { ConductorMapper } from './mappers/conductor.mapper';
 import { HttpClient } from '@angular/common/http';
 import { ConductorModel } from './models/conductor.model';
@@ -26,7 +26,21 @@ export class ConductorRepositoryImplService extends ConductorRepository {
 
 
   override filtroConductores(pageIndex: number, pageSize: number, value: string): Observable<PageFiltroDTO<ConductorEntity>> {
-    throw new Error('Method not implemented.');
+    return this.http.get<PageFiltroDTO<ConductorModel>>(`${this.url}/filtro?pageIndex=${pageIndex}&pageSize=${pageSize}&value=${value}`).pipe(
+      map((data: PageFiltroDTO<ConductorModel>) => {
+
+        let {content,...otherPorperties } = data;
+
+        let response: PageFiltroDTO<ConductorEntity> = {
+          content: content.map(d => {
+            return this.conductorMapper.mapFrom(d);
+          }),
+          ...otherPorperties
+        }
+        return response;
+      })
+    )
+
   }
   override create(e: ConductorEntity): Observable<ConductorEntity> {
     let model = this.conductorMapper.mapTo(e);//convertimos a la estructura de la api rest

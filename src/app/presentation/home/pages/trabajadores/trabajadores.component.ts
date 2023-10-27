@@ -156,7 +156,7 @@ export class TrabajadoresComponent  implements OnInit, OnDestroy {
 
   }
 
-  fnDelete(obj: ClienteEntity, deep: boolean) {
+  fnDelete(obj: ConductorEntity, deep: boolean) {
     let body: string;
     let isEnableBtnConfir: boolean;
     //* si el estado es true, podemos cambiarlo(ocultarlo) 
@@ -166,11 +166,11 @@ export class TrabajadoresComponent  implements OnInit, OnDestroy {
 
       //* Si deep es true, es una eliminacion profunda, es decir, una eliminacion total de la base de datos
       body = deep ?
-        `¿Desea eliminar de manera permanente al cliente con id ${obj.idCliente}?` : //* eliminacion total de la bbdd   
-        `¿Desea eliminar al cliente con id ${obj.idCliente}, pero conservando su información?`; //* eliminacion con solo el estado
+        `¿Desea eliminar de manera permanente al cliente con id ${obj.idConductor}?` : //* eliminacion total de la bbdd   
+        `¿Desea eliminar al cliente con id ${obj.idConductor}, pero conservando su información?`; //* eliminacion con solo el estado
 
     } else {//* si estado es false, es decir que ya ha sido eliminado, pero no con deep, deshabilitaremos la funcion del boton confirmar
-      body = `No puede realizar dicha accion en este usuario debido a su estado del Cliente con id: ${obj.idCliente}.`;
+      body = `No puede realizar dicha accion en este usuario debido a su estado del Cliente con id: ${obj.idConductor}.`;
       isEnableBtnConfir = false;
     }
 
@@ -188,7 +188,7 @@ export class TrabajadoresComponent  implements OnInit, OnDestroy {
     result.afterClosed().subscribe({
       next: (confirmationResult: boolean) => {
         if (confirmationResult) {
-          this._conductorService!.deleteById(obj.idCliente, deep).pipe(mergeMap(() => {
+          this._conductorService!.deleteById(obj.idConductor, deep).pipe(mergeMap(() => {
             return this._conductorService.readByPage(this.pageIndex, this.pageSize);
           })).subscribe({
             next: (data: PageSpringBoot<ConductorEntity>) => {
@@ -255,6 +255,7 @@ export class TrabajadoresComponent  implements OnInit, OnDestroy {
       }
     }, 600)
   }
+
   nextPageFiltro(e: PageEvent) {
     this._conductorService.filtroConductores(e.pageIndex, e.pageSize, this.valorDeFiltro).subscribe(d => {
       // this.cantidad = d.totalElements;
@@ -262,7 +263,6 @@ export class TrabajadoresComponent  implements OnInit, OnDestroy {
       this.dataSource.sort = this.sort;
     })
   }
-
 
 
   loadDataByStatus() {
