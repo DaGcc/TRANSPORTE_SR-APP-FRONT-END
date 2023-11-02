@@ -28,7 +28,7 @@ export class ClienteRepositoryImplService extends ClienteRepository {
   }
 
   override create(cliente: ClienteEntity): Observable<ClienteEntity> {
-    let clienteModel = this.clienteMapper.mapTo(cliente);//convertimos a la estructura de la api rest
+    let clienteModel = this.clienteMapper.mapTo(cliente);//* Convertimos a la estructura de la api rest
     return this.http.post<ClienteModel>(this.url, clienteModel).pipe(map(c => {
       return this.clienteMapper.mapFrom(c);//* convertimos la respuesta del api rest en la estructura de negocio de la app
     }))

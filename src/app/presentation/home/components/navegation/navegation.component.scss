@@ -8,11 +8,10 @@
 
 .sidenav {
   background-color: red !important;
-  width: 280px;
+  width: 250px;
+  // max-width: 200px;
   border-right-width: 0px;
   // background-color: red;
-
-
 }
 
 
@@ -192,6 +191,7 @@
 
         & span {
           // display: none;
+          font-size: small;
           color: var(--text-color-01);
         }
 

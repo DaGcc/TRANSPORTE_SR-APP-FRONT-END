@@ -1,42 +1,10 @@
-.cont-edicion{
-    padding: 0 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
 
-
-.cont-header-edicion{
-    display: flex;
-    flex-direction: column; 
-    // background-color: red;
-    text-align: center;
-    padding: 10px;
-    border-radius:  0 0 20px 20px;
-    background-color: #b69bff;
-
-
-    & span:first-child{
-        font-size: large;
-        font-weight: 600;
-        color : #fff;
-    }
-
-    & span:last-child{
-        color: #fff;
-    }
-}
-.cont-body-edicion{
-    overflow: auto;
-    padding: 0 15px 15px 15px;
-}
 .form-edicion{
     display: flex;
     flex-direction: column;
     max-height: 900px;
     // overflow: auto;
 }
-
 
 .row-ipt{
     display: flex;
@@ -53,6 +21,7 @@
     }
 }
 
+
 .container-mff{
     & > * {
         width: 100%;
@@ -62,7 +31,6 @@
 
 .cont-accion-edicion{
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 10px;

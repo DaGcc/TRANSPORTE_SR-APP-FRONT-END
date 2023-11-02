@@ -9,7 +9,6 @@ import { DialogConfirmacionComponent } from '@shared/components/dialog-confirmac
 import { EstructuraDialogoConfirmacion } from '@shared/components/dialog-confirmacion/estructura-dialogo-confirmacion';
 import { MaterialModule } from 'src/app/_material/material.module';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ClienteRepositoryImplService } from '@infraestructure/repositories/cliente/cliente-repository-impl.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';

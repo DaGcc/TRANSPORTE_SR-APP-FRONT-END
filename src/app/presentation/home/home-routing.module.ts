@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeLayoutComponent } from './layout/home-layout/home-layout.component';
 import { guardFn } from '@shared/guard/guard-fn';
-import { FacturasComponent } from './pages/facturas/facturas.component';
 
 const routes: Routes = [
   {
@@ -46,11 +45,22 @@ const routes: Routes = [
         canActivate : [guardFn]
       }, 
       {
+        path: 'envio-solicitud',
+        loadComponent: () => import('./pages/solicitud/solicitud.component').then( m => m.SolicitudComponent ),
+        data :  { titulo:'Envio de Solicitud', url: "/page/envio-solicitud",icon: null },
+        canActivate : [guardFn]
+      },
+      {
+        path: 'solicitudes',
+        loadChildren : () => import("./pages/gestion-solicitud/gestion-solicitud.component").then( m => m.GestionSolicitudComponent ),
+        data : { titulo: "Gestion de solicitudes", url: "/page/solicitudes", icon : null }
+      },
+      {
         path: 'perfil',
         loadComponent: () => import('./pages/perfil-user/perfil-user.component').then( m => m.PerfilUserComponent ),
         data : { titulo:'Perfil usuario', url: "/page/perfil",icon: null },
         canActivate : [guardFn]
-      }, 
+      },
 
       {
         path:'',

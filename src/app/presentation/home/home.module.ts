@@ -29,7 +29,7 @@ import { SwitchDarkModeComponent } from 'src/app/shared/widgets/switch-dark-mode
     FooterComponent,
     CardTittleComponent,
     ButtonElevatedComponent,
-    CardActionComponent
+    CardActionComponent,
   ],
   imports: [
     CommonModule,
