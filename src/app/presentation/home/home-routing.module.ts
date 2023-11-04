@@ -52,8 +52,9 @@ const routes: Routes = [
       },
       {
         path: 'solicitudes',
-        loadChildren : () => import("./pages/gestion-solicitud/gestion-solicitud.component").then( m => m.GestionSolicitudComponent ),
-        data : { titulo: "Gestion de solicitudes", url: "/page/solicitudes", icon : null }
+        loadComponent : () => import("./pages/gestion-solicitud/gestion-solicitud.component").then( m => m.GestionSolicitudComponent ),
+        data : { titulo: "Gestion de solicitudes", url: "/page/solicitudes", icon : null },
+        canActivate : [guardFn]
       },
       {
         path: 'perfil',
@@ -61,7 +62,18 @@ const routes: Routes = [
         data : { titulo:'Perfil usuario', url: "/page/perfil",icon: null },
         canActivate : [guardFn]
       },
-
+      {
+        path: 'flota',
+        loadComponent: () => import("./pages/flota/flota.component").then( m => m.FlotaComponent ),
+        data : { titulo:'Gestion de flotas', url: "/page/flota",icon: null },
+        canActivate : [guardFn]
+      },
+      {
+        path: 'dashboard',
+        loadComponent : () => import("./pages/dashboard/dashboard.component").then( m => m.DashboardComponent ),
+        data : { titulo:'Dashboard admin', url: "/page/dashboard",icon: null },
+        canActivate : [guardFn]
+      },
       {
         path:'',
         redirectTo: 'inicio',

@@ -3,7 +3,7 @@
     <section class="cont-body-edicion">
 
 
-        <form #frmSolicitud [formGroup]="frmGroupSolicitud" class="form-edicion" (submit)="operar()">
+        <form #frmSolicitud [formGroup]="frmGroupFlota" class="form-edicion" (submit)="operar()">
 
             <div class="container-mff " style="display: none;">
                 <mat-form-field>
@@ -17,7 +17,7 @@
             <div class="row-ipt">
 
                 <div class="container-mff">
-                    <mat-form-field >
+                    <mat-form-field>
                         <!-- <mat-label for="sltEstatus">Estado</mat-label> -->
                         <mat-select placeholder="Tipo de servicio*" formControlName="servicio" id="sltEstatus">
                             <mat-option *ngFor="let servicio of servicios" [value]="servicio">
