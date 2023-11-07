@@ -6,6 +6,7 @@ export class DetalleSolicitudMapper extends Mapper<DetalleSolicitudModel,Detalle
 
     override mapFrom(param: DetalleSolicitudModel): DetalleSolicitudEntity {
         return {
+            idDetalleSolicitud : param.idDetalleSolicitud,
             fecha: param.fecha,
             estado : param.estado,
             estadoAccion : param.estadoAccion
@@ -13,6 +14,7 @@ export class DetalleSolicitudMapper extends Mapper<DetalleSolicitudModel,Detalle
     }
     override mapTo(param: DetalleSolicitudEntity): DetalleSolicitudModel {
         return {
+            idDetalleSolicitud : param.idDetalleSolicitud,
             fecha: param.fecha,
             estado : param.estado,
             estadoAccion : param.estadoAccion

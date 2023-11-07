@@ -64,7 +64,7 @@ const routes: Routes = [
       },
       {
         path: 'flota',
-        loadComponent: () => import("./pages/flota/flota.component").then( m => m.FlotaComponent ),
+        loadComponent: () => import("./pages/gestion-flota/gestion-flota.component").then( m => m.GestionFlotaComponent ),
         data : { titulo:'Gestion de flotas', url: "/page/flota",icon: null },
         canActivate : [guardFn]
       },
