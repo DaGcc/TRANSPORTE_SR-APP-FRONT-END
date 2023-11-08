@@ -15,7 +15,7 @@ import { PageFiltroDTO } from '@base/utils/page-dto';
 export class VehiculoRepositoryImplService extends  VehiculoRepository {
   
  
-  mapperVehiculo = new VehiculoMapperImpl();
+  mapperVehiculo : VehiculoMapperImpl = new VehiculoMapperImpl();
 
 
   vehiculoCambio  = new Subject<PageSpringBoot<VehiculoEntity>>();
@@ -35,8 +35,19 @@ export class VehiculoRepositoryImplService extends  VehiculoRepository {
   override readById(id: number): Observable<VehiculoEntity> {
     throw new Error('Method not implemented.');
   }
-  override readByPage(pageNumber: number, size: number, options?: {} | undefined): Observable<PageSpringBoot<VehiculoEntity>> {
-    throw new Error('Method not implemented.');
+  override readByPage(pageNumber: number, size: number, options?: {
+    estado : '0' | '1' | '2'
+  } | undefined): Observable<PageSpringBoot<VehiculoEntity>> {
+    return this._http.get<PageSpringBoot<VehiculoModel>>(`${this.url}/detach/paginado?estado=${options?.estado || "2"}&page=${pageNumber}&size=${size}&sort=idVehiculo,desc`).pipe(map( d => {
+
+      let {content , ...otherProperties } = d;
+      
+      let p : PageSpringBoot<VehiculoEntity> = {
+        content :  content.map( c => this.mapperVehiculo.mapFrom(c) ),
+        ...otherProperties
+      }
+      return p;
+    }))
   }
   override update(id: number, e: VehiculoEntity): Observable<VehiculoEntity> {
     throw new Error('Method not implemented.');

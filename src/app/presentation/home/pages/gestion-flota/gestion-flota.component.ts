@@ -1,4 +1,4 @@
-import { Component, ViewChild, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { CommonModule, NgIf, NgStyle } from '@angular/common';
 import { MaterialModule } from 'src/app/_material/material.module';
 import { InputComponent } from '@shared/widgets/input/input.component';
@@ -34,7 +34,8 @@ import { Overlay } from '@angular/cdk/overlay';
   templateUrl: './gestion-flota.component.html',
   styleUrls: ['./gestion-flota.component.scss']
 })
-export class GestionFlotaComponent {
+export class GestionFlotaComponent implements OnInit{
+
 
   //************ Inyecciones de dependencia **+********
 
@@ -58,7 +59,7 @@ export class GestionFlotaComponent {
 
   estadoVehiculos: '0' | '1' | '2' = '2';
 
-  displayedColumns: string[] = ['idVehiculo', 'placa', 'estado', 'acciones'];
+  displayedColumns: string[] = ['idVehiculo','descripcion', 'placa', 'estado', 'acciones'];
   dataSource!: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -72,17 +73,28 @@ export class GestionFlotaComponent {
   }
 
 
-  /**
-   * idVehiculo
-tipoVehiculo
-placa
-foto
-colorVehiculo
-alto
-ancho
-estado
-listaDetalleVehiculo
-   */
+  ngOnInit(): void {
+
+    this._vehiculoService.vehiculoCambio.subscribe({
+      next : (data : PageSpringBoot<VehiculoEntity>) => {
+        this.isLoadedDate = true;
+        this.cantidad = data.totalElements;
+        this.dataSource = new MatTableDataSource<VehiculoEntity>(data.content);
+        this.dataSource.sort = this.sort;
+      }
+    })
+
+    this._vehiculoService.readByPage(this.pageIndex, this.pageSize).subscribe({
+      next: (data : PageSpringBoot<VehiculoEntity>) => {
+        this.cantidad = data.totalElements;
+        this.dataSource = new MatTableDataSource<VehiculoEntity>(data.content);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator =this.paginator;
+
+      }
+    })
+  }
+
 
   /**
    ** Funcion que se ejecuta cada vez que interactuemos con el paginator.
@@ -90,8 +102,6 @@ listaDetalleVehiculo
    ** nos da la pagina actual(page index) y el tamaño para la pagina, entre otros.
    * @param e 
    */
-
-
    nextPage(e: PageEvent) {
     // this.cantidad = e.length;
     this.isLoadedDate = false;
@@ -120,6 +130,8 @@ listaDetalleVehiculo
   filtroPorCampo(e : String){
 
   }
+
+
   nextPageFiltro(e: PageEvent) {
     this.isLoadedDate = false;
     this._vehiculoService.filtroVehiculos(e.pageIndex, e.pageSize, this.valorDeFiltro).subscribe(d => {

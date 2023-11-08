@@ -42,7 +42,7 @@ export class ClienteRepositoryImplService extends ClienteRepository {
   override readByPage(pageNumber: number, size: number,
     options?: {
       estado: '0' | '1' | '2'
-    }
+    } 
   ): Observable<PageSpringBoot<ClienteEntity>> {
     return this.http
       .get<PageSpringBoot<ClienteModel>>(`${this.url}/detach/paginado?estado=${options?.estado || '2'}&page=${pageNumber}&size=${size}&sort=idCliente,desc`)
