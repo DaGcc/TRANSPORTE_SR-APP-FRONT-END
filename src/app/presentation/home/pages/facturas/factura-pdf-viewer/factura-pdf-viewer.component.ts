@@ -14,13 +14,16 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class FacturaPdfViewerComponent implements OnInit, AfterViewInit, OnDestroy{
 
-  pdfSrc : any = null;
+  pdfSrc : any ;
   
   constructor(@Inject(MAT_DIALOG_DATA) public data : any){
     let reader : FileReader = new FileReader();
     reader.readAsArrayBuffer(this.data);
     reader.onload = (e : any) => {
-      this.pdfSrc = reader.result;
+      setTimeout(()=> {
+        this.pdfSrc = reader.result; //* O => e.target.result;
+
+      }, 500)
     }
   }
   ngOnDestroy(): void {

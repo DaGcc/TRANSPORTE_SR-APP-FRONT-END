@@ -18,7 +18,7 @@ export class ClienteRepositoryImplService extends ClienteRepository {
 
   clienteMapper = new ClienteMapperImpl();
 
-  url: string = `${environment.host}/clientes` //end point del controlador 
+  url: string = `${environment.host}/clientes` //* End point del controlador.
 
 
   clientesCambio = new Subject<PageSpringBoot<ClienteEntity>>()
@@ -39,15 +39,24 @@ export class ClienteRepositoryImplService extends ClienteRepository {
     }));
   }
 
+
+  /**
+  ** Can use whit diferents modules.
+  ** The params is important except from `options`
+  * 
+  * @param pageNumber 
+  * @param size 
+  * @param options 
+  * @returns An `PageSpringBoot` it's type generic from `FacturaEntity`
+  */
   override readByPage(pageNumber: number, size: number,
     options?: {
       estado: '0' | '1' | '2'
-    } 
+    }
   ): Observable<PageSpringBoot<ClienteEntity>> {
     return this.http
       .get<PageSpringBoot<ClienteModel>>(`${this.url}/detach/paginado?estado=${options?.estado || '2'}&page=${pageNumber}&size=${size}&sort=idCliente,desc`)
       .pipe(map(d => {
-
         //??destructuración AND "..." propagación 
         let { content, ...otherProperties } = d;
         let pe: PageSpringBoot<ClienteEntity> = {
@@ -60,6 +69,13 @@ export class ClienteRepositoryImplService extends ClienteRepository {
       }))
   }
 
+  /**
+   ** Data update  function. 
+   * 
+   * @param id 
+   * @param e 
+   * @returns An `Observable` type `VehiculoEntity`
+   */
   override update(id: number, cliente: ClienteEntity): Observable<ClienteEntity> {
     let clienteModel = this.clienteMapper.mapTo(cliente)
     return this.http.put<ClienteModel>(`${this.url}/${id}`, clienteModel, {
@@ -68,11 +84,24 @@ export class ClienteRepositoryImplService extends ClienteRepository {
     }))
   }
 
+  /**
+   ** Function to delete data in two ways.
+   ** The params is important, except from `deep`.
+   * @param id 
+   * @param deep 
+   * @returns void, because the server emit status 204_HTTP.
+   */
   override deleteById(id: number, deep?: boolean | undefined): Observable<void> {
     return this.http.delete<void>(`${this.url}/detach/${id}?deep=${deep}`);
   }
 
-
+  /**
+   ** Function to filter the data in a paginated manner.
+   *
+   * @param id 
+   * @param deep 
+   * @returns An `PageFiltroDTO` it's type generic from `FacturaEntity`
+   */
   override filtroClientes(pageIndex: number, pageSize: number, value: string): Observable<PageFiltroDTO<ClienteEntity>> {
     return this.http.get<PageFiltroDTO<ClienteModel>>(`${this.url}/filtro?pageIndex=${pageIndex}&pageSize=${pageSize}&value=${value}`)
       .pipe(map(d => {

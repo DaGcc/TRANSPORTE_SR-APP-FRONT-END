@@ -1,1 +1,108 @@
-<p>flota-edicion works!</p>
+<section class="cont-edicion font">
+
+    <section class="cont-header-edicion font">
+        <span>{{data.title || ''}}</span>
+        <span>{{data.subtitle || '' }}</span>
+    </section>
+
+
+    <section class="cont-body-edicion">
+
+
+
+        <form #frmTrabajador [formGroup]="frmVehiculo" class="form-edicion">
+            <!-- <ng-template matStepLabel>Datos personales</ng-template> -->
+
+            <div class="container-mff " style="display: none;">
+                <mat-form-field appearance="outline">
+                    <mat-label>ID</mat-label>
+                    <input matInput formControlName="idVehiculo" required>
+                </mat-form-field>
+            </div>            
+
+            
+
+            <div class="row-ipt">
+                <div class="container-mff ">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Ancho</mat-label>
+                        <input matInput placeholder="Ingrese el ancho del vehiculo" type="number" formControlName="ancho" required>
+                    </mat-form-field>
+                </div>
+                <div class="container-mff">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Alto</mat-label>
+                        <input matInput placeholder="Ingrese el alto del vehiculo" type="number" formControlName="alto" required>
+                    </mat-form-field>
+                </div>
+                
+
+            </div>
+
+            <div class="row-ipt">
+                <div class="container-mff">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Color del vehiculo</mat-label>
+                        <input matInput placeholder="Ingrese el color del vehiculo" formControlName="colorVehiculo" required>
+                    </mat-form-field>
+                </div>
+
+
+                <div class="container-mff">
+                    <mat-form-field appearance="outline">
+                        <mat-label>N° de Placa</mat-label>
+                        <input matInput #iptPlaca type="text" placeholder="Ej. ABC-123"
+                            formControlName="placa" required  minlength="7" maxlength="7"
+                            (input)="limitarLongitud($event)">
+                        <mat-hint align="end">{{iptPlaca.value.length}}/7</mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+
+            <div class="row-ipt">
+
+
+                <div class="container-mff">
+                    <mat-form-field appearance="outline">
+                        <!-- <mat-label for="sltEstatus">Estado</mat-label> -->
+                        <mat-select placeholder="Estado*" formControlName="estado" id="sltEstatus">
+                            <mat-option *ngFor="let estado of estados" [value]="estado">
+                                {{estado}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="container-mff">
+                    <mat-form-field appearance="outline">
+                        <!-- <mat-label>Genero</mat-label> -->
+                        <mat-select placeholder="Tipo de vehiculo*" formControlName="tipoVehiculo">
+                            <mat-option *ngFor="let tp of tiposVehiculo" [value]="tp.idTipoVehiculo">
+                                {{tp.tipo + " - " + tp.descripcion }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+
+            <div class="cont-accion-edicion">
+                <button mat-raised-button color="warn" type="button" (click)="dialogRef.close()"><mat-icon>close</mat-icon>
+                    CANCELAR </button>
+                
+                    <button mat-raised-button type="button" color="primary" [disabled]="frmVehiculo.invalid"
+                        (click)="operar()">
+                        <mat-icon>check</mat-icon>LISTO
+                    </button>
+            
+            </div>
+
+        </form>
+
+    </section>
+
+
+</section>
