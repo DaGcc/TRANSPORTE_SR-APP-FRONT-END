@@ -1,70 +1,238 @@
-.cont-dashboard{
+p {
+    margin: 0;
+    padding: 0;
+}
+
+.cont-dashboard {
+    // margin: auto;
+    height: 100%;
+    // max-width: 1400px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: auto;
-    grid-template-areas: 
-        "gOne gOne gTwo gTwo"
-        "gBar gBar gBar gThree"
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows:auto;
+    // grid-auto-rows: 
+    // align-items: stretch; 
+    grid-template-areas:
+        "gOne gOne gTwo gTwo gThree gThree"
+        "gBar gBar gBar gBar gBar gBar"
+        "gCardOne gCardOne gCardTwo gCardTwo gCardThree gCardThree"
     ;
     gap: 20px;
-    
-    & > section { 
+
+    &>section {
         border-radius: 20px;
-        height: 310px;
-        background-color: #69bbff;
+        background-color: #fff;
         padding: 10px;
+        height: 200px;
+        // width: 100%;
+        //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
+        transition: all .2s ease;
+
+        ::ng-deep .cont-layout-home.dark & {
+            // color: var(--text-color-darkmode-00);
+            color: var(--color-base-background-03);
+            background: var(--container-color-dark) !important;
+            border: 2px solid var(--border-color-dark);
+        }
+
+        //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
     }
-    & > section:nth-child(1){
+
+
+
+    &>section:nth-child(1) {
         grid-area: gOne;
-        
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-    & > section:nth-child(2){
+
+    &>section:nth-child(2) {
         grid-area: gTwo;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-    & > section:nth-child(3){
-        grid-area: gBar;
-    }
-    & > section:nth-child(4){
+
+    &>section:nth-child(3) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         grid-area: gThree;
-        // height: 100px !important;
+    }
+
+    &>section:nth-child(4) {
+        grid-area: gBar;
+        // grid-row: 2/4;
+        // align-self: stretch;
+        height: 300px;
+    }
+
+    &>section:nth-child(5) {
+        grid-area: gCardOne;
+        padding: 0;
+        background: transparent;
+        height: 100px;
+    }
+    &>section:nth-child(6) {
+        grid-area: gCardTwo;
+        padding: 0;
+        background: transparent;
+        height: 100px;
+    }
+
+    &>section:nth-child(7) {
+        grid-area: gCardThree;
+        padding: 0;
+        background: transparent;
+        height: 100px;
     }
 }
 
+.card {
+    width: 100%;
+    height: 100%;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8px 10px;
+    border-radius: 20px;
+    background: linear-gradient(87deg, #5e72e4 0, #825ee4 100%) !important;
+}
 
-@media screen and (max-width : 800px) {
-    
-    .cont-dashboard{
+.card-info-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.info-count {
+
+    flex: 1 1 auto;
+    color:var(--color-base-background-03);
+    & .info {
+        font-size: small;
+        color: #fff;
+        font-weight: 500;
+        line-height: 0.5;
+        text-align: justify;
+    }
+
+    & .count {
+        margin: 0;
+        font-size: medium;
+        font-weight: 700;
+        // color: #fff;
+    }
+}
+
+.card-icon {
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 100%;
+    // color: linear-gradient(87deg, #5e72e4 0, #825ee4 100%) !important;
+    color: #825ee4 !important;
+}
+
+.card-info-footer {
+    display: flex;
+    align-items: center;
+    font-size: small !important;
+    font-weight: 300;
+    color: #efefef;
+    span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0f0;
+        font-weight: 700;
+        mat-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: small !important;
+        }
+    }
+}
+
+@media screen and (max-width : 1400px) {
+
+    .cont-dashboard {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: auto;
+        grid-template-areas:
+        "gCardOne gCardOne gCardTwo gCardTwo gCardThree gCardThree"
+        "gOne gOne gTwo gTwo gThree gThree"
+        "gBar gBar gBar gBar gBar gBar"
+       
+        
+        ;
+
+        &>section:nth-child(5), section:nth-child(6), section:nth-child(7){
+            height: 80px;
+        }
+    }
+}
+/**
+// "gOne       gOne        gTwo        gTwo        gThree      gThree"
+        // "gBar       gBar        gBar        gBar        gBar        gBar"
+        // "gCardOne   gCardOne    gCardOne    gCardOne    gCardOne    gCardOne"
+        // "gCardTwo   gCardTwo    gCardTwo    gCardTwo    gCardTwo    gCardTwo "
+        // "gCardThree gCardThree  gCardThree  gCardThree  gCardThree gCardThree"*/
+
+@media screen and (max-width : 1150px) {
+
+    .cont-dashboard {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         grid-template-rows: auto;
-        grid-template-areas: 
+        grid-template-areas:
             "gTwo"
             "gOne"
             "gBar"
             "gThree"
+            "gCardOne"
+            "gCardTwo"
+            "gCardThree"
         ;
         gap: 20px;
-        
-        & > section { 
+
+        &>section {
             border-radius: 20px;
             height: 310px;
-            background-color: #69bbff;
+            // background-color: #69bbff;
             padding: 10px;
         }
-        & > section:nth-child(1){
+
+        &>section:nth-child(1) {
             grid-area: gOne;
-            
+
         }
-        & > section:nth-child(2){
+
+        &>section:nth-child(2) {
             grid-area: gTwo;
         }
-        & > section:nth-child(3){
+
+        &>section:nth-child(3) {
             grid-area: gBar;
         }
-        & > section:nth-child(4){
+
+        &>section:nth-child(4) {
             grid-area: gThree;
-            
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+
         }
     }
-    
+
 }

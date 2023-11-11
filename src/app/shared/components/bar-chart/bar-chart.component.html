@@ -1,0 +1,36 @@
+<!-- <div class="cont-barchart">
+    <canvas class="chart" id="chart" style="position: relative;  height:100% !important; width: 100% !important;">
+    </canvas>
+</div> -->
+
+<div *ngIf="load" class="c">
+
+    <div class="legends">
+
+        <div >
+            <p-skeleton width="50px" styleClass="p-mb-2" borderRadius="16px"></p-skeleton>
+            <p-skeleton width="50px" styleClass="p-mb-2" borderRadius="16px"></p-skeleton>
+        </div>
+    </div>
+
+    <div style="width: 100%; height: 100%; margin: 2px; padding: 10px; " *ngIf="load">
+        <p-skeleton width="100%" height="100%" borderRadius="16px"></p-skeleton>
+
+    </div>
+</div>
+
+
+<div class="cont-barchart" *ngIf="!load">
+
+    <canvas baseChart class="chart" id="chart"
+    style="display: block;  position: relative; height:100% !important; width: 100%;color: #fff !important;"
+        [data]="barChartData" [options]="barChartOptions" [type]="barChartType" [plugins]="barChartPlugins">
+    </canvas>
+</div>
+
+
+
+<!-- <canvas baseChart class="chart" id="chart"
+style="position: relative;  height:100% !important; width: 400px !important; color: #fff !important;"
+[data]="barChartData" [options]="barChartOptions" [type]="barChartType" [plugins]="barChartPlugins">
+</canvas> -->

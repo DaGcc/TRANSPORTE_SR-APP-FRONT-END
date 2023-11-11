@@ -49,7 +49,8 @@
                                         <td mat-cell *matCellDef="let row">
                                             <div *ngIf="isLoadedDate ; else skeleton"
                                                 class="animate__animated animate__fadeIn">
-                                                {{row.idVehiculo}} <widget-tag [value]="row.tipoVehiculo.tipo"/>
+                                                {{row.idVehiculo}} <widget-tag [value]="row.tipoVehiculo.tipo" 
+                                                [colorFondo]="row.tipoVehiculo.idTipoVehiculo == 3 || row.tipoVehiculo.idTipoVehiculo == 4 ? 'succes' : 'warning' " />
                                             </div>
                                             <ng-template #skeleton>
                                                 <div
@@ -102,7 +103,27 @@
                                         </td>
                                     </ng-container>
 
-                                    
+                                    <!-- Detalle Column -->
+                                    <ng-container matColumnDef="detalles">
+                                        <th mat-header-cell *matHeaderCellDef id="estadoTh"> Detalles </th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <div *ngIf="isLoadedDate ; else skeleton"
+                                                class="animate__animated animate__fadeIn">
+                                                <button mat-icon-button [ngStyle]="{color: row.listaDetalleVehiculo.length == 0?'#f00' : '#0f0'}">
+                                                    <mat-icon
+                                                        style="text-align: center;">privacy_tip</mat-icon>
+                                                </button>
+                                            </div>
+
+                                            <ng-template #skeleton>
+                                                <div
+                                                    style="display: inline-block !important; width: 100%; height: 20px; border-radius: 10px; overflow: hidden;">
+                                                    <widget-skeleton />
+                                                </div>
+                                            </ng-template>
+                                        </td>
+                                    </ng-container>
+
 
                                     <!-- Estado Column -->
                                     <ng-container matColumnDef="estado">
@@ -122,6 +143,9 @@
                                             </ng-template>
                                         </td>
                                     </ng-container>
+
+
+
 
                                     <ng-container matColumnDef="acciones">
                                         <th mat-header-cell *matHeaderCellDef> Acciones </th>

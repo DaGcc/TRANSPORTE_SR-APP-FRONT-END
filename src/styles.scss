@@ -9,7 +9,7 @@
 
     --color-base-background-01: #5b36f2;
     --color-base-background-02: rgb(225, 237, 244);
-    --color-base-background-03: rgb(168, 203, 226);
+    --color-base-background-03: #a8cbe2;
 
     --background-dark-01: #010409;
 
@@ -640,7 +640,7 @@ body {
         //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
     }
 
-    & #estadoTh,
+    & 
     #estadoTd {
         display: flex;
         align-items: center;

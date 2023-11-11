@@ -16,7 +16,7 @@
             <div class="container-mff " style="display: none;">
                 <mat-form-field appearance="outline">
                     <mat-label>ID</mat-label>
-                    <input matInput formControlName="idVehiculo" required>
+                    <input matInput formControlName="idVehiculo">
                 </mat-form-field>
             </div>            
 
@@ -53,7 +53,7 @@
                         <mat-label>N° de Placa</mat-label>
                         <input matInput #iptPlaca type="text" placeholder="Ej. ABC-123"
                             formControlName="placa" required  minlength="7" maxlength="7"
-                            (input)="limitarLongitud($event)">
+                            >
                         <mat-hint align="end">{{iptPlaca.value.length}}/7</mat-hint>
                     </mat-form-field>
                 </div>

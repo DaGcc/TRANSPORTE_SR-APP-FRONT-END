@@ -99,7 +99,7 @@ export class InterceptorHttpService implements HttpInterceptor {
                     this.router.navigate(['/forbidden-403'])
                 }
                 else if (err.status === 500) {//? error del servidor
-                    this.snackBar.open(err.mensaje, 'ERROR 500', { duration: 5000 });
+                    this.snackBar.open(err.mensaje || err.error.error, 'ERROR 500', { duration: 5000 });
                 } else {
                     this.snackBar.open(err.message, 'ERROR', { duration: 5000 });
                 }

@@ -63,7 +63,7 @@ export class GestionFlotaComponent implements OnInit {
 
   estadoVehiculos: '0' | '1' | '2' = '2';
 
-  displayedColumns: string[] = ['idVehiculo', 'descripcion', 'placa', 'estado', 'acciones'];
+  displayedColumns: string[] = ['idVehiculo', 'descripcion', 'placa', 'detalles', 'estado', 'acciones'];
   dataSource!: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

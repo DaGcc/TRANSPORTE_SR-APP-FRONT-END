@@ -32,6 +32,8 @@ export class VehiculoRepositoryImplService extends VehiculoRepository {
       return this.mapperVehiculo.mapFrom(data);
     }))
   }
+
+  
   override readById(id: number): Observable<VehiculoEntity> {
     throw new Error('Method not implemented.');
   }

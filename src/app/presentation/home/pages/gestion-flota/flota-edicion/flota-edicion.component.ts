@@ -48,8 +48,7 @@ export class FlotaEdicionComponent implements OnInit {
   tiposVehiculo: TipoVehiculoEntity[] = []
   estados: boolean[] = [true, false]
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: IEntityEditionDialog<VehiculoEntity>, public vehiculoService: VehiculoRepositoryImplService,
-    private _snackBar: MatSnackBar) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: IEntityEditionDialog<VehiculoEntity>, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
 
@@ -96,7 +95,7 @@ export class FlotaEdicionComponent implements OnInit {
   limitarLongitud(event: any): void {
     console.log(event)
     const inputValue: string = event.target.value;
-    if (inputValue.length > 6) {
+    if (inputValue.length > 7) {
       event.target.value = inputValue.slice(0, 6);//solo quedate con los 9 primeros
     }
   }
@@ -113,17 +112,29 @@ export class FlotaEdicionComponent implements OnInit {
       ancho: this.frmVehiculo.get("ancho")?.value,
       estado: this.frmVehiculo.get("estado")?.value,
       foto: null,
-      listaDetalleVehiculo: this.data.body?.listaDetalleVehiculo!
+      listaDetalleVehiculo: this.isEdition? this.data.body?.listaDetalleVehiculo! : []
     }
 
-
     console.log(vEdition)
-    if(this.isEdition){
+
+    if(this.isEdition){//* EDICION
       this._vehiculoService.update(this.data.body!.idVehiculo, vEdition).pipe(switchMap(()=> {
-        return this._vehiculoService.readByPage(0,this.data.pageSize || 1);
+        return this._vehiculoService.readByPage(this.data.pageIndex || 0, this.data.pageSize || 1);
       })).subscribe({
         next : (data :PageSpringBoot<VehiculoEntity> ) => {
           this._vehiculoService.vehiculoCambio.next(data)
+          this._snackBar.open(`Se edito correctamente al veihuclo de id: ${vEdition.idVehiculo}`,"OK")
+          this.dialogRef.close();
+        }
+      })
+    }else {//* CREACION
+      this._vehiculoService.create(vEdition).pipe(switchMap((_) => {
+        return this._vehiculoService.readByPage(0, this.data.pageSize || 1);
+      })).subscribe({
+        next : (data : PageSpringBoot<VehiculoEntity>) => {
+          this._vehiculoService.vehiculoCambio.next(data);
+          this._snackBar.open(`Se creo correctamente al veihuclo con placa: ${vEdition.placa}}`, "OK")
+          this.dialogRef.close();
         }
       })
     }

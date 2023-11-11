@@ -1,0 +1,38 @@
+.cont-barchart{
+
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+    // position: relative;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+}
+
+.c{
+    // background-color: red;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.legends{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 10px;
+
+}
+
+
+.legends :nth-child(1) { 
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+
+}
+::ng-deep .p-skeleton{
+    background-color: rgba(101, 100, 100, 0.46) !important;
+}

@@ -1,10 +1,79 @@
 <section class="cont-page font animate__animated animate__fadeIn">
 
     <section class="cont-dashboard">
-        <section >1</section>
-        <section>2</section>
-        <section>3</section>
-        <section>4</section>
+        <section>
+            <app-pie-chart [data]="dataTwo" [labels]="labelsTwo" [load]="load"></app-pie-chart>
+        </section>
+        <section>
+            <app-pie-chart [data]="dataTwo" [labels]="labelsTwo" [load]="load" [type]="'polarArea'"></app-pie-chart>
+        </section>
+        <section>
+            <app-pie-chart [data]="dataTwo" [labels]="labelsTwo" [load]="load" [type]="'pie'"></app-pie-chart>
+        </section>
+        <section>
+            <app-bar-chart [data]="data" [labels]="labels" [load]="load"></app-bar-chart>
+        </section>
+
+
+        <section>
+            <div class="card">
+                <div class="card-info-header">
+                    <div class="info-count">
+                        <p class="count">34.k</p>
+                        <span class="info">Numero de solicitudes recibidas</span>
+                    </div>
+
+                    <div class="card-icon">
+                        <mat-icon>dynamic_form</mat-icon>
+                    </div>
+                </div>
+                <p class="card-info-footer">
+                    <span><mat-icon>arrow_outward</mat-icon> 3.16%</span>&nbsp; desde ayer
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <div class="card">
+                <div class="card-info-header">
+                    <div class="info-count">
+                        <p class="count">2.5k</p>
+                        <span class="info">Numero de solicitudes aceptadas</span>
+                    </div>
+
+                    <div class="card-icon">
+                        <mat-icon>hotel_class</mat-icon>
+                    </div>
+                </div>
+                <p class="card-info-footer">
+                    <span><mat-icon>turn_sharp_right</mat-icon> 3.16%</span>&nbsp; desde ayer
+                </p>
+            </div>
+        </section>
+
+        <section>
+
+
+
+            <div class="card">
+                <div class="card-info-header">
+                    <div class="info-count">
+                        <p class="count">2.5k</p>
+                        <span class="info">Numero de solicitudes rechazadas</span>
+                    </div>
+
+                    <div class="card-icon">
+                        <mat-icon>heart_broken</mat-icon>
+                    </div>
+                </div>
+                <p class="card-info-footer">
+                    <span style="color: rgba(255, 136, 136, 0.62);"><mat-icon>trending_down</mat-icon> 3.16%</span>&nbsp; desde
+                    ayer
+                </p>
+            </div>
+
+        </section>
+
     </section>
 
 
