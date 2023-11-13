@@ -3,7 +3,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@
 import { ChartConfiguration, ChartData, ChartType, Colors } from 'chart.js';
 import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
 import { PrimengModule } from 'src/app/_primeng/primeng.module';
-// import DatalabelsPlugin from 'chartjs-plugin-datalabels';
+import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 
 @Component({
   selector: 'app-pie-chart',
@@ -24,32 +24,45 @@ export class PieChartComponent implements OnInit, OnChanges {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
   @Input()
-  labels : any | undefined;
+  labels: any | undefined;
 
   @Input()
-  type : any | undefined;
+  type: any | undefined;
 
   @Input()
-  data :any | undefined;
+  data: any | undefined;
 
   @Input()
-  load : boolean = true;
+  load: boolean = true;
+
+  public barChartPlugins = [
+    // AnimationPlugin,
+    DatalabelsPlugin,
+  ];
 
 
   public pieChartOptions: ChartConfiguration['options'] = {
     responsive: true,
-    maintainAspectRatio :true,
-    color:'#000',
+    maintainAspectRatio: true,
+    color: '#000',
 
-    scales:{
+    scales: {
+
       x: {
         display: false,//* Oculta la línea vertical
-        ticks: { 
+        ticks: {
           display: false,//* Oculta los VALORRES ubicados en la línea vertical
           // crossAlign: "near"
         },
-        grid : {
-          display : false //* Oculta las grillas que salen de la linea/eje x
+        grid: {
+          display: false //* Oculta las grillas que salen de la linea/eje x
+        },
+        pointLabels: {
+          display: true,
+          centerPointLabels: true,
+          font: {
+            size: 18
+          }
         }
       },
       y: {
@@ -59,38 +72,67 @@ export class PieChartComponent implements OnInit, OnChanges {
           // crossAlign: "near"
         },
         grid: {
-          display : false//* Oculta las grillas que salen de la linea/eje y
+          display: false//* Oculta las grillas que salen de la linea/eje y
+        },
+        pointLabels: {
+          display: true,
+          centerPointLabels: true,
+          font: {
+            size: 18
+          }
         }
       }
     },
     plugins: {
-    
+
       legend: {
         display: true,
         position: 'left',
         labels: {
           font: {
-            family :  'Inconsolata',
+            family: 'Inconsolata',
             // size: 14,
           }
-        }
+        },
+        // onHover: (evt, item, legend) =>  {
+        //   (legend.chart.data.datasets[0].backgroundColor as Array<any>).forEach((color, index, colors) => {
+        //     console.log({color, index, colors})
+        //     console.log(item)
+        //     colors[index] = index === item.index ? color : color.slice(0,);
+        //   });
+        //   legend.chart.update();
+        // },
+        // onLeave:  (evt, item, legend) => {
+        //   (legend.chart.data.datasets[0].backgroundColor as Array<any>).forEach((color, index, colors) => {
+        //     colors[index] = (color as String).includes('4D') ? color.slice(0, -2) : color;
+        //   });
+        //   legend.chart.update();
+        // }
+
       },
-      tooltip:{
+      tooltip: {
         titleColor: '#5800f9',
         bodyColor: '#5800f9',
         titleFont: {
           family: 'Inconsolata',
         },
-        bodyFont:{
+        bodyFont: {
           family: 'Inconsolata',
         },
-        backgroundColor: 'rgb(168, 203, 226)',
+        backgroundColor: 'rgba(168, 203, 226,.5)',
 
       },
 
+      datalabels: {
+
+
+        display: true,
+        color: "#fff"
+      }
+
     }
   };
-  
+
 
 
   // Tipo de grafico
@@ -117,22 +159,22 @@ export class PieChartComponent implements OnInit, OnChanges {
         'rgba(255, 152, 0, 1)',
         'rgba(0, 255, 255, 1)',
       ],
- 
+
       borderColor: '#000',
       borderWidth: 5,
-      hoverOffset: 9,    
+      hoverOffset: 9,
     }]
   };
 
 
   constructor() { }
-  
+
   ngOnInit(): void {
     // console.log(this.data)
     // console.log(this.labels)
   }
-  
-  
+
+
   ngOnChanges(): void {
     // console.log(this.labels)
     // console.log(this.data)
@@ -142,7 +184,7 @@ export class PieChartComponent implements OnInit, OnChanges {
     }
   }
 
-  grafica(){
+  grafica() {
     this.pieChartData = {
       labels: this.labels,
       datasets: [{
@@ -168,8 +210,8 @@ export class PieChartComponent implements OnInit, OnChanges {
         borderColor: '#fff',
         borderWidth: 5,
         hoverOffset: 9,
-  
-      
+
+
       }]
     }
   }

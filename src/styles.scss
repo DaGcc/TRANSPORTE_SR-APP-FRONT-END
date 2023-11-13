@@ -616,6 +616,37 @@ body {
         //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
     }
 
+    & tr:hover{
+        & td {
+            background-color: #ffffff4d !important;
+        }
+    
+         //!---- ---- ---- ---- dark-mode ---- ---- ---- ---- 
+         transition: all .2s ease;
+    
+         .cont-layout-home.dark & {
+    
+            & td {
+                background-color: var(--container-color-dark) !important;
+                color: #fff;
+            }
+            
+         }
+    
+         //!---- ---- ---- ---- END - dark-mode ---- ---- ---- 
+    }
+    
+    //  & td:hover:before{
+    //     content: "";
+    //     position: absolute;
+    //     background-color: #b900004d;
+    //     left: 0;
+    //     right: 0;
+    //     top: -9999px;
+    //     bottom: -9999px;
+    //     z-index: -1;
+    // }
+
 
     & .p-b {
         /* 
