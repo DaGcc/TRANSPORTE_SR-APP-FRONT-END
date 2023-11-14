@@ -61,13 +61,33 @@ export class SolicitudRepositoryImplService extends SolicitudRepository {
       }))
   };
 
-  override update(id: number, e : SolicitudEntity): Observable<SolicitudEntity>{
-    return EMPTY;
-  };
 
-  override deleteById(id: number, deep?: boolean): Observable<void>{
-    return EMPTY;
-  };
+  /**
+   ** Data update  function. 
+   * 
+   * @param id 
+   * @param e 
+   * @returns An `Observable` type `SolicitudEntity`
+   */
+   override update(id: number, o: SolicitudEntity): Observable<SolicitudEntity> {
+    let clienteModel = this.mapperSolicitud.mapTo(o)
+    return this.http.put<SolicitudModel>(`${this.url}/${id}`, clienteModel, {
+    }).pipe(map(s => {
+      return this.mapperSolicitud.mapFrom(s) //* convertimos la respuesta del api rest en la estructura de negocio de la app
+    }))
+  }
+
+  /**
+   ** Function to delete data in two ways.
+   ** The params is important, except from `deep`.
+   * @param id 
+   * @param deep 
+   * @returns void, because the server emit status 204_HTTP.
+   */
+   override deleteById(id: number, deep?: boolean | undefined): Observable<void> {
+    return this.http.delete<void>(`${this.url}/detach/${id}?deep=${deep}`);
+  }
+
 
 }
 

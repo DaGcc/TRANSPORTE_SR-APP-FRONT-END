@@ -1,15 +1,17 @@
 <section class="container font">
     
-    <div class="header">
-        <h3>Shiba Inu</h3>
-        <span>Dog Breed</span>
+    <div class="header animate__animated animate__backInUp animate__faster">
+        <h1>Solicitud de id: {{data.idSolicitud}}</h1>
+        <span>{{data.fechaSolicitada | date: 'long'}}</span>
     </div>
-    <div class="body">
+    <!-- <mat-divider>
+    </mat-divider> -->
+    <div class="body  animate__animated animate__backInUp animate__fast">
         <p>{{data.descripcion}}</p>
     </div>
-    <div class="footer">
+    <!-- <div class="footer">
         <button mat-button>LIKE</button>
         <button mat-button>SHARE</button>
-    </div>
+    </div> -->
 
 </section>

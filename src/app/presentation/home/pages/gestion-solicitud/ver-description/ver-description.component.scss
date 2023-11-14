@@ -1,17 +1,29 @@
 *{
-    margin: 0 !important;
-    padding: 0 !important;
-    box-sizing: border-box !important;
+    margin: 0 ;
+    padding: 0 ;
+    box-sizing: border-box ;
+}
+
+.mat-bottom-sheet-container-medium {
+    background-color: transparent !important;
 }
 
 .container{
     // padding: 10px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    gap: 5px;
-
+    gap: 15px;
+    background-color: transparent;
+    & > * {
+        padding: 25px;
+        border-radius: 25px;
+    }
     & .header{
+        
+        background-color: #fff;
         & :first-child{
+            color: #f00;
             font-weight: 500;
         }
         & span{
@@ -19,6 +31,11 @@
             color: rgba(0, 0, 0, .54);
             font-weight: 500;
         }
-
+    }
+    & .body{
+        background-color: #fff;
+        font-size: medium;
     }
 }
+
+

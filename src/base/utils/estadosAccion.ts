@@ -1,4 +1,8 @@
 export enum EstadoAccions {
     EV = "EVALUACION",
-    PE = "PENDIENTE"
-  }
+    AC = "ACEPTADO",
+    RC = "RECHAZADO",
+    PE = "PENDIENTE",
+    TR = "TRABAJANDO",
+    CL  = "CULMINADO",
+}

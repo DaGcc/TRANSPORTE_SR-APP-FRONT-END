@@ -23,6 +23,7 @@ import { Overlay } from '@angular/cdk/overlay';
 import { mergeMap } from 'rxjs';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { VerDescriptionComponent } from './ver-description/ver-description.component';
+import { SolicitudEdicionComponent } from './solicitud-edicion/solicitud-edicion.component';
 
 @Component({
   selector: 'app-gestion-solicitud',
@@ -80,7 +81,7 @@ export class GestionSolicitudComponent implements OnInit {
     return this._enableFilterPaginator;
   }
 
-  constructor(private _servicioService : ServicioService, private _clienteService : ClienteRepositoryImplService, 
+  constructor( private _clienteService : ClienteRepositoryImplService, 
     private _usuarioRepositoryImplService : UsuarioRepositoryImplService, private _solicitudService :SolicitudRepositoryImplService){}
 
   ngOnInit(): void {
@@ -153,26 +154,26 @@ export class GestionSolicitudComponent implements OnInit {
 
   fnCreateOrUpdate(obj?: SolicitudEntity): void {
 
-    // let data: IEntityEditionDialog<SolicitudEntity>;
+    let data: IEntityEditionDialog<SolicitudEntity>;
 
-    // if (obj != undefined || obj != null) {
-    //   //*EDICION
-    //   data = { title: 'EDICION', subtitle: `ID DEL VEHICULO : ${obj.idVehiculo}`, body: obj }
-    // } else {
-    //   //*CREACION
-    //   data = { title: 'CREACION', subtitle: 'Formulario para registrar a un nuevo solicitud' }
-    // }
-    // data.pageIndex = this.pageIndex;
-    // data.pageSize = this.pageSize;
+    if (obj != undefined || obj != null) {
+      //*EDICION
+      data = { title: 'EDICION', subtitle: `ID DE LA SOLICITUD : ${obj.idSolicitud}`, body: obj }
+    } else {
+      //*CREACION
+      data = { title: 'CREACION', subtitle: 'Formulario para registrar a una nueva solicitud' }
+    }
+    data.pageIndex = this.pageIndex;
+    data.pageSize = this.pageSize;
 
-    // console.log(data)
-    // this.dialog.open(FlotaEdicionComponent, {
-    //   scrollStrategy: this.overlay.scrollStrategies.noop(),
-    //   autoFocus: false,
-    //   disableClose: true,
-    //   data,
-    //   width: "1000px"
-    // });
+    console.log(data)
+    this.dialog.open(SolicitudEdicionComponent, {
+      scrollStrategy: this.overlay.scrollStrategies.noop(),
+      autoFocus: false,
+      disableClose: true,
+      data,
+      width: "1000px"
+    });
 
   }
 
@@ -266,7 +267,8 @@ export class GestionSolicitudComponent implements OnInit {
 
   verDescripcion( obj : SolicitudEntity ){
     this._bottomSheet.open(VerDescriptionComponent, {
-      data : obj
+      data : obj,
+      panelClass : "bs"
     })
   }
 

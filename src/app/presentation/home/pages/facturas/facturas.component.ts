@@ -1,5 +1,5 @@
-import { Component, ViewChild, inject, OnInit } from '@angular/core';
-import { DatePipe, NgFor, NgIf, NgStyle } from '@angular/common';
+import { Component, ViewChild, inject, OnInit, Renderer2, ElementRef, OnDestroy } from '@angular/core';
+import { DatePipe, NgFor, NgIf, NgStyle, DOCUMENT } from '@angular/common';
 import { MaterialModule } from 'src/app/_material/material.module';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { IEntityEditionDialog } from '@shared/interfaces/IEntityEditionDialog';
@@ -16,7 +16,7 @@ import { OrdenServicioEntity } from '@dominio/entities/ordenServicio.entity';
 import { FacturaPdfViewerComponent } from './factura-pdf-viewer/factura-pdf-viewer.component';
 import { EstructuraDialogoConfirmacion } from '@shared/components/dialog-confirmacion/estructura-dialogo-confirmacion';
 import { DialogConfirmacionComponent } from '@shared/components/dialog-confirmacion/dialog-confirmacion.component';
-import { mergeMap } from 'rxjs';
+import { Observable, mergeMap, map } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -33,15 +33,20 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './facturas.component.html',
   styleUrls: ['./facturas.component.scss']
 })
-export class FacturasComponent implements OnInit {
+export class FacturasComponent implements OnInit, OnDestroy {
+  ngOnDestroy(): void {
+    this._render.destroy();
+  }
 
 
 
   //************** Inyecciones de dependencia **************/
-  _facturaService = inject(FacturaRepositoryImplService);
+  private _facturaService = inject(FacturaRepositoryImplService);
   dialog = inject(MatDialog)
   overlay = inject(Overlay);
-  _snackBar = inject(MatSnackBar);
+  private _snackBar = inject(MatSnackBar);
+  private _render = inject(Renderer2);
+  private _elementRef = inject(ElementRef);
   //********************************************************/
 
   //******** para la aplicacion de servicio paginado *********
@@ -192,28 +197,15 @@ export class FacturasComponent implements OnInit {
 
   viewPdf(obj: FacturaEntity | OrdenServicioEntity) {
 
-    if ("idFactura" in obj) { //*Tipo FacturaEntity
-      this._facturaService.buscarArchivoPorIdFactura(obj.idFactura).subscribe({
-        next: (data: Blob) => {
-          this.dialog.open(FacturaPdfViewerComponent, {
-            scrollStrategy: this.overlay.scrollStrategies.noop(),
-            data,
-            width: '900px'
-          })
-        }
-      })
-    } else {
-      this._facturaService.buscarArchivoPorIdOrdenServicio(obj.idOrdenServicio).subscribe({
-        next: data => {
-          this.dialog.open(FacturaPdfViewerComponent, {
-            scrollStrategy: this.overlay.scrollStrategies.noop(),
-            data,
-            width: '900px'
-          })
-        }
-      })
-    }
-
+    this.buscarArchivoDeFacturaOOrdenServicio(obj).subscribe({
+      next: ({data}) => {
+        this.dialog.open(FacturaPdfViewerComponent, {
+          scrollStrategy: this.overlay.scrollStrategies.noop(),
+          data,
+          width: '900px'
+        })
+      }
+    })
   }
 
   applyFilter(event: Event) {
@@ -227,5 +219,53 @@ export class FacturasComponent implements OnInit {
   }
 
 
+  downloadPdf(obj: FacturaEntity | OrdenServicioEntity) {
+
+    this.buscarArchivoDeFacturaOOrdenServicio(obj).subscribe({
+      next: ({data, tipo}) => {
+
+        //* let a: ElementRef<HTMLLinkElement> = this._render.createElement("a") , mal, por que el Renderer2 al crear un elementon, no retorna un ElementRef si no un elemento del DOM un Element
+          //! ERR_01, 
+          //?? si usabamos asi = let a: ElementRef<HTMLLinkElement> = this._render.createElement("a"); luego, a.nativeElement.classList().add("miClase") => eso daba error por lo antes mencionado
+        //* Ademas, Si sabemos que tipo de elemento estamos creando pordemos facilmente poner  HTMLDivElement, HTMLLinkElement, HTMLInputElement,etc.
+        //* let a : Element = this._render.createElement("a"); o let a : HTMLLinkElement = this._render.createElement("a");
+        //* Element es mas general
+
+        let a = this._render.createElement("a");
+        //! a.classList.add("clase") mala practica para añadir clase
+        //! a.style.display = "none"; mala practica para añadir estilos
+        // this._render.addClass(a,"clase")
+        this._render.setStyle(a,"display","none");
+        // this._render.setProperty(a,"")
+        
+        let doc = URL.createObjectURL(data)
+        // console.log(doc)
+        a.href = doc
+        a.download  = `${tipo}_${obj.fecha}.pdf`;
+        a.click();
+        URL.revokeObjectURL(a.href);
+        //                    this._render.parentNode(a)
+        // a.remove()
+        this._render.destroyNode!(a);
+        console.log(a)
+        /// ----- 
+
+        // let ee  = this._render.selectRootElement("#contenedorA")
+        // console.log(ee)
+
+
+        // let elementoPadre : ElementRef<HTMLDivElement> = this._elementRef.nativeElement.querySelector("#contenedorA");//* _elementRef es una inyeccion de tipo ElementRef
+        // this._render.addClass(elementoPadre,"miClaseElementRef")
+        // //! elementoPadre.nativeElement.classList.add("miClaseElementRef") no deja, da error asi como el error cuando creaba el elemento a `ERR_01`
+        // console.log(elementoPadre)
+      }
+    })
+
+  }
+
+
+  buscarArchivoDeFacturaOOrdenServicio(obj: FacturaEntity | OrdenServicioEntity): Observable<{data : Blob, tipo : string}> {
+    return "idFactura" in obj ? this._facturaService.buscarArchivoPorIdFactura(obj.idFactura).pipe(map((data) => { return {data,tipo:"factura"}})) : this._facturaService.buscarArchivoPorIdOrdenServicio(obj.idOrdenServicio).pipe(map((data) => { return {data,tipo:"orden_servicio"}})) ;
+  }
 
 }

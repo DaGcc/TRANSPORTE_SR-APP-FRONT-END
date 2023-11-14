@@ -63,6 +63,10 @@
                                                     style="color: var(--color-button-01);"
                                                     (click)="viewPdf( row )"><mat-icon>picture_as_pdf
                                                     </mat-icon></button>
+                                                <button mat-icon-button color="primary"
+                                                    style="color: var(--color-button-01);"
+                                                    (click)="downloadPdf( row )"><mat-icon>cloud_download
+                                                    </mat-icon></button>
                                             </div>
 
                                         </td>
@@ -84,6 +88,9 @@
                                                 <!--* edicion para orden de servicio  -->
                                                 <button mat-icon-button color="accent" style="color: var(--rust-40);"
                                                     (click)="viewPdf( row.ordenServicio )"><mat-icon>picture_as_pdf
+                                                    </mat-icon></button>
+                                                <button mat-icon-button color="accent" style="color: var(--rust-40);"
+                                                    (click)="downloadPdf( row.ordenServicio )"><mat-icon>cloud_download
                                                     </mat-icon></button>
                                             </div>
                                         </td>
@@ -178,6 +185,8 @@
 
                 </div>
             </div>
+
+            <!-- <div id="contenedorA"></div> -->
         </section>
         <!--* END - Tabl y filtro local -->
     </div>

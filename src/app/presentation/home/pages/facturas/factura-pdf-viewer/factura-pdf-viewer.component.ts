@@ -21,10 +21,11 @@ export class FacturaPdfViewerComponent implements OnInit, AfterViewInit, OnDestr
     reader.readAsArrayBuffer(this.data);
     reader.onload = (e : any) => {
       setTimeout(()=> {
-        this.pdfSrc = reader.result; //* O => e.target.result;
-
+        //* O => e.target.result;
+        this.pdfSrc = reader.result; 
       }, 500)
     }
+    // reader.abort()
   }
   ngOnDestroy(): void {
     console.log('destruye')  }
@@ -34,7 +35,6 @@ export class FacturaPdfViewerComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   ngOnInit(): void {
-
    
   }
 

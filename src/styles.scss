@@ -248,6 +248,13 @@ body {
     // background-color: red;
 }
 
+.bs{
+    & > * { 
+        box-shadow: none !important;
+        background-color: transparent !important;
+    }
+}
+
 /********************************************************************/
 //************* ESTILOS - QUE USA EL INPUT DEL SARED ****************/ 
 /********************************************************************/

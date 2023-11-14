@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MaterialModule } from 'src/app/_material/material.module';
 import { SolicitudEntity } from '@dominio/entities/solicitud.entity';
@@ -8,6 +8,7 @@ import { SolicitudEntity } from '@dominio/entities/solicitud.entity';
   selector: 'app-ver-description',
   standalone: true,
   imports: [
+    DatePipe,
     MaterialModule
   ],
   templateUrl: './ver-description.component.html',
