@@ -11,6 +11,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { ServicioEntity } from '@dominio/entities/servicios.entity';
 import { DetalleSolicitudEntity } from '@dominio/entities/detalleSolicitud.entity';
+import { EstadoAccions } from '@base/utils/estadosAccion';
+import { TagComponent } from '@shared/widgets/tag/tag.component';
 
 @Component({
   selector: 'app-solicitud-edicion',
@@ -21,7 +23,8 @@ import { DetalleSolicitudEntity } from '@dominio/entities/detalleSolicitud.entit
     DatePipe,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    TagComponent 
   ],
   templateUrl: './solicitud-edicion.component.html',
   styleUrls: ['./solicitud-edicion.component.scss']
@@ -44,6 +47,14 @@ export class SolicitudEdicionComponent implements OnInit, OnDestroy {
   servicios : ServicioEntity[] = [];
   isCreation: boolean = false;
   detallesSolicitud : DetalleSolicitudEntity[] = [];
+
+  //* Formulario para detalle de la solicitud */
+  frmGroupDetalle! : FormGroup;
+  estadoAccion = Object.keys(EstadoAccions).map( k => {
+    return (EstadoAccions as any)[k];
+  });
+  isAddDetalle : boolean = false
+
   //!-----------------------------------------------------
 
   //***************** Subscriptores ******************/
@@ -63,6 +74,13 @@ export class SolicitudEdicionComponent implements OnInit, OnDestroy {
     
     this.initForm();
 
+    // this.estadoAccion.filter( e => {
+    //   return this.data.body?.listaDetalleSolicitud.find(e)? true: false;
+    // })
+
+
+    this.initFormTwo()
+    console.log(this.estadoAccion);
 
     this.subscriptorServicios$ = this._servicioService.readAll().subscribe({
       next:(data: ServicioEntity[]) => {
@@ -74,7 +92,7 @@ export class SolicitudEdicionComponent implements OnInit, OnDestroy {
             this.frmGroupSolicitud.get("cliente")?.disable();
           this.frmGroupSolicitud.get("descripcion")?.setValue(this.data.body.descripcion)
           this.frmGroupSolicitud.get("estado")?.setValue(this.data.body.estado)
-          this.detallesSolicitud = this.data.body.listaDetalleSolicitud;
+          this.detallesSolicitud = [...this.data.body.listaDetalleSolicitud]; //* para no mutar
           this.isCreation = false
         }else {//* CREACION
           this.detallesSolicitud = [];
@@ -82,9 +100,6 @@ export class SolicitudEdicionComponent implements OnInit, OnDestroy {
         }
       }
     });
-
-
-
   }
 
   initForm(){
@@ -95,6 +110,47 @@ export class SolicitudEdicionComponent implements OnInit, OnDestroy {
       'descripcion' : new FormControl(undefined, Validators.required),
       'estado' : new FormControl(undefined, Validators.required),
     })
+  }
+
+
+   
+  crearDetalle(){
+    this.isAddDetalle = true;
+    
+  }
+  cancelarAgregacionDetalle(){
+    this.frmGroupDetalle.reset();
+    this.isAddDetalle = false;
+  }
+
+  initFormTwo(){  
+    this.frmGroupDetalle = new FormGroup({
+      "estadoAccion" : new FormControl(undefined),
+    })
+  } 
+
+  addDetalle(){
+
+    let detalle = this.frmGroupDetalle.get("estadoAccion")?.value;
+
+    // let vb = this.detallesSolicitud.find( e => {
+    //   return  e.estadoAccion == detalle;
+    // })
+    
+    if(this.detallesSolicitud.some( e => {
+      return e.estadoAccion == detalle
+    })){
+      this._snackBar.open("No puedes volver a poner este estado a la solicitud, por que ya lo tiene", "AVISO")
+      return;
+    }
+    let d  : DetalleSolicitudEntity = {
+      estado : true,
+      fecha : new Date(Date.now() - new Date().getTimezoneOffset()*60000).toISOString(),
+      estadoAccion : detalle
+    }
+
+    this.detallesSolicitud.push(d)
+    this.cancelarAgregacionDetalle();
   }
 
 

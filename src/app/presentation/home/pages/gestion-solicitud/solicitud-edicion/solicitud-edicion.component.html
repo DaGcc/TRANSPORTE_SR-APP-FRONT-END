@@ -6,11 +6,7 @@
     </section>
 
 
-    <section class="cont-body-edicion">
-
-
-
-
+    <section class="cont-body-edicion font">
 
         <form #frmSolicitud [formGroup]="frmGroupSolicitud" class="form-edicion">
 
@@ -23,11 +19,11 @@
 
 
 
-            <div class="row-ipt">
-                <div class="container-mff">
-                    <mat-form-field appearance="outline">
-                        <!-- <mat-label for="sltEstatus">Estado</mat-label> -->
-                        <mat-select placeholder="Tipo de servicio*" formControlName="servicio" id="sltEstatus">
+            <div class="row-ipt ">
+                <div class="container-mff ">
+                    <mat-form-field appearance="outline" >
+                        <!-- <mat-label for="sltTipoServicio">Tipo de servicio</mat-label> -->
+                        <mat-select placeholder="Tipo de servicio*" formControlName="servicio" id="sltTipoServicio">
                             <mat-option *ngFor="let servicio of servicios" [value]="servicio">
                                 {{servicio.tipo}}
                             </mat-option>
@@ -45,8 +41,6 @@
             </div>
 
             <div class="row-ipt">
-
-
                 <div class="container-mff">
                     <mat-form-field appearance="outline">
                         <mat-label>Descripción</mat-label>
@@ -55,10 +49,7 @@
                         <mat-hint align="end">{{txArea.value.length}}/150</mat-hint>
                     </mat-form-field>
                 </div>
-
-
             </div>
-
 
 
             <div class="row-ipt">
@@ -74,21 +65,57 @@
                 </div>
             </div>
 
-
             <div class="row-ipt">
-                <div class="container-mff">
-                    <mat-accordion>
-                        <mat-expansion-panel *ngFor="let d of detallesSolicitud; let i = index">
+
+                <div class="container-mff font">
+                    <div class="row-ipt" style="gap: 10px">
+
+                        <h2 class="font">Detalles: </h2>
+                        <div style="display: flex; flex-direction: row-reverse;">
+                            <button mat-stroked-button color="primary" style="height: 100%;" (click)="crearDetalle()"><mat-icon>add</mat-icon></button>
+                        </div>
+                    </div>
+                    <div *ngIf="isAddDetalle">
+                        <form [formGroup]="frmGroupDetalle" class="form-edicion">
+                            
+                            <div class="row-ipt">
+                                <div class="container-mff">
+                                    <mat-form-field appearance="outline">
+                                        <!-- <mat-label for="sltEstatus">Estado</mat-label> -->
+                                        <mat-select placeholder="Estado Accion*" formControlName="estadoAccion" id="sltEstatusAction">
+                                            <mat-option *ngFor="let e of estadoAccion" [value]="e">
+                                                {{e}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div style="display: flex; gap: 22px;">
+                                    <button mat-stroked-button type="button" color="primary" style="height: 100%; width: 100%;"(click)="addDetalle()" ><mat-icon>check</mat-icon></button>
+                                    <button mat-stroked-button type="button"  color="warn" style="height: 100%; width: 100%;" (click)="cancelarAgregacionDetalle()"><mat-icon>close</mat-icon></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <mat-accordion  >
+                        <mat-expansion-panel *ngFor="let d of detallesSolicitud; let i = index" class="fon">
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
-                                    Id de detalle de solicitud: {{d.idDetalleSolicitud}}
+                                    <ng-template #tag>
+                                        <widget-tag [colorFondo]="'warning'" [value]="'nuevo detalle'" ></widget-tag>
+                                    </ng-template>
+                                    
+                                    <span *ngIf="d.idDetalleSolicitud!=undefined; else tag">Id de detalle de solicitud: </span> {{d.idDetalleSolicitud}}
                                 </mat-panel-title>
                                 <mat-panel-description>
-                                    {{d.fecha | date : 'medium' }}
+                                    ver más
                                 </mat-panel-description>
                             </mat-expansion-panel-header>
                             <section>
-                                {{d.estadoAccion}}
+                                <div>
+                                    <p> <span>Fecha de envio</span>: {{d.fecha | date : 'medium' }}</p>
+                                    <p><span>Estado de la solicitud</span>: {{d.estadoAccion}}</p> 
+                                </div>
                             </section>
                         </mat-expansion-panel>
                     </mat-accordion>
