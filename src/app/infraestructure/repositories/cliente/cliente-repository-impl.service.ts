@@ -16,6 +16,7 @@ export class ClienteRepositoryImplService extends ClienteRepository {
 
 
 
+
   clienteMapper = new ClienteMapperImpl();
 
   url: string = `${environment.host}/clientes` //* End point del controlador.
@@ -67,6 +68,17 @@ export class ClienteRepositoryImplService extends ClienteRepository {
         };
         return pe;
       }))
+  }
+
+  /**
+   *@returns Return an `Observable` it's type generic from `ClienteEntity[]`
+   */
+  override readAll(): Observable<ClienteEntity[]> {
+    return this.http.get<ClienteModel[]>(this.url).pipe( map ((data:ClienteModel[]) => {
+      return data.map( d => {
+        return this.clienteMapper.mapFrom(d);
+      })
+    }))
   }
 
   /**

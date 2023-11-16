@@ -13,4 +13,6 @@ export abstract class ClienteRepository extends commonRepository<ClienteEntity>{
     // abstract deleteById(id: number, deep?: boolean): Observable<void>;
     
     abstract filtroClientes(pageIndex : number,pageSize : number , value : string) : Observable<PageFiltroDTO<ClienteEntity>>
+
+    abstract readAll() : Observable<ClienteEntity[]>;
 }

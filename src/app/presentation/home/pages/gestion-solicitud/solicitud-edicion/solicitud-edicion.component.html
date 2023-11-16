@@ -21,7 +21,7 @@
 
             <div class="row-ipt ">
                 <div class="container-mff ">
-                    <mat-form-field appearance="outline" >
+                    <mat-form-field appearance="outline">
                         <!-- <mat-label for="sltTipoServicio">Tipo de servicio</mat-label> -->
                         <mat-select placeholder="Tipo de servicio*" formControlName="servicio" id="sltTipoServicio">
                             <mat-option *ngFor="let servicio of servicios" [value]="servicio">
@@ -31,10 +31,25 @@
                     </mat-form-field>
                 </div>
                 <div class="container-mff">
-                    <mat-form-field appearance="outline">
+                    <!-- <mat-form-field appearance="outline">
                         <mat-label>Cliente</mat-label>
                         <input matInput #iptTelefono type="text" placeholder="Ej. Mia" formControlName="cliente"
                             required>
+                    </mat-form-field> -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Cliente</mat-label>
+                        <input matInput aria-label="State" [matAutocomplete]="auto" [formControl]="formControlClientes">
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                            <mat-option *ngFor="let c of filtroClientes | async" [value]="c">
+                                <!-- <img alt="" class="example-option-img" [src]="c.flag" height="25"> -->
+                                <div style="display: flex; justify-content: space-between; align-items: center; gap: 5px; width: 100%;">
+                                 <widget-tag [value]="c.tipoCliente.tipo"
+                                [colorFondo]="c.tipoCliente.idTipoCliente == 1? 'succes' : c.tipoCliente.idTipoCliente == 2 ? 'warning':'danger' " />
+                                    <span >{{c.nombres}}</span>
+                                </div>
+                                
+                            </mat-option>
+                        </mat-autocomplete>
                     </mat-form-field>
                 </div>
 
@@ -72,17 +87,19 @@
 
                         <h2 class="font">Detalles: </h2>
                         <div style="display: flex; flex-direction: row-reverse;">
-                            <button mat-stroked-button color="primary" style="height: 100%;" (click)="crearDetalle()"><mat-icon>add</mat-icon></button>
+                            <button mat-stroked-button color="primary" style="height: 100%;"
+                                (click)="crearDetalle()"><mat-icon>add</mat-icon></button>
                         </div>
                     </div>
                     <div *ngIf="isAddDetalle">
                         <form [formGroup]="frmGroupDetalle" class="form-edicion font">
-                            
+
                             <div class="row-ipt">
                                 <div class="container-mff">
                                     <mat-form-field appearance="outline">
                                         <!-- <mat-label for="sltEstatus">Estado</mat-label> -->
-                                        <mat-select placeholder="Estado Accion*" formControlName="estadoAccion" id="sltEstatusAction">
+                                        <mat-select placeholder="Estado Accion*" formControlName="estadoAccion"
+                                            id="sltEstatusAction" required>
                                             <mat-option *ngFor="let e of estadoAccion" [value]="e">
                                                 {{e}}
                                             </mat-option>
@@ -90,25 +107,40 @@
                                     </mat-form-field>
                                 </div>
                                 <div style="display: flex; gap: 22px;">
-                                    <button mat-stroked-button type="button" color="primary" style="height: 100%; width: 100%;"(click)="addDetalle()" ><mat-icon>check</mat-icon></button>
-                                    <button mat-stroked-button type="button"  color="warn" style="height: 100%; width: 100%;" (click)="cancelarAgregacionDetalle()"><mat-icon>close</mat-icon></button>
+                                    <button mat-stroked-button type="button" color="primary"
+                                        style="height: 100%; width: 100%;"
+                                        (click)="addDetalle()" [disabled]="frmGroupDetalle.invalid"><mat-icon>check</mat-icon></button>
+                                    <button mat-stroked-button type="button" color="warn"
+                                        style="height: 100%; width: 100%;"
+                                        (click)="cancelarAgregacionDetalle()"><mat-icon>close</mat-icon></button>
                                 </div>
                             </div>
                         </form>
                     </div>
 
-                    <mat-accordion  >
+                    <mat-accordion>
                         <mat-expansion-panel *ngFor="let d of detallesSolicitud; let i = index" class="font">
                             <mat-expansion-panel-header class="font">
                                 <mat-panel-title>
                                     <ng-template #tag>
-                                        <widget-tag [colorFondo]="'succes'" [value]="'nuevo detalle'" ></widget-tag>
+
+                                        <ng-container *ngIf="d.estadoAccion!='EVALUACION'; else adition" >
+                                            <widget-tag  [colorFondo]="'succes'" [value]="'nuevo detalle'"></widget-tag>
+                                        </ng-container>
+                                        <ng-template #adition >
+                                            <widget-tag [colorFondo]="'warning'" [value]="'detalle predeterminado'"></widget-tag>
+                                            &nbsp;
+                                            <widget-tag [colorFondo]="'danger'" [value]="'detalle no editable'"></widget-tag>
+                                        </ng-template>
+                                        
                                     </ng-template>
-                                    
-                                    <ng-container  *ngIf="d.idDetalleSolicitud!=undefined; else tag">
-                                        <span>ID detalle</span>: {{d.idDetalleSolicitud}} &nbsp;  <widget-tag [colorFondo]="'danger'" [value]="'nuevo detalle'" ></widget-tag>
+
+                                    <ng-container *ngIf="d.idDetalleSolicitud!=undefined; else tag">
+                                        <span>ID detalle</span>: {{d.idDetalleSolicitud}} &nbsp; <widget-tag
+                                            *ngIf="d.estadoAccion=='EVALUACION'" [colorFondo]="'danger'"
+                                            [value]="'detalle no editable'"></widget-tag>
                                     </ng-container>
-                                    
+
                                 </mat-panel-title>
                                 <mat-panel-description class="font">
                                     ver más
@@ -116,11 +148,15 @@
                             </mat-expansion-panel-header>
                             <section class="det-expan font">
                                 <div>
-                                    <p> <mat-icon>calendar_month</mat-icon> &nbsp; <span>Fecha de envio</span>: {{d.fecha | date : 'medium' }}</p>
-                                    <p> <mat-icon>star</mat-icon>&nbsp; <span>Estado de la solicitud</span>: {{d.estadoAccion}}</p> 
+                                    <p> <mat-icon>calendar_month</mat-icon> &nbsp; <span>Fecha de envio</span>:
+                                        {{d.fecha | date : 'medium':'UTC' }}</p>
+                                    <p> <mat-icon>star</mat-icon>&nbsp; <span>Estado de la solicitud</span>:
+                                        {{d.estadoAccion}}</p>
                                 </div>
                                 <div style="display: flex; flex-direction: row-reverse;">
-                                    <button mat-icon-button type="button"  color="warn"  (click)="quitarDetalle(i)"><mat-icon>close</mat-icon></button>
+                                    <button mat-icon-button type="button" color="warn" (click)="quitarDetalle(i)"
+                                        [disabled]="d.estadoAccion=='EVALUACION'"><mat-icon>close</mat-icon>
+                                    </button>
                                 </div>
                             </section>
                         </mat-expansion-panel>
@@ -134,7 +170,8 @@
                     (click)="dialogRef.close()"><mat-icon>close</mat-icon>
                     CANCELAR </button>
 
-                <button mat-raised-button type="button" color="primary" [disabled]="frmGroupSolicitud.invalid" (click)="operar()">
+                <button mat-raised-button type="button" color="primary" [disabled]="frmGroupSolicitud.invalid || isAddDetalle"
+                    (click)="operar()">
                     <mat-icon>check</mat-icon>LISTO
                 </button>
 
