@@ -18,13 +18,13 @@ import { TagComponent } from '@shared/widgets/tag/tag.component';
   selector: 'app-solicitud-edicion',
   standalone: true,
   imports: [
-  NgIf,
+    NgIf,
     NgFor,
     DatePipe,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    TagComponent 
+    TagComponent
   ],
   templateUrl: './solicitud-edicion.component.html',
   styleUrls: ['./solicitud-edicion.component.scss']
@@ -38,22 +38,22 @@ export class SolicitudEdicionComponent implements OnInit, OnDestroy {
   private _solicitudService = inject(SolicitudRepositoryImplService)
   dialogRef = inject(MatDialogRef<SolicitudEdicionComponent>);
   private _servicioService = inject(ServicioService)
-  
-  
+
+
   //************************************************ */
 
   frmGroupSolicitud!: FormGroup
   estados: boolean[] = [true, false]
-  servicios : ServicioEntity[] = [];
+  servicios: ServicioEntity[] = [];
   isCreation: boolean = false;
-  detallesSolicitud : DetalleSolicitudEntity[] = [];
+  detallesSolicitud: DetalleSolicitudEntity[] = [];
 
   //* Formulario para detalle de la solicitud */
-  frmGroupDetalle! : FormGroup;
-  estadoAccion = Object.keys(EstadoAccions).map( k => {
+  frmGroupDetalle!: FormGroup;
+  estadoAccion = Object.keys(EstadoAccions).map(k => {
     return (EstadoAccions as any)[k];
   });
-  isAddDetalle : boolean = false
+  isAddDetalle: boolean = false
 
   //!-----------------------------------------------------
 
@@ -65,13 +65,13 @@ export class SolicitudEdicionComponent implements OnInit, OnDestroy {
   //!-----------------------------------------------------
 
 
-  
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data : IEntityEditionDialog<SolicitudEntity>, private _snackBar: MatSnackBar){}
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: IEntityEditionDialog<SolicitudEntity>, private _snackBar: MatSnackBar) { }
 
 
   ngOnInit(): void {
-    
+
     this.initForm();
 
     // this.estadoAccion.filter( e => {
@@ -83,18 +83,18 @@ export class SolicitudEdicionComponent implements OnInit, OnDestroy {
     console.log(this.estadoAccion);
 
     this.subscriptorServicios$ = this._servicioService.readAll().subscribe({
-      next:(data: ServicioEntity[]) => {
+      next: (data: ServicioEntity[]) => {
         this.servicios = data;
-        if(this.data.body != undefined &&  this.data.body?.idSolicitud != undefined){//* EDICION
+        if (this.data.body != undefined && this.data.body?.idSolicitud != undefined) {//* EDICION
           this.frmGroupSolicitud.get("idSolicitud")?.setValue(this.data.body.idSolicitud)
-          this.frmGroupSolicitud.get("servicio")?.setValue(this.servicios.find((e) => { return e.idServicio == this.data.body?.servicio.idServicio}))
+          this.frmGroupSolicitud.get("servicio")?.setValue(this.servicios.find((e) => { return e.idServicio == this.data.body?.servicio.idServicio }))
           this.frmGroupSolicitud.get("cliente")?.setValue(this.data.body.cliente.nombres);
-            this.frmGroupSolicitud.get("cliente")?.disable();
+          this.frmGroupSolicitud.get("cliente")?.disable();
           this.frmGroupSolicitud.get("descripcion")?.setValue(this.data.body.descripcion)
           this.frmGroupSolicitud.get("estado")?.setValue(this.data.body.estado)
           this.detallesSolicitud = [...this.data.body.listaDetalleSolicitud]; //* para no mutar
           this.isCreation = false
-        }else {//* CREACION
+        } else {//* CREACION
           this.detallesSolicitud = [];
           this.isCreation = true;
         }
@@ -102,61 +102,86 @@ export class SolicitudEdicionComponent implements OnInit, OnDestroy {
     });
   }
 
-  initForm(){
-    this.frmGroupSolicitud  = new FormGroup({
-      'idSolicitud' : new FormControl(undefined),
-      'servicio' : new FormControl(undefined, Validators.required),
-      'cliente' : new FormControl(undefined, Validators.required),
-      'descripcion' : new FormControl(undefined, Validators.required),
-      'estado' : new FormControl(undefined, Validators.required),
+  initForm() {
+    this.frmGroupSolicitud = new FormGroup({
+      'idSolicitud': new FormControl(undefined),
+      'servicio': new FormControl(undefined, Validators.required),
+      'cliente': new FormControl(undefined, Validators.required),
+      'descripcion': new FormControl(undefined, Validators.required),
+      'estado': new FormControl(undefined, Validators.required),
     })
   }
 
 
-   
-  crearDetalle(){
+
+  crearDetalle() {
     this.isAddDetalle = true;
-    
+
   }
-  cancelarAgregacionDetalle(){
+  cancelarAgregacionDetalle() {
     this.frmGroupDetalle.reset();
     this.isAddDetalle = false;
   }
 
-  initFormTwo(){  
+  initFormTwo() {
     this.frmGroupDetalle = new FormGroup({
-      "estadoAccion" : new FormControl(undefined),
+      "estadoAccion": new FormControl(undefined),
     })
-  } 
+  }
 
-  addDetalle(){
+  addDetalle() {
 
     let detalle = this.frmGroupDetalle.get("estadoAccion")?.value;
 
     // let vb = this.detallesSolicitud.find( e => {
     //   return  e.estadoAccion == detalle;
     // })
-    
-    if(this.detallesSolicitud.some( e => {
+
+    if (this.detallesSolicitud.some(e => {
       return e.estadoAccion == detalle
-    })){
-      this._snackBar.open("No puedes volver a poner este estado a la solicitud, por que ya lo tiene", "AVISO")
+    })) {
+      this._snackBar.open("No puedes volver a poner este estado a la solicitud, por que ya lo tiene", "AVISO", {
+        duration: 4000
+      })
       return;
     }
-    let d  : DetalleSolicitudEntity = {
-      estado : true,
-      fecha : new Date(Date.now() - new Date().getTimezoneOffset()*60000).toISOString(),
-      estadoAccion : detalle
+    let d: DetalleSolicitudEntity = {
+      estado: true,
+      fecha: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString(),
+      estadoAccion: detalle
     }
-
+    console.log(d)
     this.detallesSolicitud.push(d)
     this.cancelarAgregacionDetalle();
+  }
+  quitarDetalle(i: number) {
+    this.detallesSolicitud.splice(i, 1);
+  }
+
+
+  operar() {
+
+    let o : SolicitudEntity = {
+      idSolicitud : this.isCreation? undefined : this.frmGroupSolicitud.get("idSolicitud")?.value,
+      cliente : this.frmGroupSolicitud.get("cliente")?.value,
+      servicio : this.frmGroupSolicitud.get("servicio")?.value,
+      descripcion : this.frmGroupSolicitud.get("descripcion")?.value,
+      estado : this.frmGroupSolicitud.get("estado")?.value,
+      fechaSolicitada : this.data.body?.fechaSolicitada || new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString(), 
+      listaDetalleSolicitud : this.detallesSolicitud
+    }
+    console.log(o)
+    if(this.isCreation){
+      
+    }else {
+      // this._solicitudService.update()
+    }
   }
 
 
   ngOnDestroy(): void {
-    
-    if(this.subscriptorServicios$ != null){
+
+    if (this.subscriptorServicios$ != null) {
       this.subscriptorServicios$.unsubscribe();
     }
   }

@@ -78,6 +78,29 @@
     }
 }
 
+.det-expan{
+    display: flex;
+    flex-direction: column;
+    & > div {
+        flex: 1 1 auto;
+        & > p {
+            display: flex;
+            align-items: center;
+            font-weight: 400;
+            & > mat-icon{
+                color: #B69BFF;
+                font-size: medium;
+                display: flex;
+                align-items: center;
+            }
+            & > span{
+                // color: #B69BFF;
+                font-weight: 500;
+            }
+        }
+    }
+}
+
 
 
 @media screen and (max-width : 500px) {

@@ -76,7 +76,7 @@
                         </div>
                     </div>
                     <div *ngIf="isAddDetalle">
-                        <form [formGroup]="frmGroupDetalle" class="form-edicion">
+                        <form [formGroup]="frmGroupDetalle" class="form-edicion font">
                             
                             <div class="row-ipt">
                                 <div class="container-mff">
@@ -98,23 +98,29 @@
                     </div>
 
                     <mat-accordion  >
-                        <mat-expansion-panel *ngFor="let d of detallesSolicitud; let i = index" class="fon">
-                            <mat-expansion-panel-header>
+                        <mat-expansion-panel *ngFor="let d of detallesSolicitud; let i = index" class="font">
+                            <mat-expansion-panel-header class="font">
                                 <mat-panel-title>
                                     <ng-template #tag>
-                                        <widget-tag [colorFondo]="'warning'" [value]="'nuevo detalle'" ></widget-tag>
+                                        <widget-tag [colorFondo]="'succes'" [value]="'nuevo detalle'" ></widget-tag>
                                     </ng-template>
                                     
-                                    <span *ngIf="d.idDetalleSolicitud!=undefined; else tag">Id de detalle de solicitud: </span> {{d.idDetalleSolicitud}}
+                                    <ng-container  *ngIf="d.idDetalleSolicitud!=undefined; else tag">
+                                        <span>ID detalle</span>: {{d.idDetalleSolicitud}} &nbsp;  <widget-tag [colorFondo]="'danger'" [value]="'nuevo detalle'" ></widget-tag>
+                                    </ng-container>
+                                    
                                 </mat-panel-title>
-                                <mat-panel-description>
+                                <mat-panel-description class="font">
                                     ver más
                                 </mat-panel-description>
                             </mat-expansion-panel-header>
-                            <section>
+                            <section class="det-expan font">
                                 <div>
-                                    <p> <span>Fecha de envio</span>: {{d.fecha | date : 'medium' }}</p>
-                                    <p><span>Estado de la solicitud</span>: {{d.estadoAccion}}</p> 
+                                    <p> <mat-icon>calendar_month</mat-icon> &nbsp; <span>Fecha de envio</span>: {{d.fecha | date : 'medium' }}</p>
+                                    <p> <mat-icon>star</mat-icon>&nbsp; <span>Estado de la solicitud</span>: {{d.estadoAccion}}</p> 
+                                </div>
+                                <div style="display: flex; flex-direction: row-reverse;">
+                                    <button mat-icon-button type="button"  color="warn"  (click)="quitarDetalle(i)"><mat-icon>close</mat-icon></button>
                                 </div>
                             </section>
                         </mat-expansion-panel>
@@ -128,7 +134,7 @@
                     (click)="dialogRef.close()"><mat-icon>close</mat-icon>
                     CANCELAR </button>
 
-                <button mat-raised-button type="button" color="primary" [disabled]="frmGroupSolicitud.invalid">
+                <button mat-raised-button type="button" color="primary" [disabled]="frmGroupSolicitud.invalid" (click)="operar()">
                     <mat-icon>check</mat-icon>LISTO
                 </button>
 
