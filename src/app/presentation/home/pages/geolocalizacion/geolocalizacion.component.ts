@@ -6,6 +6,7 @@ import { ButtonMyLocationComponent } from '@home/pages/geolocalizacion/widgets/b
 import { PlacesService } from './services/places.service';
 import { BuscadorBarComponent } from './components/buscador-bar/buscador-bar.component';
 import { LoaderComponent } from '@shared/widgets/loader/loader.component';
+import { InfoPlaceComponent } from './components/info-place/info-place.component';
 
 @Component({
   selector: 'app-geolocalizacion',
@@ -16,7 +17,8 @@ import { LoaderComponent } from '@shared/widgets/loader/loader.component';
     MapViewComponent,
     ButtonMyLocationComponent,
     BuscadorBarComponent,
-    LoaderComponent
+    LoaderComponent,
+    InfoPlaceComponent
   ],
   templateUrl: './geolocalizacion.component.html',
   styleUrls: ['./geolocalizacion.component.scss']

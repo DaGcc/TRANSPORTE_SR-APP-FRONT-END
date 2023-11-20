@@ -152,6 +152,10 @@ export class GestionSolicitudComponent implements OnInit {
   }
 
 
+  /**
+   ** Metodo para crear o actualizar la data de una entidad en especifico.
+   * @param obj  => sera a entidad a evaluar para su creacion o actualizacion
+   */
   fnCreateOrUpdate(obj?: SolicitudEntity): void {
 
     let data: IEntityEditionDialog<SolicitudEntity>;
@@ -178,9 +182,6 @@ export class GestionSolicitudComponent implements OnInit {
   }
 
 
-
-
-
   /**
    ** Metodo para eliminar de dos manera en base a los argumentos enviados.
    * 
@@ -205,6 +206,7 @@ export class GestionSolicitudComponent implements OnInit {
       isEnableBtnConfir = false;
     }
 
+    //* Objeto de tipo `EstructuraDialogoConfirmacion` con lso valores necesarios para la confirmacion
     let data: EstructuraDialogoConfirmacion = {
       header: `Delete`,
       body,
@@ -216,6 +218,7 @@ export class GestionSolicitudComponent implements OnInit {
       disableClose: true,
       data
     });
+    //* evaluaremos si es sque se confirmo o no en el dialogo de confimación.
     result.afterClosed().subscribe({
       next: (confirmationResult: boolean) => {
         if (confirmationResult) {//* Si dio en confirmar
@@ -240,6 +243,10 @@ export class GestionSolicitudComponent implements OnInit {
   }
 
 
+  /**
+   ** Metodo para recargar la data en la tabla
+   ** Tambien trabaja con estado
+   */
   fnReloadData() {
     this.isLoadedDate = false;
     this._solicitudService.readByPage(this.pageIndex, this.pageSize, {
@@ -253,6 +260,10 @@ export class GestionSolicitudComponent implements OnInit {
     })
   }
 
+  /**
+   ** Filtro a nivel local, es decir, que no hace una peticion para aplicar filtro.
+   * @param event => parametro propio el paginator de Angular Material
+   */
   applyFilter(event: Event) {
     console.log(event)
     const filterValue = (event.target as HTMLInputElement).value;
@@ -264,11 +275,15 @@ export class GestionSolicitudComponent implements OnInit {
   }
 
 
-
+  /**
+   ** Metodo que abrira una hoja emergente, que mostrara el detalle de la solicitud
+   * @param obj => parametro que enviaremos a esa hoja para el renderizado
+   */
   verDescripcion( obj : SolicitudEntity ){
     this._bottomSheet.open(VerDescriptionComponent, {
       data : obj,
-      panelClass : "bs"
+      panelClass : "bs",
+      scrollStrategy : this.overlay.scrollStrategies.noop()
     })
   }
 

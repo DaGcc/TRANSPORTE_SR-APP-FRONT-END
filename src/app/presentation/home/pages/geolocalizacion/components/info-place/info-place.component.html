@@ -1,0 +1,42 @@
+<div class="info-container" id="main" >
+
+    <ng-container *ngIf="direction; else none">
+        <section class="header">
+            <h3 class="title">Nombre del lugar</h3>
+            <div class="subtitle">
+                <span >{{ (direction.routes[0].distance/1000).toFixed(2) }} Km </span> | <span>{{ (direction.routes[0].duration/60).toFixed(2) }}  min</span>
+            </div>
+        </section>
+        
+        <section class="routes-container">
+            <h3 class="title">Routes</h3>
+            <ul class="routes">
+                <li *ngFor="let r of direction.routes; let i = index" (click)="mostrarRuta(r,i)" [id]="'li-'+i" > {{i+1}}
+                <!-- <input type="radio" [id]="'n-'+i" name="rutas"> -->
+            </li>
+                <!-- <li class="active-route">2</li> -->
+            </ul>
+        </section>
+    
+        <section class="steps-container">
+            <h3 class="title">Pasos</h3>
+            <ol>
+                <li>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</li>
+                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi debitis culpa ipsa repellendus? Repellendus.</li>
+                <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, facere.</li>
+            </ol>
+        </section>
+        <section class="action">
+            <span (click)="toggleContainer()"> X </span>
+        </section>
+    
+    </ng-container>
+    
+    <ng-template #none>no result</ng-template>
+    
+    
+</div>
+
+<div class="info-container cont-btn hide-element" id="subMain" >
+    <button (click)="toggleContainer()"> mostrar informacion de la ruta</button>
+</div>

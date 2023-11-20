@@ -18,10 +18,11 @@ export class DirectionsApiClientService extends HttpClient {
       url = this.baseUrl + url;
       return super.get<T>( url, {
           params:{
-              alternatives : false,
+              alternatives : true,
+              language : 'es',
               geometries: 'geojson',
               overview : 'full',
-              steps : false,
+              steps : true,
               access_token: environment.apiKey
           }
       } );

@@ -17,9 +17,9 @@ export interface Feature {
     place_name_es: string;
     text:          string;
     place_name:    string;
-    center:        number[];
+    center:        number[]; // 1
     geometry:      Geometry;
-    context:       Context[];
+    context:       Context[]; // - 
     language_es?:  Language;
     language?:     Language;
     bbox?:         number[];
@@ -42,7 +42,7 @@ export enum Language {
 
 export interface Geometry {
     type:        string;
-    coordinates: number[];
+    coordinates: number[]; // 2
 }
 
 export interface Properties {

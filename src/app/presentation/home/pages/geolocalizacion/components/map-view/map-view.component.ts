@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Map, Popup, Marker } from 'mapbox-gl';
+import { Map, Popup, Marker, MapMouseEvent, EventData, AnySourceData } from 'mapbox-gl';
 import { MapService } from '@home/pages/geolocalizacion/services/map.service';
 import { PlacesService } from '../../services/places.service';
 
@@ -33,6 +33,16 @@ export class MapViewComponent implements AfterViewInit {
       zoom: 14, // starting zoom; numero menor es alejamiento, y el mayor es acercamiento
     });
 
+    map.on('click', (e : MapMouseEvent & EventData) => {
+      console.log(e)
+      this.placeService.getPlacesByQuery(`${e.lngLat.lng},${e.lngLat.lat}`,e.lngLat)
+    })
+
+    map.on('mouseleave', 'places-by-query', () => {
+      console.log("Da")
+    })
+
+
     const popup = new Popup()
       .setHTML(`
     <h3>Aquí estoy</h3>
@@ -45,6 +55,7 @@ export class MapViewComponent implements AfterViewInit {
 
     this.mapService.setMap(map)
   }
+
 }
 
 

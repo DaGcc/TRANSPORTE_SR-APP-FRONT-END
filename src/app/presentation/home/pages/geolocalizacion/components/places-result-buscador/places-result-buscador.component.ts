@@ -6,6 +6,7 @@ import { Feature } from '@infraestructure/interfaces/places';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { SkeletonComponent } from '@shared/widgets/skeleton/skeleton.component';
 
 @Component({
   selector: 'component-places-result-buscador',
@@ -14,7 +15,8 @@ import { MatDividerModule } from '@angular/material/divider';
     CommonModule,
     MatButtonModule,
     MatIconModule,
-    MatDividerModule
+    MatDividerModule,
+    SkeletonComponent
   ],
   templateUrl: './places-result-buscador.component.html',
   styleUrls: ['./places-result-buscador.component.scss']
@@ -23,7 +25,6 @@ export class PlacesResultBuscadorComponent {
 
   public selectedId : string = ''
 
-  preLoading : boolean = false;
 
   constructor(private placesService : PlacesService, private mapService : MapService){ }
 

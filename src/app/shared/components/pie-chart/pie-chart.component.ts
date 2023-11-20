@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild, inject, OnDestroy } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType, Colors } from 'chart.js';
 import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
 import { PrimengModule } from 'src/app/_primeng/primeng.module';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
+import { DarkModeService } from '@shared/widgets/switch-dark-mode/dark-mode.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-pie-chart',
@@ -19,7 +21,9 @@ import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 
 
 
-export class PieChartComponent implements OnInit, OnChanges {
+export class PieChartComponent implements OnInit, OnChanges, OnDestroy {
+
+  darkModeService = inject(DarkModeService);
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
@@ -34,6 +38,8 @@ export class PieChartComponent implements OnInit, OnChanges {
 
   @Input()
   load: boolean = true;
+
+  subcriptorMode$! : Subscription
 
   public barChartPlugins = [
     // AnimationPlugin,
@@ -89,6 +95,7 @@ export class PieChartComponent implements OnInit, OnChanges {
         display: true,
         position: 'left',
         labels: {
+          color: this.darkModeService.isDarkMode() ? '#fff':'#000' ,
           font: {
             family: 'Inconsolata',
             // size: 14,
@@ -111,15 +118,15 @@ export class PieChartComponent implements OnInit, OnChanges {
 
       },
       tooltip: {
-        titleColor: '#5800f9',
-        bodyColor: '#5800f9',
+        titleColor: this.darkModeService.isDarkMode() ? '#fff':'#5800f9',
+        bodyColor:  this.darkModeService.isDarkMode() ? '#A0A7AC': '#4f6168',
         titleFont: {
           family: 'Inconsolata',
         },
         bodyFont: {
           family: 'Inconsolata',
         },
-        backgroundColor: 'rgba(168, 203, 226,.5)',
+        backgroundColor: this.darkModeService.isDarkMode() ? '#192229': '#eaf7ff',
 
       },
 
@@ -172,16 +179,57 @@ export class PieChartComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     // console.log(this.data)
     // console.log(this.labels)
+    this.subcriptorMode$ = this.darkModeService.modeCambio.subscribe( d => {
+      console.log(d)
+      this.pieChartOptions = {
+        plugins: {
+    
+          legend: {
+            display: true,
+            position: 'left',
+            labels: {
+              color: d ? '#fff':'#000' ,
+              font: {
+                family: 'Inconsolata',
+                // size: 14,
+              }
+            },
+    
+          },
+          tooltip: {
+            titleColor: d ? '#fff':'#5800f9',
+            bodyColor:  d ? '#A0A7AC': '#4f6168',
+            titleFont: {
+              family: 'Inconsolata',
+            },
+            bodyFont: {
+              family: 'Inconsolata',
+            },
+            backgroundColor: d ? '#192229': '#a8cbe2',
+          
+          },
+    
+          datalabels: {
+            display: true,
+            color: "#fff"
+          }
+    
+        }
+      };
+      this.grafica();
+    })
   }
 
 
-  ngOnChanges(): void {
+   ngOnChanges() {
     // console.log(this.labels)
     // console.log(this.data)
     // console.log(this.load)
     if (this.data && this.labels && this.load == false) {
-      this.grafica();
+      console.log("change")
+       this.grafica();
     }
+    
   }
 
   grafica() {
@@ -206,16 +254,21 @@ export class PieChartComponent implements OnInit, OnChanges {
           'rgba(255, 152, 0, 1)',
           'rgba(0, 255, 255, 1)',
         ],
-        hoverBorderColor: '#fff',
-        borderColor: '#fff',
+        hoverBorderColor: this.darkModeService.isDarkMode() ? '#212E36': '#fff' ,
+        borderColor:  this.darkModeService.isDarkMode() ? '#212E36': '#fff',
         borderWidth: 5,
         hoverOffset: 9,
-
-
       }]
     }
+
+   
   }
 
+  ngOnDestroy(): void {
+    if(this.subcriptorMode$ ){
+      this.subcriptorMode$ .unsubscribe();
+    }
+  }
 
 
 }

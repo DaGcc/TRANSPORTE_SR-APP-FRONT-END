@@ -48,7 +48,7 @@ export class BarChartComponent implements OnInit, OnChanges{
 
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,//* para que se adapte al contenedor y no se desenfque o pierda resolucion
-    color: '#000',
+    color: '#919191',
     maintainAspectRatio: false,//* para que se adapte al contenedor
     interaction: {
       mode: 'index',
@@ -59,12 +59,13 @@ export class BarChartComponent implements OnInit, OnChanges{
       
       y: {
         beginAtZero: true,
+        display : true,
         ticks: {
-          display: false, //* muestra las marcas de los ticks en el eje y
+          display: true, //* muestra las marcas de los ticks en el eje y
           font:{
             family: 'Inconsolata',
           },
-          color: '#fff'
+          color: '#919191',
         },
         grid: {
           display: false

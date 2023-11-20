@@ -336,15 +336,16 @@
 .cont-router::-webkit-scrollbar-thumb {
   // width: 1px;
   border-radius: 25px;
-  border: 5px solid transparent !important;
+  // border: 2px solid transparent !important;
   // background-color: var(--color-base-background-03); /*color del manejador*/
   // background-color: var(--purple-30); 
-  background-color: #f00
+  background-color: rgb(255, 0, 0)
 }
 
 .cont-router::-webkit-scrollbar {
   // display: none;
-  width: 5px;
+  width: 3px;
+  // background-color: aqua;
   /*ancho del scroll vertical*/
   // height: 10px; /*alto del scroll horizontal*/
 }

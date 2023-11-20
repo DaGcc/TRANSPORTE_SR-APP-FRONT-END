@@ -1,0 +1,155 @@
+h3 {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+
+}
+
+.info-container {
+
+  position: absolute;
+  bottom: 20px;
+  left: -230px;
+  width: 220px;
+  background-color: #192229;
+  color: #C8CDD0;
+  padding: 5px;
+  box-shadow: 0 0 10px -1px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  opacity: 0.5;
+  transition: all 300ms ease-out;
+  &>* {
+    width: 100%;
+    padding: 4px 6px;
+    border: 1.5px solid #2A3B47;
+    background-color: #212E36;
+    border-radius: 12px;
+  }
+
+  & .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+  }
+
+  & .routes-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    &>ul {
+      list-style: none;
+      display: flex;
+      // gap: 6px;
+      background-color: #A0A7AC;
+      border-radius: 13px;
+      overflow: hidden;
+      padding: 2px;
+      &>li {
+        cursor: pointer;
+        font-size: x-small;
+        padding: 4px 15px;
+        color: #192229;
+        font-weight:500;
+      }
+    }
+  }
+
+  & .steps-container {
+    
+    & > ol {
+      counter-reset: my-counter;
+      list-style-position: inside; /* Coloca los números dentro del área de la lista */
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+      font-size: x-small;
+      color: #A0A7AC;
+      & > li {
+        counter-increment: my-counter;
+        ;
+        color: #A0A7AC;
+      }
+      & >  li::before {
+        content: counter(my-counter) ". ";
+        font-weight: bold;
+        margin-right: 5px;
+        color: #C8CDD0; /* Puedes ajustar el color según tus preferencias */
+      }
+     
+    }
+  }
+
+  & .action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    & span{
+      text-align: center;
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+}
+
+.info-container.cont-btn{
+  opacity: 1;
+  bottom: 20px;
+  left: 20px;
+  background-color: transparent;
+  box-shadow: none;
+  border-radius: 5px;
+  border: none;
+  width: max-content;
+  height: max-content;
+  & > button {
+    cursor: pointer;
+    padding: 6px;
+    color: #A0A7AC;
+  }
+
+  
+}
+
+.show-container{
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  opacity: 1;
+}
+
+.hide-element{
+  position: absolute;
+  left: -230px !important;
+}
+
+.active-route {
+  border-radius: 13px;
+  background-color: #2A3B47;
+  color: #A0A7AC !important;
+}
+
+.title {
+  font-size: small;
+  color: #EFF3F5;
+}
+
+.subtitle {
+  font-size: x-small;
+  color: #A0A7AC;
+}

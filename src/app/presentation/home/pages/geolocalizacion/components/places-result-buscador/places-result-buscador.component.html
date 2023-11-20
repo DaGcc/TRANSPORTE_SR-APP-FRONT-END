@@ -1,6 +1,15 @@
-<div *ngIf="(isLoadingPlaces && preLoading); else resultPlaces" class="alert alert-primary mt-2 text-center">
-    <h6>Cargando</h6>
-    <span>Espere por favor...</span>
+<div *ngIf="(isLoadingPlaces); else resultPlaces" class="alerta">
+    
+    <span style="display: block; width: 50%; height: 20px; border-radius: 20px; overflow: hidden;">
+        <widget-skeleton></widget-skeleton>
+    </span>
+    <span style="display: block;width: 100%; height: 20px;border-radius: 20px;overflow: hidden;">
+        <widget-skeleton></widget-skeleton>
+    </span>
+    <span style="display: block; width: 80%; height: 10px;border-radius: 20px;overflow: hidden;">
+        <widget-skeleton></widget-skeleton>
+    </span>
+
 </div>
 
 <ng-template #resultPlaces>

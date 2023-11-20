@@ -59,19 +59,25 @@ const routes: Routes = [
       {
         path: 'perfil',
         loadComponent: () => import('./pages/perfil-user/perfil-user.component').then( m => m.PerfilUserComponent ),
-        data : { titulo:'Perfil usuario', url: "/page/perfil",icon: null },
+        data : { titulo:'Perfil de usuario', url: "/page/perfil",icon: null },
         canActivate : [guardFn]
       },
       {
         path: 'flota',
         loadComponent: () => import("./pages/gestion-flota/gestion-flota.component").then( m => m.GestionFlotaComponent ),
-        data : { titulo:'Gestion de flotas', url: "/page/flota",icon: null },
+        data : { titulo:'Gestion de las flotas', url: "/page/flota",icon: null },
         canActivate : [guardFn]
       },
       {
         path: 'dashboard',
         loadComponent : () => import("./pages/dashboard/dashboard.component").then( m => m.DashboardComponent ),
         data : { titulo:'Dashboard admin', url: "/page/dashboard",icon: null },
+        canActivate : [guardFn]
+      },
+      {
+        path : 'activities',
+        loadComponent : () => import("./pages/gestion-actividades/gestion-actividades.component").then( m => m.GestionActividadesComponent ),
+        data : { titulo:'Gestion de las actividades', url: "/page/activities",icon: null },
         canActivate : [guardFn]
       },
       {

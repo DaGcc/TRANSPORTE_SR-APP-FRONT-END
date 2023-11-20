@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, Inject, inject } from '@angular/core';
+import { AfterViewInit, Component, Inject, Renderer2, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DarkModeService } from './dark-mode.service';
-
+import { MatIconRegistry } from '@angular/material/icon'
 @Component({
   selector: 'widget-switch-dark-mode',
   standalone: true,
@@ -12,21 +12,33 @@ import { DarkModeService } from './dark-mode.service';
 export class SwitchDarkModeComponent implements AfterViewInit{
 
 
-  darkModeService = inject(DarkModeService)
+  darkModeService = inject(DarkModeService);
+  renderer2 = inject(Renderer2);
+  // matIconRegistry = inject(MatIconRegistry);
+
+  // selectedTheme: string = 'pink-bluegrey'; // Valor por defecto
+
+  constructor(){
+    // this.changeTheme(this.selectedTheme);
+  }
 
   ngAfterViewInit(): void {
 
-    //*Logica para el estado del cheked del switch
+   
+    //* Logica para el estado del cheked del switch
     if( this.darkModeService.isDarkMode() ){
-      let i  = document.getElementById('iptToggleMode');
+      //! let i  = document.getElementById('iptToggleMode');
+      let i = this.renderer2.selectRootElement('#iptToggleMode');
       // console.log(i)
-      i?.removeAttribute('checked')
+      // this.darkModeService.modeCambio.next(true);
+      //! i?.removeAttribute('checked')
+      this.renderer2.removeAttribute(i,'checked');
     }
 
   }
 
-
   toggleMode(){
+
     this.toggleStorage();
 
     //* este es usando la opcion 1, 2 y 3 cada uno se complementa, demas de que usarias en ::ng-deep en cada compoente para que busque 
@@ -55,12 +67,29 @@ export class SwitchDarkModeComponent implements AfterViewInit{
   toggleStorage(){
     if( this.darkModeService.isDarkMode() ){
       sessionStorage.removeItem('isDarkMode')
+      this.darkModeService.modeCambio.next(false);
       // console.log(false)
     }else{
       sessionStorage.setItem('isDarkMode','true')
+      this.darkModeService.modeCambio.next(true);
+
       // console.log(true)
     }
   }
+
+
+
+  // private changeTheme(theme: string) {
+  //   this.matIconRegistry.addSvgIconSetInNamespace('custom-theme', this.matIconRegistry.getDefaultFontSetClass());
+
+  //   // Cambiar el tema
+  //   this.matIconRegistry.registerFontClassAlias('custom-theme', `mat-theme-${theme}`);
+  // }
+  // onThemeChange() {
+  //   this.changeTheme(this.selectedTheme);
+  // }
+
+
 }
 
 // opcion 1 : usar "::ng-deep .cont-layout-home", pues el .cont-layout-home sera como el contenedor padre de todos los modulos dentro del modulo home

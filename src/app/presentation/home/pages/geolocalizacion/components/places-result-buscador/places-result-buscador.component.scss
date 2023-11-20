@@ -21,3 +21,10 @@
 p{
     font-size: 12px;
 }
+
+.alerta{
+    // background-color: #BFAA00;
+    & > * {
+        margin: 5px 0px;
+    }
+}

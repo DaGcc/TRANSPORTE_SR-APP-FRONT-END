@@ -193,6 +193,9 @@ export class SolicitudEdicionComponent implements OnInit, OnDestroy {
   }
 
 
+  /**
+   ** Metodo que realiza las operaciones de creacion o modificacion para la entidad de tipo `SolicitudEntity` 
+   */
   operar() {
 
     let o: SolicitudEntity = {
