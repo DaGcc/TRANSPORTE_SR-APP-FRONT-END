@@ -38,9 +38,9 @@ export class MapViewComponent implements AfterViewInit {
       this.placeService.getPlacesByQuery(`${e.lngLat.lng},${e.lngLat.lat}`,e.lngLat)
     })
 
-    map.on('mouseleave', 'places-by-query', () => {
-      console.log("Da")
-    })
+    // map.on('mouseleave', 'places-by-query', () => {
+    //   console.log("Da")
+    // })
 
 
     const popup = new Popup()

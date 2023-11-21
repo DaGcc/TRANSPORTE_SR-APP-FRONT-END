@@ -19,7 +19,7 @@ export class PlacesService {
   public places: Feature[] = [];
 
   constructor(private http: HttpClient, private placesApiClient: PlacesApiClientService, private mapService: MapService) {
-    this.getUserLocation()
+    this.getUserLocation() //* se llama una sola ves al ser la primera instancia, porque los servicios de angualar son singleton
   }
 
 
@@ -30,6 +30,7 @@ export class PlacesService {
 
   async getUserLocation(): Promise<[number, number]> {
 
+    // console.log("llamada location")
     return new Promise((resolve, reject) => {
 
       // navigator.geolocation.watchPosition es para ver la posicion del usuario  cuando se mueve

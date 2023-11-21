@@ -1,5 +1,5 @@
 <section>
-    <mat-card class="card font">
+    <mat-card class="card font" *ngIf="!!data; else notData">
 
         <!--* contenedor del titulo y el body  -->
         <section class="cont-title-info">
@@ -48,4 +48,12 @@
         </mat-card-actions>
         <!--* END -contenedor de acciones -->
     </mat-card>
+
+    <ng-template #notData>
+        <div class="card">
+
+            Not Found Data
+        </div>
+    </ng-template>
+    
 </section>

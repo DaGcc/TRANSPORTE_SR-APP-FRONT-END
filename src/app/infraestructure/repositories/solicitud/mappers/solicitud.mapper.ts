@@ -18,9 +18,7 @@ export class SolicitudMapperImpl extends Mapper<SolicitudModel, SolicitudEntity>
             descripcion : param.descripcion,
             estado : param.estado,
             fechaSolicitada : param.fechaSolicitada,
-            listaDetalleSolicitud : param.listaDetalleSolicitud.map( d => {
-                return this.mapperDetalleSolicitud.mapFrom(d);
-            } ),
+            listaDetalleSolicitud : param.listaDetalleSolicitud.map( this.mapperDetalleSolicitud.mapFrom ),
             servicio : param.servicio
         }
     }

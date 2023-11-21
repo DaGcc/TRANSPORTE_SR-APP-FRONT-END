@@ -21,8 +21,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   @ViewChild('calendar')
   calendarEl!: ElementRef;
 
-  @ViewChild('externalEvents')
-  draggableEl! : ElementRef;
+  // @ViewChild('externalEvents')
+  // draggableEl! : ElementRef;
 
 
   checked = false;
@@ -64,7 +64,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
     //*OTRAS CONFIGURACIONES
     slotMinTime: '08:00',
-    slotMaxTime: '21:00',
+    slotMaxTime: '23:59',//* no considera a este
     expandRows: true,
     handleWindowResize: true,
     height: '100%',
@@ -73,7 +73,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     editable: true,
     weekNumbers: true,
     nowIndicator: true, //raa roya que indica en que tiempo del dia estas. => solo se ve en el dayGridDay
-    weekends: true,
+    weekends: true,//* para que el calendario considere a los dias sabados y domingos, y `false` solo para dias de lunes-viernes 
     dayMaxEvents: true,
     //* buttonIcons: false, // show the prev/next text
     stickyHeaderDates: true,
@@ -118,15 +118,15 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     //INSTANCIA PARA EL ARRASTRABLE 
-    new Draggable(this.draggableEl.nativeElement, {
-      itemSelector: '.fc-event',//!importante : busca al elemento con dicha clase, el cual tendra la data
-      eventData: function(eventEl) {
-        return {
-          title: eventEl.innerText
-        };
-      }
-    });
-    this.calendarOptions.drop = this.dropFn
+    // new Draggable(this.draggableEl.nativeElement, {
+    //   itemSelector: '.fc-event',//!importante : busca al elemento con dicha clase, el cual tendra la data
+    //   eventData: function(eventEl) {
+    //     return {
+    //       title: eventEl.innerText
+    //     };
+    //   }
+    // });
+    // this.calendarOptions.drop = this.dropFn
   }
 
 

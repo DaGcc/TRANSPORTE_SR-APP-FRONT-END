@@ -1,4 +1,4 @@
-export interface HorarioEntity {
+export interface HorarioModel {
     idHorario?:   number;
     titulo:      string;
     horaInicio:  string;
@@ -7,7 +7,7 @@ export interface HorarioEntity {
     diaFin:      string;
     diaCompleto: boolean;
     estado:      boolean;
-    events:      Event[];
+    events?:      Event[];
 }
 
 export interface Event {

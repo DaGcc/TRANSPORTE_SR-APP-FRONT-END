@@ -1,4 +1,4 @@
-export interface RutaEntity {
+export interface RutaModel {
     idRuta:   number;
     nombre:   string;
     longitud: string;
