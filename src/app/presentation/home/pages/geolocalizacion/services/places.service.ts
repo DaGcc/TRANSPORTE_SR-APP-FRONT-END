@@ -66,6 +66,8 @@ export class PlacesService {
   // }
 
   // con un httpClient personalizado
+
+  nameLocation : string | undefined; 
   getPlacesByQuery(query: string = '', proximity?: LngLat) {
 
     this.isLoadingPlaces = true
@@ -95,10 +97,13 @@ export class PlacesService {
     })
       .subscribe({
         next: (data) => {
+          
+          if(proximity) this.nameLocation = data.features[0].place_name;
           // console.log(data.features)
           // setTimeout(()=> {
           //   this.isLoadingPlaces = false;
           // }, 1000)
+          
           this.isLoadingPlaces = false;
           this.places = data.features;
 

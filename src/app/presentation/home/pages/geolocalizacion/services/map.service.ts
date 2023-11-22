@@ -17,7 +17,7 @@ export class MapService {
   map: Map | undefined;
   private markers: Marker[] = []
 
-  infoRoute = new Subject<DirectionsResponse>();
+  infoRoutes = new Subject<DirectionsResponse>();
 
 
   constructor(private directionsAPi: DirectionsApiClientService) { }
@@ -107,15 +107,15 @@ export class MapService {
     this.directionsAPi.get<DirectionsResponse>(`/${start.join(',')};${end.join(',')}`)
       .subscribe({
         next: data => {
-          this.infoRoute.next(data);
+          this.infoRoutes.next(data);
           this.drawPolyLine(data.routes[0])
         }
       })
   }
 
-  private drawPolyLine(route: Route) {
+   drawPolyLine(route: Route) {
     if (!this.map) throw Error('Mapa no inicializada')
-    console.log({ kms: route.distance / 1000, duration: route.duration / 60 })
+    // console.log({ kms: route.distance / 1000, duration: route.duration / 60 })
 
     const coords = route.geometry.coordinates
 
@@ -125,7 +125,7 @@ export class MapService {
     })
 
     this.map?.fitBounds(bounds, {
-      padding: 250
+      padding: 230
     }
     )
 

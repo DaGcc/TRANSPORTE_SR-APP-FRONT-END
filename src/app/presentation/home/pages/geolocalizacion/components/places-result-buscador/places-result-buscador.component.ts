@@ -46,6 +46,7 @@ export class PlacesResultBuscadorComponent {
 
   getDireccions( place : Feature){
 
+    this.placesService.nameLocation = place.place_name;
     if(!this.placesService.userLocation) throw Error('No hay userLocation')
 
     this.placesService.deletePlaces();

@@ -20,6 +20,10 @@ export class InfoPlaceComponent implements OnInit,OnDestroy {
 
   direction : DirectionsResponse | undefined;
   subscriptor$! : Subscription
+
+  routeSelected : Route | undefined;
+  namePlace : string | undefined;
+
   constructor(
     private renderer2 : Renderer2,
     private placesService : PlacesService, 
@@ -31,11 +35,13 @@ export class InfoPlaceComponent implements OnInit,OnDestroy {
 
   ngOnInit(): void { 
 
-    this.subscriptor$ = this.mapService.infoRoute.subscribe({
+    this.subscriptor$ = this.mapService.infoRoutes.subscribe({
       next : ( data : DirectionsResponse) => {
         console.log(data)
         this.direction = {...data}
         if(data.routes.length> 0){
+          this.namePlace = this.placesService.nameLocation;
+          this.routeSelected = data.routes[0];
           document.querySelector("#main")?.classList.remove("show-container");
           document.querySelector("#subMain")?.classList.remove("hide-element");
         }
@@ -51,7 +57,8 @@ export class InfoPlaceComponent implements OnInit,OnDestroy {
 
 
   mostrarRuta(route : Route, i : number){
-
+    // console.log(route)
+    this.routeSelected = route;
     let lis = document.getElementsByClassName("active-route");
     for (let index = 0; index < lis.length; index++) {
       lis[index].classList.remove('active-route');
@@ -60,8 +67,24 @@ export class InfoPlaceComponent implements OnInit,OnDestroy {
     let li = document.getElementById(`li-${i}`);
     li?.classList.add('active-route');
     // .active-route
+
+    this.mapService.drawPolyLine(route);
   
   }
+
+  // getDireccions( place : Feature){
+
+  //   // this.placesService.nameLocation = place.place_name;
+    
+
+  //   this.placesService.deletePlaces();
+
+  //   const start = this.placesService.userLocation;
+  //   const end = place.center as [number, number]
+  //   this.mapService.getRouteBetweenPoints(start, end)
+
+  // }
+
 
 
   ngOnDestroy(): void {
