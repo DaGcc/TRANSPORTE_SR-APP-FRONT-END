@@ -1,3 +1,4 @@
+import { ActividadEntity } from "./actividad.entity";
 import { HorarioEntity } from "./horario.entity";
 import { RutaEntity } from "./ruta.entity";
 

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 
 
 // import { FullCalendarComponent } from '@fullcalendar/angular';
@@ -15,7 +15,8 @@ import timeGridPlugin from '@fullcalendar/timegrid'
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
 })
-export class CalendarComponent implements OnInit, AfterViewInit {
+export class CalendarComponent implements OnInit, AfterViewInit, OnChanges {
+
 
 
   @ViewChild('calendar')
@@ -29,10 +30,29 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
 
 
+  @Input()
+  eventos: EventSourceInput | undefined = [
+    { 
+      title: 'traslado de personal',
+      // date: '2023-11-21', 
+      start: "2023-11-22T12:44:30",
+      end:"2023-11-22T14:44:30"
+    },
+    {
+      title: "traslado de personal",
+      // date: '2023-11-23',
+      start: "2023-11-23T12:44:30",
+      end: "2023-11-23T14:44:30",
+      // allDay: true
+    },
 
-  eventos: EventSourceInput = [
-    { title: 'event 1', date: '2023-09-01' },
-    { title: 'event 2', date: '2023-09-02' }
+    { 
+      title: 'traslado de personal',
+      // date: '2023-11-21', 
+      start: "2023-11-21",
+      end : "2023-11-23",
+      allDay: true
+    },
   ]
 
   
@@ -70,7 +90,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     height: '100%',
     // contentHeight: 50,
     navLinks: true, // can click day/week names to navigate views
-    editable: true,
+    editable: false,
     weekNumbers: true,
     nowIndicator: true, //raa roya que indica en que tiempo del dia estas. => solo se ve en el dayGridDay
     weekends: true,//* para que el calendario considere a los dias sabados y domingos, y `false` solo para dias de lunes-viernes 
@@ -127,6 +147,76 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     //   }
     // });
     // this.calendarOptions.drop = this.dropFn
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.eventos)
+    this.calendarOptions = {
+
+      initialView: 'dayGridMonth',
+      /*
+        * dayGridMonth => hace ver al calenda en meses. !NECESITA DE dayGridPlugin.
+        * dayGridWeek => hace ver el calendar en semanas !NECESITA DE dayGridPlugin.
+        * timeGridWeek => hace ver al calendar en semanas, pero da el tiempo del dia a diferencia de daygridweek !MECESITA DE dayGridPlugin y timeGridPlugin.
+        * dayGridDay => hace ver al calendario en el dia actual
+        * timeGridDay => lo mismo que dayGridDay, pero con horas 
+      */
+  
+      plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin ],
+  
+      //*HEADER DEL CALENDARIO 
+      headerToolbar: this.headerToolbar,
+  
+  
+      //*OTRAS CONFIGURACIONES
+      slotMinTime: '08:00',
+      slotMaxTime: '23:59',//* no considera a este
+      expandRows: true,
+      handleWindowResize: true,
+      height: '100%',
+      // contentHeight: 50,
+      navLinks: true, // can click day/week names to navigate views
+      editable: false,
+      weekNumbers: true,
+      nowIndicator: true, //raa roya que indica en que tiempo del dia estas. => solo se ve en el dayGridDay
+      weekends: true,//* para que el calendario considere a los dias sabados y domingos, y `false` solo para dias de lunes-viernes 
+      dayMaxEvents: true,
+      //* buttonIcons: false, // show the prev/next text
+      stickyHeaderDates: true,
+      locale: 'es-es', //cambio de idioma, abajo otra forma 
+      /*
+        locales: [
+          {code : 'es'}
+        ],
+      */
+  
+      //*EVENTOS
+      events: this.eventos, //lista de eventos
+  
+      //sucede cuando das click en el grid
+      dateClick: function (info) {
+        alert('Clicked on: ' + info.dateStr);
+        alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+        alert('Current view: ' + info.view.type);
+        // change the day's background color just for fun
+        info.dayEl.style.backgroundColor = 'red';
+      },
+  
+      //solo sucede el evento en el click de la etiqueta
+      eventClick: this.handleDateClick.bind(this),
+      
+      
+      
+      selectable: true,
+      select: (arg) => {
+        console.log(arg)
+      },
+  
+      droppable: true,
+   
+  
+    };
+  
   }
 
 

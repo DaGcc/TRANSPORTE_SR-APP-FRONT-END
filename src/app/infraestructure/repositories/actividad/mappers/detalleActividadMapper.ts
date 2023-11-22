@@ -3,6 +3,7 @@ import { DetalleActividadModel } from "../models/detalleActividadModel";
 import { DetalleActividadEntity } from "@dominio/entities/detalleActividad.entity";
 import { HorarioMapper } from "./horario.mapper";
 import { RutaMapper } from "./ruta.mapper";
+import { ActividadMapperImpl } from "./actividad.mapper";
 
 export class DetalleActividadMapper extends Mapper<DetalleActividadModel , DetalleActividadEntity> {
 

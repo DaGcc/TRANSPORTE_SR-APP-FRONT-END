@@ -1,3 +1,4 @@
+import { ActividadModel } from "./actividad.model";
 import { HorarioModel } from "./horario.model";
 import { RutaModel } from "./ruta.model";
 

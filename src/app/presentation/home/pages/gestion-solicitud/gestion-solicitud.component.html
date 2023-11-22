@@ -91,7 +91,27 @@
 
                                             <div *ngIf="isLoadedDate ; else skeleton"
                                                 class="animate__animated animate__fadeIn">
-                                                {{row.cliente.idCliente}}
+                                                {{row.cliente.nombres}}
+                                            </div>
+
+                                            <ng-template #skeleton>
+                                                <div
+                                                    style="display: inline-block !important; width: 100%; height: 20px; border-radius: 10px; overflow: hidden;">
+                                                    <widget-skeleton />
+                                                </div>
+                                            </ng-template>
+
+                                        </td>
+                                    </ng-container>
+
+                                    <!-- Estado accion Column -->
+                                    <ng-container matColumnDef="estadoAccion">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado Accion </th>
+                                        <td mat-cell *matCellDef="let row">
+
+                                            <div *ngIf="isLoadedDate ; else skeleton"
+                                                class="animate__animated animate__fadeIn">
+                                                {{row.listaDetalleSolicitud[row.listaDetalleSolicitud.length-1].estadoAccion}}
                                             </div>
 
                                             <ng-template #skeleton>

@@ -68,7 +68,7 @@ export class GestionSolicitudComponent implements OnInit {
 
   estadoSolicitudes: '0' | '1' | '2' = '2';
 
-  displayedColumns: string[] = ['idSolicitud', 'servicio', 'cliente','fechaSolicitada', 'descripcion','estado', 'acciones'];
+  displayedColumns: string[] = ['idSolicitud', 'servicio', 'cliente','fechaSolicitada','estadoAccion', 'descripcion','estado', 'acciones'];
   dataSource!: MatTableDataSource<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
