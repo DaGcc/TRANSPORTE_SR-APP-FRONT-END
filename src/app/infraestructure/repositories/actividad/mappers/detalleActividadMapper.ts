@@ -17,8 +17,8 @@ export class DetalleActividadMapper extends Mapper<DetalleActividadModel , Detal
             estado : param.estado,
             estadoAccion : param.estadoAccion,
             fecha : param.fecha,
-            listaHorarios : param.listaHorarios.map( h =>  this.horarioMapper.mapFrom(h) ),
-            listaRutas : param.listaRutas.map( r => this.rutaMapper.mapFrom(r) )
+            listaHorarios : param.listaHorarios.map( this.horarioMapper.mapFrom ),
+            listaRutas : param.listaRutas.map( this.rutaMapper.mapFrom )
         }
     }
     override mapTo(param: DetalleActividadEntity): DetalleActividadModel {

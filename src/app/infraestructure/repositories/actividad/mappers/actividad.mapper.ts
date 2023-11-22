@@ -22,7 +22,7 @@ export class ActividadMapperImpl extends Mapper<ActividadModel, ActividadEntity>
             descripcion: param.descripcion,
             estado: param.estado,
             fechaCreada: param.fechaCreada,
-            listaDetalleActividad: param.listaDetalleActividad.map( d => this.detalleActividadMapper.mapFrom(d) )
+            listaDetalleActividad: param.listaDetalleActividad.map( da => this.detalleActividadMapper.mapFrom(da) )
         }
     }
     override mapTo(param: ActividadEntity): ActividadModel {

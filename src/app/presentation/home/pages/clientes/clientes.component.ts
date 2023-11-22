@@ -260,6 +260,7 @@ export class ClientesComponent implements OnInit, OnDestroy {
   }
 
   filtroPorCampo(e: string) {
+    console.log(e)
     this.debounceFilter ? clearTimeout(this.debounceFilter) : '';
 
     this.debounceFilter = setTimeout(() => {
