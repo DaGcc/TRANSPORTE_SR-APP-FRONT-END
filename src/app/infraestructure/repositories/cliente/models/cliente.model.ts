@@ -6,7 +6,7 @@ import { TipoClienteModel } from "./tipoCliente.model";
 export interface ClienteModel {
     idCliente:      number;
     ruc:            string;
-    nombres:        string;
+    nombresCompletos:        string;
     telefono:       string;
     email:          string;
     estado:         boolean;
