@@ -1,0 +1,120 @@
+
+
+<div class="cont-aux "> 
+    
+    <span class="ciculo" id="ciculo"></span>
+    <!-- <div class="adorno"></div> -->
+    <div class="cont-app-chat">
+
+
+        <div class="cont-chat">
+    
+            <div class="cont-titulo">
+    
+    
+                <div class="cont-img"><img class="header-image" src="../../../../../assets/imgs/logo/angular.png" alt="">
+                </div>
+                <p class="titulo"> Chat general
+                    <span class="subtitulo"> {{notificacion}}</span>
+                </p>
+    
+                <span class="example-spacer"></span>
+                <mat-icon>more_vert</mat-icon>
+            </div>
+            <div class="groups" id="divChat" #scrollMe >
+    
+    
+                <ul *ngFor="let m of mensajes;">
+                    <!-- mensajes de otros -->
+                    <li *ngIf="m.username !== user.nombre && m.tipo !=='NUEVO_USUARIO'">
+                        <div>
+                            <div>
+                                <p [style.color]="m!.color"> @{{m.username}} </p>
+                                <div>
+                                    <span>{{m.texto}}</span>
+                                    <p>
+                                        <span>{{m.fecha | date :'h:mm a'}}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+    
+                    <li *ngIf=" m.tipo === 'NUEVO_USUARIO'" [ngClass]="{'notificacion': m.tipo ==='NUEVO_USUARIO' }">
+                        <div>
+                            nuevo usuario conectado {{m.username}}
+                        </div>
+                    </li>
+
+                    <li class="tu_li" *ngIf="m.username === user.nombre && m.tipo !=='NUEVO_USUARIO'">
+                        <div>
+                            <div>
+                                
+                                <div>
+                                    <span>{{m.texto}}</span>
+                                    <p>
+                                        <span>{{m.fecha | date :'h:mm a'}}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                  
+                </ul>
+            </div>
+    
+    
+            <div class="acctions">
+    
+                <div class="cont-input-esp ">
+                    <label for="fleAdjuntar" class="btn font"><i class="fa-solid fa-paperclip"></i></label>
+                    <input type="file" id="fleAdjuntar" style="display: none;">
+                </div>
+    
+                <div class="cont-input">
+                    <!-- 
+                    <mat-form-field class="form-field" appearance="legacy">
+                        <mat-label>Escribe un mensaje...</mat-label>
+                        <input matInput [(ngModel)]="mensaje.texto">
+                    </mat-form-field> -->
+                    <!-- <mat-form-field class="form-field" appearance="legacy">
+                        <mat-label>Escribe un mensaje...</mat-label>
+                        <textarea matInput [(ngModel)]="mensaje.texto" ></textarea>
+                    </mat-form-field> -->
+    
+                    <!-- <div class="form-field">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Outline form field</mat-label>
+                            <input matInput placeholder="Escribe un mensaje..." (ngModelChange)="escribiendo()"
+                            [(ngModel)]="mensaje.texto">
+                        
+                          </mat-form-field>
+                    </div> -->
+                    
+                    <div class="form-field">
+                        <textarea placeholder="Escribe un mensaje..." (ngModelChange)="escribiendo($event)"
+                            [(ngModel)]="mensaje.texto"></textarea>
+                    </div>
+    
+                </div>
+                <div class="cont-btn">
+    
+                    <button class="btn font" matRipple 
+                        [matRippleCentered]="false" [matRippleDisabled]="false" [matRippleUnbounded]="false"
+                        [matRippleColor]="'rgba(68, 0, 255,.1)'" (click)="enviarMensaje()" >
+                        <i class="fa-solid fa-paper-plane"></i></button>
+    
+                    <button class="btn font" matRipple 
+                        [matRippleCentered]="false" [matRippleDisabled]="false" [matRippleUnbounded]="false"
+                        [matRippleColor]="'rgba(0, 0, 0, 0.1)'">
+                        <i class="fa-solid fa-microphone"></i></button>
+                </div>
+    
+    
+            </div>
+        </div>
+    
+    </div>
+
+    <div class="adorno"style="height: 100%; overflow: hidden;" ><svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;"><path d="M274.83,-1.47 C152.69,67.10 390.52,48.85 231.37,151.48 L0.00,150.00 L0.00,0.00 Z" style="stroke: none; fill: #ffffff;"></path></svg></div>
+</div>

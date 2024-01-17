@@ -81,6 +81,11 @@ const routes: Routes = [
         canActivate : [guardFn]
       },
       {
+        path : 'chat',
+        loadComponent : () => import("./pages/chat/chat.component").then( m => m.ChatComponent ),
+        data : { titulo:'Chat global', url: "/page/chat",icon: null },
+      },
+      {
         path:'',
         redirectTo: 'inicio',
         pathMatch: 'full'

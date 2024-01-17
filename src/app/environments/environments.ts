@@ -11,7 +11,9 @@ export const environment = {
     TOKEN_AUTH_PASSWORD: '12345',
     EMAIL_USER: 'emailUser',
     ROLE_USER: 'roleUser', 
-    apiKey: 'pk.eyJ1IjoiZGEtZ2NjIiwiYSI6ImNsa2gxcjZkZDAxeTMzbW1rdHAzaTN6dzcifQ.YWTQ2ULP8rLCiz-Wn7bm8g'
+    apiKey: 'pk.eyJ1IjoiZGEtZ2NjIiwiYSI6ImNsa2gxcjZkZDAxeTMzbW1rdHAzaTN6dzcifQ.YWTQ2ULP8rLCiz-Wn7bm8g',
+    USUARIO: 'usuario',
+    HOST:'http://localhost:8989',
   };
   
   /*
